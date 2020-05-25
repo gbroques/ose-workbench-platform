@@ -61,3 +61,17 @@ For example,
     osewb make command AddMotor
 
 Will generate a new `AddMotor` command class.
+
+## Deploying to PyPi
+From the root of repository:
+
+1. `python setup.py sdist`
+
+2. `twine upload dist/*`
+    * `pip install twine` (if not already installed)
+
+You'll be prompted for you PyPi username and password.
+```
+Enter your username: 
+Enter your password: 
+```
