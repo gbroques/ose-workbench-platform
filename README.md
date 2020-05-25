@@ -1,4 +1,6 @@
 # OSE Workbench Platform
+[![PyPI version](https://badge.fury.io/py/ose-workbench-platform.svg)](https://badge.fury.io/py/ose-workbench-platform)
+
 A platform for developing workbenches for Open Source Ecology (OSE).
 
 OSE defines a "workbench" as a set of tools in CAD software to design and make a particular machine.
@@ -14,6 +16,11 @@ Each workbench maintainer doesn't need to know or care about the particular vers
 Having a common platform for OSE workbench development also makes it easier for developers to readily switch between workbenches by providing a common tool-set.
 
 `ose-workbench-platform` provides a command-line interface (CLI), via the `osewb` command, containing commands for common dev-time tasks such as running all tests, making documentation, initializing new workbenches, and even generating code for common tasks.
+
+## Installation
+`ose-workbench-platform` is available on [PyPi](https://pypi.org/project/ose-workbench-platform/) and through `pip`.
+
+    pip install ose-workbench-platform
 
 ## Unit Tests
 The test framework we choose to use is Pytest.
