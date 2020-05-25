@@ -2,46 +2,70 @@ from __future__ import print_function
 
 import argparse
 import os
+from typing import List
 
 import docker
 from cookiecutter.main import cookiecutter
 
 
-def main():
+def main() -> None:
     sub_command = _parse_sub_command()
     if sub_command == 'init':
         cookiecutter('./cookiecutter-ose-workbench')
     elif sub_command == 'test':
-        client = docker.from_env()
-        containers = client.containers.list()
-        container_names = [container.name for container in containers]
-        ose_test_containers = [
-            name for name in container_names if is_ose_test_container(name)]
-        if len(ose_test_containers) == 0:
-            print("No test container running. Execute:\n")
-            print("    docker-compose up --detach test\n")
-            print("from the root of the workbench repository.")
-            return
-        if len(ose_test_containers) > 1:
-            comma_delimited_test_containers = ', '.join(ose_test_containers)
-            print("Found multiple OSE test containers running: {}.".format(
-                comma_delimited_test_containers))
-            print('Running tests within first container "{}".'.format(
-                ose_test_containers[0]))
-        test_container = ose_test_containers[0]
-        test_command = 'docker exec -it {} pytest test/'.format(test_container)
-        print(test_command)
-        os.system(test_command)
+        execute_command_in_docker_container(
+            'docker exec -it {} pytest test/', 'test')
+    elif sub_command == 'docs':
+        execute_command_in_docker_container(
+            'docker exec --workdir /var/app/docs -it {} make html', 'docs')
 
 
-def is_ose_test_container(container_name):
-    return container_name.startswith('ose') and container_name.endswith('test')
+def execute_command_in_docker_container(command_template: str,
+                                        container_type: str) -> None:
+    ose_containers = get_ose_container_names()
+    ose_containers_with_type = [
+        name for name in ose_containers if name.endswith(container_type)]
+    if len(ose_containers_with_type) == 0:
+        print_no_running_containers_message(container_type)
+        return
+    if len(ose_containers_with_type) > 1:
+        print_multiple_containers_found_message(
+            ose_containers_with_type, container_type)
+    container = ose_containers_with_type[0]
+    command = command_template.format(container)
+    print(command)
+    os.system(command)
 
 
-def _parse_sub_command():
+def print_no_running_containers_message(container_type: str) -> None:
+    print("No {} container running. Execute:\n".format(container_type))
+    print("    docker-compose up --detach {}\n".format(container_type))
+    print("from the root of the workbench repository.")
+
+
+def print_multiple_containers_found_message(ose_containers: List[str],
+                                            container_type: str) -> None:
+    comma_delimited_test_containers = ', '.join(ose_containers)
+    print("Found multiple OSE {} containers running: {}.".format(
+        container_type, comma_delimited_test_containers))
+    print('Executing command within first container: {}.'.format(
+        ose_containers[0]))
+
+
+def get_ose_container_names() -> List[str]:
+    client = docker.from_env()
+    containers = client.containers.list()
+    container_names = [container.name for container in containers]
+    ose_containers = [
+        name for name in container_names if name.startswith('ose')]
+    return ose_containers
+
+
+def _parse_sub_command() -> str:
     sub_commands = {
         'init': 'Initialize new workbench',
-        'test': 'Run all tests in workbench'
+        'test': 'Run all tests in workbench',
+        'docs': 'Make documentation'
     }
     usage = 'osewb <command> [<args>]\n'
     for command, description in sub_commands.items():

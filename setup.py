@@ -23,7 +23,16 @@ setup(
         ]
     },
     install_requires=[
+        # -----------------------
+        # | Source Requirements |
+        # -----------------------
         'cookiecutter==1.7.2'
         'docker==4.2.0'
+
+        # ---------------------
+        # | Docs Requirements |
+        # ---------------------
+        'sphinx==3.0.2',
+        'sphinx-rtd-theme==0.4.3'
     ]
 )
