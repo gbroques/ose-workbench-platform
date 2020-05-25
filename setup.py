@@ -16,7 +16,7 @@ setup(
     url='https://github.com/gbroques/ose-workbench-platform',
     author='G Roques',
     version='0.1.0a4',
-    packages=['osewb'],
+    packages=['osewb', 'osewb.docs'],
     entry_points={
         'console_scripts': [
             'osewb = osewb.osewb:main'
