@@ -44,16 +44,16 @@ optional arguments:
 ```
 
 ## Unit Tests
-The test framework we choose to use is Pytest.
+For running unit tests we use [pytest](https://docs.pytest.org/en/latest/).
 
-To run the entire unit-test suite of a workbench, within the root of a OSE workbench repository, run:
+To run the entire unit-test suite for a workbench, run:
 
     osewb test
 
 ## Documentation
-For building documentation we use Sphinx.
+For building documentation we use [Sphinx](https://www.sphinx-doc.org/en/master/).
 
-To build the documentation of a workbench, within the root of a OSE workbench repository, run:
+To build the documentation for a workbench, run:
 
     osewb docs
 
