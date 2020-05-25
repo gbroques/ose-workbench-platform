@@ -30,6 +30,12 @@ def main() -> None:
             print('To view, open htmlcov/index.html in a web browser.')
     elif command == 'docs':
         execute_command_in_docker_container(
+            'docker exec --workdir /var/app/docs -it {} make clean', 'docs')
+        base_package = find_base_package()
+        if base_package is not None:
+            clean_cmd = 'docker exec --workdir /var/app/docs -it {} rm -rf ' + base_package
+            execute_command_in_docker_container(clean_cmd, 'docs')
+        execute_command_in_docker_container(
             'docker exec --workdir /var/app/docs -it {} make html', 'docs')
 
 
@@ -41,7 +47,7 @@ def execute_command_in_docker_container(command_template: str,
         name for name in ose_containers if name.endswith(container_type)]
     if len(ose_containers_with_type) == 0:
         print_no_running_containers_message(container_type)
-        return
+        exit(0)
     if len(ose_containers_with_type) > 1:
         print_multiple_containers_found_message(
             ose_containers_with_type, container_type)
