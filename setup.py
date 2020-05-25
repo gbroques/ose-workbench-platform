@@ -26,8 +26,8 @@ setup(
         # -----------------------
         # | Source Requirements |
         # -----------------------
-        'cookiecutter==1.7.2'
-        'docker==4.2.0'
+        'cookiecutter==1.7.2',
+        'docker==4.2.0',
 
         # ---------------------
         # | Docs Requirements |
