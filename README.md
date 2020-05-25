@@ -17,8 +17,11 @@ Having a common platform for OSE workbench development also makes it easier for 
 
 `ose-workbench-platform` provides a command-line interface (CLI), via the `osewb` command, containing commands for common dev-time tasks such as running all tests, making documentation, initializing new workbenches, and even generating code for common tasks.
 
+## Pre-Requisites
+1. Install [Python](https://www.python.org/)
+2. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
+
 ## Installation
-`ose-workbench-platform` is available on [PyPi](https://pypi.org/project/ose-workbench-platform/) and through `pip`.
 
     pip install ose-workbench-platform
 
