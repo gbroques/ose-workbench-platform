@@ -39,15 +39,15 @@ def execute_command_in_docker_container(command_template: str,
 
 
 def print_no_running_containers_message(container_type: str) -> None:
-    print("No {} container running. Execute:\n".format(container_type))
-    print("    docker-compose up --detach {}\n".format(container_type))
-    print("from the root of the workbench repository.")
+    print('No {} container running.\n'.format(container_type))
+    print('From the root of the repository, run:\n')
+    print('    docker-compose up --detach {}\n'.format(container_type))
 
 
 def print_multiple_containers_found_message(ose_containers: List[str],
                                             container_type: str) -> None:
     comma_delimited_test_containers = ', '.join(ose_containers)
-    print("Found multiple OSE {} containers running: {}.".format(
+    print('Found multiple OSE {} containers running: {}.'.format(
         container_type, comma_delimited_test_containers))
     print('Executing command within first container: {}.'.format(
         ose_containers[0]))
@@ -63,25 +63,24 @@ def get_ose_container_names() -> List[str]:
 
 
 def _parse_sub_command() -> str:
-    sub_commands = {
-        'init': 'Initialize new workbench',
-        'test': 'Run all tests in workbench',
-        'docs': 'Make documentation'
-    }
-    usage = 'osewb <command> [<args>]\n'
-    for command, description in sub_commands.items():
-        usage += '    {} - {}\n'.format(command, description)
     parser = argparse.ArgumentParser(
-        description='A collection of OSE workbench commands.', usage=usage)
-    parser.add_argument('command',
-                        metavar='<command>',
-                        type=str,
-                        nargs=1,
-                        help=', '.join((sub_commands.keys())),
-                        choices=sub_commands.keys())
+        description='A collection commands for OSE workbench development.',
+        usage='osewb <command> [<args>]\n')
+    subparsers = parser.add_subparsers(title='Commands',
+                                       dest='command',
+                                       required=True)
+    init_parser = subparsers.add_parser('init',
+                                        help='Initialize new workbench',
+                                        usage='osewb init')
+    test_parser = subparsers.add_parser('test',
+                                        help='Run tests in workbench',
+                                        usage='osewb test')
+    docs_parser = subparsers.add_parser('docs',
+                                        help='Make documentation',
+                                        usage='osewb docs')
     args = parser.parse_args()
-    return vars(args)['command'][0]
+    return vars(args)['command']
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
