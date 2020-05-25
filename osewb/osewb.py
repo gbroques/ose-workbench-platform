@@ -9,14 +9,14 @@ from cookiecutter.main import cookiecutter
 
 
 def main() -> None:
-    sub_command = _parse_sub_command()
-    if sub_command == 'init':
+    command = _parse_command()
+    if command == 'init':
         dir_path = os.path.dirname(os.path.realpath(__file__))
         cookiecutter(os.path.join(dir_path, 'cookiecutter_ose_workbench'))
-    elif sub_command == 'test':
+    elif command == 'test':
         execute_command_in_docker_container(
             'docker exec -it {} pytest test/', 'test')
-    elif sub_command == 'docs':
+    elif command == 'docs':
         execute_command_in_docker_container(
             'docker exec --workdir /var/app/docs -it {} make html', 'docs')
 
@@ -62,7 +62,7 @@ def get_ose_container_names() -> List[str]:
     return ose_containers
 
 
-def _parse_sub_command() -> str:
+def _parse_command() -> str:
     parser = argparse.ArgumentParser(
         description='A collection commands for OSE workbench development.',
         usage='osewb <command> [<args>]\n')
