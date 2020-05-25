@@ -29,6 +29,8 @@ def main() -> None:
             print('Coverage report generated in htmlcov/ directory.')
             print('To view, open htmlcov/index.html in a web browser.')
     elif command == 'docs':
+        # TODO:
+        # docker exec -it ose3dprinter-test python docs/generate_property_tables.py
         execute_command_in_docker_container(
             'docker exec --workdir /var/app/docs -it {} make clean', 'docs')
         base_package = find_base_package()
@@ -60,7 +62,7 @@ def execute_command_in_docker_container(command_template: str,
 def print_no_running_containers_message(container_type: str) -> None:
     print('No {} container running.\n'.format(container_type))
     print('From the root of the repository, run:\n')
-    print('    docker-compose up --detach {}\n'.format(container_type))
+    print('    docker-compose up --detach\n')
 
 
 def print_multiple_containers_found_message(ose_containers: List[str],
