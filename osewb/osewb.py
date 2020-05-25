@@ -18,11 +18,16 @@ def main() -> None:
         with_coverage = args['coverage']
         test_command = 'docker exec -it {} pytest'
         if with_coverage:
-            base_package = get_base_package()
+            base_package = find_base_package()
             if base_package is not None:
                 test_command += ' --cov {}/app'.format(base_package)
         test_command += ' ./test'
         execute_command_in_docker_container(test_command, 'test')
+        if with_coverage:
+            coverage_report_cmd = 'docker exec -it {} coverage html'
+            execute_command_in_docker_container(coverage_report_cmd, 'test')
+            print('Coverage report generated in htmlcov/ directory.')
+            print('To view, open htmlcov/index.html in a web browser.')
     elif command == 'docs':
         execute_command_in_docker_container(
             'docker exec --workdir /var/app/docs -it {} make html', 'docs')
@@ -70,7 +75,7 @@ def get_ose_container_names() -> List[str]:
     return ose_containers
 
 
-def get_base_package() -> str:
+def find_base_package() -> str:
     check_for_executable_in_path('git')
     pipe = os.popen('git rev-parse --show-toplevel')
     output = pipe.read().strip()
@@ -104,7 +109,7 @@ def _parse_command() -> str:
                                         usage='osewb test')
     test_parser.add_argument('-c', '--coverage',
                              action='store_true',
-                             help='Run tests with coverage')
+                             help='Run tests with coverage, and generate report')
     docs_parser = subparsers.add_parser('docs',
                                         help='Make documentation',
                                         usage='osewb docs')
