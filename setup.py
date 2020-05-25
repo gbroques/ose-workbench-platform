@@ -24,5 +24,6 @@ setup(
     },
     install_requires=[
         'cookiecutter==1.7.2'
+        'docker==4.2.0'
     ]
 )
