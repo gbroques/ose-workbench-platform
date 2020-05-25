@@ -22,5 +22,7 @@ setup(
             'osewb = osewb.osewb:main'
         ]
     },
-    install_requires=['cookiecutter']
+    install_requires=[
+        'cookiecutter==1.7.2'
+    ]
 )
