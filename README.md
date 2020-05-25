@@ -44,12 +44,19 @@ optional arguments:
   -h, --help  show this help message and exit
 ```
 
+## Docker
+We use Docker to create a reproducible virtualized FreeCAD environment with requisite dependencies for development-time tasks like running unit tests with features like [coverage reports](https://en.wikipedia.org/wiki/Code_coverage), and generating documentation from source-code comments.
+
 ## Unit Tests
-For running unit tests we use [pytest](https://docs.pytest.org/en/latest/).
+For running unit tests we use [pytest](https://docs.pytest.org/en/latest/). For running tests with coverage and generating coverage reports, we use [coverage.py](https://coverage.readthedocs.io/en/latest/) and [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/).
 
 To run the entire unit-test suite for a workbench, run:
 
     osewb test
+
+For running tests with coverage and generating a coverage report, pass the `-c` or `--coverage` flag to the `test` command:
+
+    osewb test --coverage
 
 ## Documentation
 For building documentation we use [Sphinx](https://www.sphinx-doc.org/en/master/).
