@@ -1,9 +1,16 @@
+from __future__ import print_function
+
 import argparse
+
+from cookiecutter.main import cookiecutter
 
 
 def main():
     sub_command = _parse_sub_command()
-    print("Sub command: {}".format(sub_command))
+    if sub_command == 'init':
+        cookiecutter('./cookiecutter-ose-workbench')
+    elif sub_command == 'test':
+        print("Running all tests...")
 
 
 def _parse_sub_command():

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 60 52" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="b" x1="22.117" x2="17.329" y1="55.718" y2="21.311" gradientTransform="translate(0,-4)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#edd400" offset="0"/>
+      <stop stop-color="#fce94f" offset="1"/>
+    </linearGradient>
+    <linearGradient id="a" x1="53.897" x2="47.502" y1="51.18" y2="21.837" gradientTransform="translate(0,-4)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c4a000" offset="0"/>
+      <stop stop-color="#edd400" offset="1"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(-2 -6)" stroke-width="2">
+    <path d="m3 13 34 6 24-8-30-4z" fill="#fce94f" stroke="#302b00" stroke-linejoin="round"/>
+    <path d="m61 11v36l-24 10v-38z" fill="url(#a)" stroke="#302b00" stroke-linejoin="round"/>
+    <path d="m3 13 34 6v38l-34-6z" fill="url(#b)" fill-rule="evenodd" stroke="#302b00" stroke-linejoin="round"/>
+    <path d="m5 15.428 0.00867 33.919 30.009 5.2688-0.0087-33.934z" fill="none" stroke="#fce94f"/>
+    <path d="m39.012 20.434-0.01226 33.535 20.001-8.301 3.6e-4 -31.867z" fill="none" stroke="#edd400"/>
+  </g>
+</svg>
