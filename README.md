@@ -22,6 +22,24 @@ Having a common platform for OSE workbench development also makes it easier for 
 
     pip install ose-workbench-platform
 
+After installing, you'll have access to the `osewb` command:
+
+```
+$ osewb -h ↵
+usage: osewb <command> [<args>]
+    init - Initialize new workbench
+    test - Run all tests in workbench
+    docs - Make documentation
+
+A collection of OSE workbench commands.
+
+positional arguments:
+  <command>   init, test, docs
+
+optional arguments:
+  -h, --help  show this help message and exit
+```
+
 ## Unit Tests
 The test framework we choose to use is Pytest.
 
