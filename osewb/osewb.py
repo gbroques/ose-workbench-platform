@@ -11,7 +11,8 @@ from cookiecutter.main import cookiecutter
 def main() -> None:
     sub_command = _parse_sub_command()
     if sub_command == 'init':
-        cookiecutter('./cookiecutter-ose-workbench')
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        cookiecutter(os.path.join(dir_path, 'cookiecutter_ose_workbench'))
     elif sub_command == 'test':
         execute_command_in_docker_container(
             'docker exec -it {} pytest test/', 'test')

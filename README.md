@@ -123,7 +123,7 @@ Will generate a new `AddMotor` command class.
 ## Developing Locally
 Run the following command from the root of the repository:
 
-    pip install -e .
+    pip install --editable .
 
 See ["Editable Installs"](https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs) on the pip docs for additional information.
 
@@ -137,8 +137,8 @@ From the root of repository:
 2. `twine upload dist/*`
     * `pip install twine` (if not already installed)
 
-You'll be prompted for your [PyPi](https://pypi.org/) username and password.
+You'll be prompted for your [PyPi](https://pypi.org/) username and password:
 ```
-Enter your username: 
-Enter your password: 
+Enter your username: gbroques ↵
+Enter your password: ↵
 ```
