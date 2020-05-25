@@ -18,6 +18,8 @@ ENV PYTHONPATH=/usr/lib/freecad-0.16/lib/
 
 WORKDIR /var/app
 COPY ./test-requirements.txt ./
+COPY ./bin /usr/bin/
+RUN chmod +x /usr/bin/generate_property_tables.py
 
 # Install test dependencies
 RUN pip install -r test-requirements.txt

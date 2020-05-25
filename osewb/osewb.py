@@ -2,11 +2,13 @@ from __future__ import print_function
 
 import argparse
 import os
-import shutil
 from typing import List
 
 import docker
 from cookiecutter.main import cookiecutter
+
+from .check_for_executable_in_path import check_for_executable_in_path
+from .find_base_package import find_base_package
 
 
 def main() -> None:
@@ -29,8 +31,10 @@ def main() -> None:
             print('Coverage report generated in htmlcov/ directory.')
             print('To view, open htmlcov/index.html in a web browser.')
     elif command == 'docs':
-        # TODO:
-        # docker exec -it ose3dprinter-test python docs/generate_property_tables.py
+        base_package = find_base_package()
+        if base_package is not None:
+            execute_command_in_docker_container(
+                'docker exec -it {} generate_property_tables.py ' + base_package, 'test')
         execute_command_in_docker_container(
             'docker exec --workdir /var/app/docs -it {} make clean', 'docs')
         base_package = find_base_package()
@@ -83,25 +87,6 @@ def get_ose_container_names() -> List[str]:
     return ose_containers
 
 
-def find_base_package() -> str:
-    check_for_executable_in_path('git')
-    pipe = os.popen('git rev-parse --show-toplevel')
-    output = pipe.read().strip()
-    if pipe.close() is not None:
-        return
-    contents = os.listdir(output)
-    directories = [c for c in contents if os.path.isdir(
-        os.path.join(output, c)) and c.startswith('ose')]
-    if len(directories) == 0:
-        print('No base package starting with "ose" found in repository.')
-        return
-    elif len(directories) > 1:
-        print('Multiple potential base packages starting with "ose" found:\n')
-        print('    {}\n'.format(', '.join(directories)))
-        print('Choosing first "{}" as base package.'.format(directories[0]))
-    return directories[0]
-
-
 def _parse_command() -> str:
     parser = argparse.ArgumentParser(
         description='A collection commands for OSE workbench development.',
@@ -124,13 +109,6 @@ def _parse_command() -> str:
     args = vars(parser.parse_args())
     command = args.pop('command')
     return command, args
-
-
-def check_for_executable_in_path(executable_name):
-    if shutil.which(executable_name) is None:
-        print('{} must be installed, and available in your PATH.'.format(
-            executable_name))
-        exit(0)
 
 
 if __name__ == '__main__':
