@@ -11,6 +11,7 @@ README = (HERE / 'README.md').read_text()
 setup(
     name='ose-workbench-platform',
     description='Common platform for developing Open Source Ecology (OSE) workbenches.',
+    long_description=README,
     long_description_content_type='text/markdown',
     url='https://github.com/gbroques/ose-workbench-platform',
     author='G Roques',

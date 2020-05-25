@@ -61,4 +61,3 @@ For example,
     osewb make command AddMotor
 
 Will generate a new `AddMotor` command class.
-
