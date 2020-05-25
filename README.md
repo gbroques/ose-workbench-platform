@@ -41,7 +41,7 @@ machine_display_name [CEB Brick Press]: Tractor ↵
 
 Then, you'll be prompted for several more values.
 
-Each successive prompt will use answers to previous prompts to derive their default value.
+Each successive prompt derives it's default value from answers to previous prompts.
 
 You can press the <kbd>Enter</kbd> key for most prompts to stick with the defaults.
 ```
