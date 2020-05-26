@@ -9,3 +9,12 @@ services:
     volumes:
       - ./:/var/app
     network_mode: bridge
+  docs:
+    container_name: {{ cookiecutter.base_package }}-docs
+    image: oseworkbench-docs-image
+    build:
+      context: https://github.com/gbroques/ose-workbench-platform.git#v0.1.0a7
+      dockerfile: docs.Dockerfile
+    volumes:
+      - ./:/var/app
+    network_mode: bridge
