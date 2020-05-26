@@ -36,13 +36,13 @@ def main() -> None:
             execute_command_in_docker_container(
                 'docker exec -it {} generate_property_tables.py ' + base_package, 'test')
         execute_command_in_docker_container(
-            'docker exec --workdir /var/app/docs -it {} make clean', 'docs')
+            'docker exec --workdir /var/app/docs -it {} rm -rf ./_build', 'docs')
         base_package = find_base_package()
         if base_package is not None:
             clean_cmd = 'docker exec --workdir /var/app/docs -it {} rm -rf ' + base_package
             execute_command_in_docker_container(clean_cmd, 'docs')
         execute_command_in_docker_container(
-            'docker exec --workdir /var/app/docs -it {} make html', 'docs')
+            'docker exec --workdir /var/app/docs -it {} sphinx-build . ./_build', 'docs')
 
 
 def execute_command_in_docker_container(command_template: str,
