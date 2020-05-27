@@ -27,7 +27,7 @@ WORKDIR /var/app
 COPY ./test-requirements.txt ./
 
 # For generate_property_tables script
-COPY ./bin /usr/bin/
+COPY ./generate_property_tables.py /usr/bin/
 RUN chmod +x /usr/bin/generate_property_tables.py
 
 # Install test dependencies with Python 2.7

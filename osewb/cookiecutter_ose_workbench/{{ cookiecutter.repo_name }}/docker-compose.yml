@@ -1,9 +1,0 @@
-version: '3'
-services:
-  platform:
-    container_name: {{ cookiecutter.base_package }}
-    build: https://github.com/gbroques/ose-workbench-platform.git#v0.1.0a8
-    image: ose-workbench-platform-image
-    volumes:
-      - ./:/var/app
-    network_mode: bridge

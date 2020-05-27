@@ -20,35 +20,103 @@ Having a common platform for OSE workbench development also makes it easier for 
 ## Pre-Requisites
 1. Install [Git](https://git-scm.com/)
 2. Install [Python](https://www.python.org/)
-3. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
+3. Install [Docker](https://docs.docker.com/get-docker/)
 
 ## Installation
 
     pip install ose-workbench-platform
 
-After installing, you'll have access to the `osewb` command:
+After installing `ose-workbench-platform`, you'll have access to the `osewb` command.
+
+See [Commands](#commands) for additional information.
+
+## Docker
+We use Docker to create a reproducible virtualized OSE workbench development environment with requisite dependencies for development-time tasks like running unit tests, and generating documentation from source-code comments.
+
+While having to install and learn Docker is a burden, our hope is that it's simpler than developers having to manually setup their own local development environment with the requisite dependencies for OSE workbench development.
+
+## Unit Tests
+For running unit tests we use [pytest](https://docs.pytest.org/en/latest/).
+
+For test coverage, we use [coverage.py](https://coverage.readthedocs.io/en/latest/) and [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/).
+
+## Documentation
+For building documentation, we use [Sphinx](https://www.sphinx-doc.org/en/master/).
+
+For hosting documentation, we use a free service for **open-source** projects called [Read the Docs](https://readthedocs.org/).
+
+For a modern and mobile-friendly look, we use [Read the Docs Sphinx Theme](https://sphinx-rtd-theme.readthedocs.io/en/stable/).
+
+## Commands
+The `osewb` command contains various sub-commands for performing common dev-time tasks of a OSE workbench.
 
 ```
 $ osewb -h ↵
 usage: osewb <command> [<args>]
-    init - Initialize new workbench
-    test - Run all tests in workbench
-    docs - Make documentation
 
-A collection of OSE workbench commands.
-
-positional arguments:
-  <command>   init, test, docs
+A collection commands for OSE workbench development.
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help            show this help message and exit
+
+Commands:
+  {init,test,docs,container}
+    init                Initialize new workbench
+    test                Run tests in workbench
+    docs                Make documentation
+    container           Commands for interacting with containers
 ```
 
-## Docker
-We use Docker to create a reproducible virtualized FreeCAD environment with requisite dependencies for development-time tasks like running unit tests with features like [coverage reports](https://en.wikipedia.org/wiki/Code_coverage), and generating documentation from source-code comments.
+Each sub-command may have flags and arguments, and additional information can be discovered via `osewb <command> -h` or `--help`.
 
-## Unit Tests
-For running unit tests we use [pytest](https://docs.pytest.org/en/latest/). For running tests with coverage and generating coverage reports, we use [coverage.py](https://coverage.readthedocs.io/en/latest/) and [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/).
+### Container
+OSE Workbench Platform includes a `container` command to make interacting with the requisite container for running tests and building documentation easier.
+
+```
+$ osewb container -h ↵
+usage: osewb container <command>
+
+optional arguments:
+  -h, --help      show this help message and exit
+
+Commands:
+  {image,create}
+    image         Build image for container
+    create        Create container -- must be in workbench repository
+```
+
+In order to run the `test` and `docs` commands, you must first:
+
+1. Build the `ose-workbench-platform` image using `osewb container image`
+2. Create a container for your workbench by running `osewb container create` within the workbench repository
+
+Note, you only need **one** `ose-workbench-platform` image that acts as a blue-print for creating a container per workbench.
+
+Workbench containers will be named after the base package in the workbench repository (e.g. `ose3dprinter`, `osetractor`, `osepowercube`, etc.).
+
+Once the container for the workbench is created, you may interact with it using normal `docker` commands.
+
+Some common operations you may wish to perform on the container are:
+
+|Description|Command|
+|-----------|-------|
+|**Starting** the container|`docker start <container name>`|
+|**Stopping** the container|`docker stop <container name>`|
+|**Removing** the container|`docker rm <container name>`|
+
+Refer to the [Docker CLI reference documentation](https://docs.docker.com/engine/reference/commandline/docker/) for additional information.
+
+### Test
+OSE Workbench Platform includes a `test` command for interacting with the test-suite of a workbench.
+
+```
+$ osewb test -h ↵
+usage: osewb test
+
+optional arguments:
+  -h, --help      show this help message and exit
+  -c, --coverage  Run tests with coverage, and generate report
+```
 
 To run the entire unit-test suite for a workbench, run:
 
@@ -58,14 +126,23 @@ For running tests with coverage and generating a coverage report, pass the `-c` 
 
     osewb test --coverage
 
-## Documentation
-For building documentation we use [Sphinx](https://www.sphinx-doc.org/en/master/).
-
-To build the documentation for a workbench, run:
+### Docs
+OSE Workbench Platform includes a `docs` command for building the documentation of a workbench.
 
     osewb docs
 
-## Initializing a New Workbench
+The `docs` command will:
+
+* Generate property tables for each Model class in the workbench and output them as `.csv` files in `docs/property_table/`
+* Delete the `docs/_build/` directory
+* Delete the `docs/<base package>/` directory
+* Re-generate `docs/_build/` and `docs/<base_package></base_package>/` by running `sphinx-build . _build` within `docs/` using the Sphinx configuration specified in `docs/conf.py`
+
+For additional information, see [sphinx-build](https://www.sphinx-doc.org/en/master/man/sphinx-build.html) and [Sphinx Configuration](https://www.sphinx-doc.org/en/master/usage/configuration.html).
+
+### Init
+OSE Workbench Platform includes a `init` command for initializing a new workbench.
+
 Navigate to where you want to initialize a directory for your new workbench. Then run:
 
     osewb init
