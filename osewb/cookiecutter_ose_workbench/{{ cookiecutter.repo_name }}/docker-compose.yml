@@ -1,20 +1,9 @@
 version: '3'
 services:
-  test:
-    container_name: {{ cookiecutter.base_package }}-test
-    image: oseworkbench-test-image
-    build:
-      context: https://github.com/gbroques/ose-workbench-platform.git#v0.1.0a8
-      dockerfile: test.Dockerfile
-    volumes:
-      - ./:/var/app
-    network_mode: bridge
-  docs:
-    container_name: {{ cookiecutter.base_package }}-docs
-    image: oseworkbench-docs-image
-    build:
-      context: https://github.com/gbroques/ose-workbench-platform.git#v0.1.0a8
-      dockerfile: docs.Dockerfile
+  platform:
+    container_name: {{ cookiecutter.base_package }}
+    build: https://github.com/gbroques/ose-workbench-platform.git#v0.1.0a8
+    image: ose-workbench-platform-image
     volumes:
       - ./:/var/app
     network_mode: bridge

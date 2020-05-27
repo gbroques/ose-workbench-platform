@@ -24,56 +24,51 @@ def main() -> None:
             if base_package is not None:
                 test_command += ' --cov {}/app'.format(base_package)
         test_command += ' ./test'
-        execute_command_in_docker_container(test_command, 'test')
+        execute_command_in_docker_container(test_command)
         if with_coverage:
             coverage_report_cmd = 'docker exec -it {} coverage html'
-            execute_command_in_docker_container(coverage_report_cmd, 'test')
+            execute_command_in_docker_container(coverage_report_cmd)
             print('Coverage report generated in htmlcov/ directory.')
             print('To view, open htmlcov/index.html in a web browser.')
     elif command == 'docs':
         base_package = find_base_package()
         if base_package is not None:
             execute_command_in_docker_container(
-                'docker exec -it {} generate_property_tables.py ' + base_package, 'test')
+                'docker exec -it {} generate_property_tables.py ' + base_package)
         execute_command_in_docker_container(
-            'docker exec --workdir /var/app/docs -it {} rm -rf ./_build', 'docs')
+            'docker exec --workdir /var/app/docs -it {} rm -rf ./_build')
         base_package = find_base_package()
         if base_package is not None:
             clean_cmd = 'docker exec --workdir /var/app/docs -it {} rm -rf ' + base_package
-            execute_command_in_docker_container(clean_cmd, 'docs')
+            execute_command_in_docker_container(clean_cmd)
         execute_command_in_docker_container(
-            'docker exec --workdir /var/app/docs -it {} sphinx-build . ./_build', 'docs')
+            'docker exec --workdir /var/app/docs -it {} sphinx-build . ./_build')
 
 
-def execute_command_in_docker_container(command_template: str,
-                                        container_type: str) -> None:
+def execute_command_in_docker_container(command_template: str) -> None:
     check_for_executable_in_path('docker')
     ose_containers = get_ose_container_names()
-    ose_containers_with_type = [
-        name for name in ose_containers if name.endswith(container_type)]
-    if len(ose_containers_with_type) == 0:
-        print_no_running_containers_message(container_type)
+    if len(ose_containers) == 0:
+        print_no_running_containers_message()
         exit(0)
-    if len(ose_containers_with_type) > 1:
-        print_multiple_containers_found_message(
-            ose_containers_with_type, container_type)
-    container = ose_containers_with_type[0]
+    if len(ose_containers) > 1:
+        print_multiple_containers_found_message(ose_containers)
+    container = ose_containers[0]
     command = command_template.format(container)
     print(command)
     os.system(command)
 
 
-def print_no_running_containers_message(container_type: str) -> None:
-    print('No {} container running.\n'.format(container_type))
+def print_no_running_containers_message() -> None:
+    print('No container running.\n')
     print('From the root of the repository, run:\n')
     print('    docker-compose up --detach\n')
 
 
-def print_multiple_containers_found_message(ose_containers: List[str],
-                                            container_type: str) -> None:
-    comma_delimited_test_containers = ', '.join(ose_containers)
-    print('Found multiple OSE {} containers running: {}.'.format(
-        container_type, comma_delimited_test_containers))
+def print_multiple_containers_found_message(ose_containers: List[str]) -> None:
+    comma_delimited_containers = ', '.join(ose_containers)
+    print('Found multiple OSE containers running: {}.'.format(
+        comma_delimited_containers))
     print('Executing command within first container: {}.'.format(
         ose_containers[0]))
 
