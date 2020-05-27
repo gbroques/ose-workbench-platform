@@ -1,17 +1,16 @@
-import pathlib
+import io
+from os import path
 
 from setuptools import setup
 
-# The directory containing this file
-HERE = pathlib.Path(__file__).parent
-
-# The text of the README file
-README = (HERE / 'README.md').read_text()
+current_dir = path.abspath(path.dirname(__file__))
+with io.open(path.join(current_dir, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(
     name='ose-workbench-platform',
     description='Common platform for developing Open Source Ecology (OSE) workbenches.',
-    long_description=README,
+    long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/gbroques/ose-workbench-platform',
     author='G Roques',
