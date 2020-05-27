@@ -4,7 +4,7 @@ services:
     container_name: {{ cookiecutter.base_package }}-test
     image: oseworkbench-test-image
     build:
-      context: https://github.com/gbroques/ose-workbench-platform.git#v0.1.0a7
+      context: https://github.com/gbroques/ose-workbench-platform.git#v0.1.0a8
       dockerfile: test.Dockerfile
     volumes:
       - ./:/var/app
@@ -13,7 +13,7 @@ services:
     container_name: {{ cookiecutter.base_package }}-docs
     image: oseworkbench-docs-image
     build:
-      context: https://github.com/gbroques/ose-workbench-platform.git#v0.1.0a7
+      context: https://github.com/gbroques/ose-workbench-platform.git#v0.1.0a8
       dockerfile: docs.Dockerfile
     volumes:
       - ./:/var/app
