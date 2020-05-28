@@ -7,5 +7,9 @@
     "command_registry_filename": "OSE-{{ cookiecutter.machine_display_name.replace(' ', '-') }}",
     "command_namespace": "OSE{{ cookiecutter.machine_display_name.replace(' ', '') }}",
     "workbench_class_filename": "{{ cookiecutter.machine_display_name.lower().replace(' ', '_') }}_workbench",
-    "workbench_class_name": "{{ cookiecutter.machine_display_name.replace(' ', '') }}Workbench"
+    "workbench_class_name": "{{ cookiecutter.machine_display_name.replace(' ', '') }}Workbench",
+    "owner_name": "G Roques",
+    "_copy_without_render": [
+        "docs/_templates/*"
+    ]
 }

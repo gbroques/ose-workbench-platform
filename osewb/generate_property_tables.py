@@ -27,7 +27,12 @@ def main():
     base_package = sys.argv[1]
     model_module_name = '{}.app.model'.format(base_package)
 
-    model_module = importlib.import_module(model_module_name)
+    try:
+        model_module = importlib.import_module(model_module_name)
+    except ImportError:
+        print('No {}.app.model package. Skipping generation of Model property tables.'.format(
+            model_module_name))
+        return
     models = [a for a in dir(model_module) if a.endswith('Model')]
     for model in models:
         class_ = getattr(model_module, model)

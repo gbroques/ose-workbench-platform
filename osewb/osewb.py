@@ -2,7 +2,7 @@ from __future__ import print_function
 
 import argparse
 import os
-from typing import List
+from typing import List, Union
 
 import docker
 from cookiecutter.main import cookiecutter
@@ -16,33 +16,36 @@ def main() -> None:
     if command == 'init':
         dir_path = os.path.dirname(os.path.realpath(__file__))
         cookiecutter(os.path.join(dir_path, 'cookiecutter_ose_workbench'))
-    elif command == 'test':
-        with_coverage = args['coverage']
-        test_command = 'docker exec -it {} pytest'
+    elif command == 'test' or command == 'docs':
+        check_for_executable_in_path('docker')
         base_package = find_base_package()
-        if with_coverage and base_package is not None:
-            test_command += ' --cov {}/app'.format(base_package)
-        test_command += ' ./test'
-        execute_command_in_docker_container(test_command, base_package)
-        if with_coverage:
-            coverage_report_cmd = 'docker exec -it {} coverage html'
-            execute_command_in_docker_container(
-                coverage_report_cmd, base_package)
-            print('Coverage report generated in htmlcov/ directory.')
-            print('To view, open htmlcov/index.html in a web browser.')
-    elif command == 'docs':
-        base_package = find_base_package()
-        if base_package is not None:
+        if base_package is None:
+            return None
+        container_name = find_workbench_container(base_package)
+        if container_name is None:
+            return None
+        if command == 'test':
+            with_coverage = args['coverage']
+            test_command = 'docker exec -it {} pytest'
+            if with_coverage:
+                test_command += ' --cov {}/app'.format(base_package)
+            test_command += ' ./test'
+            execute_command_in_docker_container(test_command, base_package)
+            if with_coverage:
+                coverage_report_cmd = 'docker exec -it {} coverage html'
+                execute_command_in_docker_container(
+                    coverage_report_cmd, base_package)
+                print('Coverage report generated in htmlcov/ directory.')
+                print('To view, open htmlcov/index.html in a web browser.')
+        elif command == 'docs':
             execute_command_in_docker_container(
                 'docker exec -it {} generate_property_tables.py ' + base_package, base_package)
-        execute_command_in_docker_container(
-            'docker exec --workdir /var/app/docs -it {} rm -rf ./_build', base_package)
-        base_package = find_base_package()
-        if base_package is not None:
+            execute_command_in_docker_container(
+                'docker exec --workdir /var/app/docs -it {} rm -rf ./_build', base_package)
             clean_cmd = 'docker exec --workdir /var/app/docs -it {} rm -rf ' + base_package
             execute_command_in_docker_container(clean_cmd, base_package)
-        execute_command_in_docker_container(
-            'docker exec --workdir /var/app/docs -it {} sphinx-build . ./_build', base_package)
+            execute_command_in_docker_container(
+                'docker exec --workdir /var/app/docs -it {} sphinx-build . ./_build', base_package)
     elif command == 'container':
         image_tag = 'ose-workbench-platform'
         if args['container_command'] == 'image':
@@ -89,16 +92,9 @@ def main() -> None:
                 print('    docker rm {}\n'.format(base_package))
 
 
-def execute_command_in_docker_container(command_template: str, base_package: str) -> None:
-    check_for_executable_in_path('docker')
-    ose_containers = get_ose_container_names()
-    if len(ose_containers) == 0:
-        print_no_running_container_message(base_package)
-        exit(0)
-    if len(ose_containers) > 1:
-        print_multiple_containers_found_message(ose_containers)
-    container = ose_containers[0]
-    command = command_template.format(container)
+def execute_command_in_docker_container(command_template: str,
+                                        container_name: str) -> None:
+    command = command_template.format(container_name)
     print(command)
     os.system(command)
 
@@ -119,11 +115,16 @@ def print_multiple_containers_found_message(ose_containers: List[str]) -> None:
         ose_containers[0]))
 
 
-def get_ose_container_names() -> List[str]:
+def find_workbench_container(base_package: str) -> Union[str, None]:
     container_names = get_container_names()
-    ose_containers = [
-        name for name in container_names if name.startswith('ose')]
-    return ose_containers
+    potential_workbench_containers = [
+        name for name in container_names if name == base_package]
+    if len(potential_workbench_containers) == 0:
+        print('No {} container running.'.format(base_package))
+        print('To create a {} container, run:\n'.format(base_package))
+        print('   osewb container create\n')
+        return None
+    return potential_workbench_containers[0]
 
 
 def get_container_names(all: bool = False) -> List[str]:
