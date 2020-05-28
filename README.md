@@ -133,10 +133,10 @@ OSE Workbench Platform includes a `docs` command for building the documentation 
 
 The `docs` command will:
 
-* Generate property tables for each Model class in the workbench and output them as `.csv` files in `docs/property_table/`
 * Delete the `docs/_build/` directory
 * Delete the `docs/<base package>/` directory
-* Re-generate `docs/_build/` and `docs/<base_package></base_package>/` by running `sphinx-build . _build` within `docs/` using the Sphinx configuration specified in `docs/conf.py`
+* Re-generate `docs/_build/` and `docs/<base package>/` by running `sphinx-build . _build` within `docs/` using the Sphinx configuration specified in `docs/conf.py`
+* Generate property tables for each Model class in the workbench and output them as `.csv` files in `docs/property_table/`
 
 For additional information, see [sphinx-build](https://www.sphinx-doc.org/en/master/man/sphinx-build.html) and [Sphinx Configuration](https://www.sphinx-doc.org/en/master/usage/configuration.html).
 
