@@ -1,6 +1,21 @@
 # OSE Workbench Platform
 [![PyPI version](https://badge.fury.io/py/ose-workbench-platform.svg)](https://badge.fury.io/py/ose-workbench-platform)
 
+* [Introduction](#introduction)
+* [Pre-Requisites](#pre-requisites)
+* [Installation](#installation)
+* [Containerization](#containerization)
+* [Unit Tests](#unit-tests)
+* [Documentation](#documentation)
+* [Commands](#commands)
+  * [container](#container)
+  * [test](#test)
+  * [docs](#docs)
+  * [init](#init)
+* [Generating Code](#generating-code)
+* [Contributing](#contributing)
+
+## Introduction
 A platform for developing workbenches for Open Source Ecology (OSE).
 
 OSE defines a "workbench" as a set of tools in CAD software to design and make a particular machine.
@@ -30,10 +45,10 @@ After installing `ose-workbench-platform`, you'll have access to the `osewb` com
 
 See [Commands](#commands) for additional information.
 
-## Docker
-We use Docker to create a reproducible virtualized OSE workbench development environment with requisite dependencies for development-time tasks like running unit tests, and generating documentation from source-code comments.
+## Containerization
+We use [Docker](https://en.wikipedia.org/wiki/Docker_(software)) to create a reproducible [virtualized OSE workbench development environment](https://en.wikipedia.org/wiki/OS-level_virtualization) with requisite dependencies for development-time tasks like running unit tests, and generating documentation from source-code comments.
 
-While having to install and learn Docker is a burden, our hope is that it's simpler than developers having to manually setup their own local development environment with the requisite dependencies for OSE workbench development.
+While having to [install and learn Docker](https://www.docker.com/) is a burden, our hope is that it's simpler than developers having to manually setup their own local development environment with the requisite dependencies for OSE workbench development.
 
 ## Unit Tests
 For running unit tests we use [pytest](https://docs.pytest.org/en/latest/).
@@ -60,16 +75,16 @@ optional arguments:
   -h, --help            show this help message and exit
 
 Commands:
-  {init,test,docs,container}
-    init                Initialize new workbench
+  {container,test,docs,init}
+    container           Commands for interacting with containers
     test                Run tests in workbench
     docs                Make documentation
-    container           Commands for interacting with containers
+    init                Initialize new workbench
 ```
 
 Each sub-command may have flags and arguments, and additional information can be discovered via `osewb <command> -h` or `--help`.
 
-### Container
+### container
 OSE Workbench Platform includes a `container` command to make interacting with the requisite container for running tests and building documentation easier.
 
 ```
@@ -106,7 +121,7 @@ Some common operations you may wish to perform on the container are:
 
 Refer to the [Docker CLI reference documentation](https://docs.docker.com/engine/reference/commandline/docker/) for additional information.
 
-### Test
+### test
 OSE Workbench Platform includes a `test` command for interacting with the test-suite of a workbench.
 
 ```
@@ -126,7 +141,7 @@ For running tests with coverage and generating a coverage report, pass the `-c` 
 
     osewb test --coverage
 
-### Docs
+### docs
 OSE Workbench Platform includes a `docs` command for building the documentation of a workbench.
 
     osewb docs
@@ -140,7 +155,7 @@ The `docs` command will:
 
 For additional information, see [sphinx-build](https://www.sphinx-doc.org/en/master/man/sphinx-build.html) and [Sphinx Configuration](https://www.sphinx-doc.org/en/master/usage/configuration.html).
 
-### Init
+### init
 OSE Workbench Platform includes a `init` command for initializing a new workbench.
 
 Navigate to where you want to initialize a directory for your new workbench. Then run:
@@ -208,25 +223,7 @@ For example,
 
 Will generate a new `AddMotor` command class.
 
-## Developing Locally
-Run the following command from the root of the repository:
+> **NOTE:** This idea is not yet implemented.
 
-    pip install --editable .
-
-See ["Editable Installs"](https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs) on the pip docs for additional information.
-
-This will give you access to the `osewb` command locally for testing any changes to the source code.
-
-## Deploying to PyPi
-From the root of repository:
-
-1. `python setup.py sdist`
-
-2. `twine upload dist/*`
-    * `pip install twine` (if not already installed)
-
-You'll be prompted for your [PyPi](https://pypi.org/) username and password:
-```
-Enter your username: gbroques ↵
-Enter your password: ↵
-```
+## Contributing
+See [Contributing Guidelines](./CONTRIBUTING.md).

@@ -140,18 +140,6 @@ def _parse_command() -> str:
     subparsers = parser.add_subparsers(title='Commands',
                                        dest='command',
                                        required=True)
-    init_parser = subparsers.add_parser('init',
-                                        help='Initialize new workbench',
-                                        usage='osewb init')
-    test_parser = subparsers.add_parser('test',
-                                        help='Run tests in workbench',
-                                        usage='osewb test')
-    test_parser.add_argument('-c', '--coverage',
-                             action='store_true',
-                             help='Run tests with coverage, and generate report')
-    docs_parser = subparsers.add_parser('docs',
-                                        help='Make documentation',
-                                        usage='osewb docs')
     container_parser = subparsers.add_parser('container',
                                              help='Commands for interacting with containers',
                                              usage='osewb container <command>')
@@ -164,6 +152,19 @@ def _parse_command() -> str:
     create_parser = container_subparser.add_parser('create',
                                                    help='Create container -- must be in workbench repository',
                                                    usage='osewb container create')
+    test_parser = subparsers.add_parser('test',
+                                        help='Run tests in workbench',
+                                        usage='osewb test')
+    test_parser.add_argument('-c', '--coverage',
+                             action='store_true',
+                             help='Run tests with coverage, and generate report')
+    docs_parser = subparsers.add_parser('docs',
+                                        help='Make documentation',
+                                        usage='osewb docs')
+
+    init_parser = subparsers.add_parser('init',
+                                        help='Initialize new workbench',
+                                        usage='osewb init')
     args = vars(parser.parse_args())
     command = args.pop('command')
     return command, args
