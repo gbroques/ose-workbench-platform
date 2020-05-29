@@ -1,5 +1,9 @@
 FROM ubuntu:16.04
 
+RUN useradd -m docker --uid=1000
+# Set password of docker user to "docker"
+RUN echo "docker:docker" | chpasswd
+
 RUN apt-get update && \
     apt-get install --yes --no-install-recommends \
     # software-properties-common for add-apt-repository command
@@ -39,6 +43,8 @@ RUN python3 -m pip install ose-workbench-platform==0.1.0a8
 
 # To give acess to FreeCAD in Python
 ENV PYTHONPATH=/usr/lib/freecad-0.16/lib/
+
+USER 1000:1000
 
 # Keep container running
 CMD tail -f /dev/null

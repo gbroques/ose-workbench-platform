@@ -95,7 +95,8 @@ def main() -> None:
 def execute_command_in_docker_container(command_template: str,
                                         container_name: str) -> None:
     command = command_template.format(container_name)
-    print(command)
+    print('Executing the following command:\n')
+    print('    {}\n'.format(command))
     os.system(command)
 
 
@@ -116,15 +117,23 @@ def print_multiple_containers_found_message(ose_containers: List[str]) -> None:
 
 
 def find_workbench_container(base_package: str) -> Union[str, None]:
-    container_names = get_container_names()
-    potential_workbench_containers = [
-        name for name in container_names if name == base_package]
-    if len(potential_workbench_containers) == 0:
+    running_container_names = get_container_names()
+    all_container_names = get_container_names(all=True)
+    potential_running_workbench_containers = [
+        name for name in running_container_names if name == base_package]
+    potential_all_workbench_containers = [
+        name for name in all_container_names if name == base_package]
+    if len(potential_running_workbench_containers) == 0:
         print('No {} container running.'.format(base_package))
-        print('To create a {} container, run:\n'.format(base_package))
-        print('   osewb container create\n')
-        return None
-    return potential_workbench_containers[0]
+        if len(potential_all_workbench_containers) == 0:
+            print('To create a {} container, run:\n'.format(base_package))
+            print('   osewb container create\n')
+            return None
+        else:
+            print('To start the {} container, run:\n'.format(base_package))
+            print('   docker start {}\n'.format(base_package))
+            return None
+    return potential_running_workbench_containers[0]
 
 
 def get_container_names(all: bool = False) -> List[str]:
