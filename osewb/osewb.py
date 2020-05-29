@@ -56,10 +56,10 @@ def main() -> None:
             print(build_command + '\n')
             os.system(build_command)
             print('\nBuilt {} image.\n'.format(image_tag))
-            print('To create a container from this image, run:\n')
-            print('    osewb container create\n')
             print('To delete, or remove the image, run:\n')
             print('    docker rmi {}\n'.format(image_tag))
+            print('To create a container from this image, run:\n')
+            print('    osewb container create\n')
         elif args['container_command'] == 'create':
             client = docker.from_env()
             images = client.images.list()
@@ -84,12 +84,12 @@ def main() -> None:
                 print(create_command + '\n')
                 os.system(create_command)
                 print('\nCreated {} container.\n'.format(base_package))
-                print('To start the container, run:\n'.format(base_package))
-                print('    docker start {}\n'.format(base_package))
-                print('To stop the container, run:\n'.format(base_package))
-                print('    docker stop {}\n'.format(base_package))
                 print('To delete, or remove the container, run:\n')
                 print('    docker rm {}\n'.format(base_package))
+                print('To stop the container, run:\n'.format(base_package))
+                print('    docker stop {}\n'.format(base_package))
+                print('To start the container, run:\n'.format(base_package))
+                print('    docker start {}\n'.format(base_package))
 
 
 def execute_command_in_docker_container(command_template: str,
@@ -98,14 +98,6 @@ def execute_command_in_docker_container(command_template: str,
     print('Executing the following command:\n')
     print('    {}\n'.format(command))
     os.system(command)
-
-
-def print_no_running_container_message(base_package) -> None:
-    print('No container running.\n')
-    print('From within the repository, run:\n')
-    print('    docker start {}\n'.format(base_package))
-    print('If the container {} doesn\'t exist, then run:\n'.format(base_package))
-    print('    osewb container create\n')
 
 
 def print_multiple_containers_found_message(ose_containers: List[str]) -> None:
