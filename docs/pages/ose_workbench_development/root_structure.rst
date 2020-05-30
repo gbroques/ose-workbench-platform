@@ -21,6 +21,7 @@ The following is an overview of the directories and files included in the root o
     ├── <base package>/
     ├── test/
     ├── CONTRIBUTING.md
+    ├── .gitignore
     ├── InitGui.py
     ├── LICENSE
     ├── README.md
@@ -81,3 +82,7 @@ Workbenches should use `Travis CI <https://travis-ci.org/>`_ for `Continuous Int
 Following the `Feature Branch Workflow <https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow>`_, each feature branch will be tested to ensure it doesn't break existing code before that branch is merged into the ``master`` branch.
 
 Configuration for Travis CI is located within a file named ``.travis.yml``.
+
+.gitignore
+----------
+A `.gitignore file <https://git-scm.com/docs/gitignore>`_ should be included to specify any directories and files that shouldn't be checked into version control.
