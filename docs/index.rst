@@ -3,7 +3,7 @@ OSE Workbench Platform Documenation
 
 A platform for workbench development by `Open Source Ecology <https://www.opensourceecology.org/>`_.
 
-The following documents describe the standards and guidelines for implementing OSE Workbenches using the FreeCAD platform, including versioning strategies, and patterns for solving common problems.
+The following pages describe the standards and guidelines for implementing OSE Workbenches using the FreeCAD platform, including branching workflow, versioning strategy, and patterns for solving common problems.
 
 .. toctree::
    :maxdepth: 1
