@@ -4,9 +4,9 @@ The following page describes the naming convention for OSE workbench repositorie
 
 Repository Naming Convention
 ----------------------------
-OSE workbenches should be named in **all lower-case letters** with dashes ``-`` delimiting spaces following the pattern ``ose-<machine-name>-workbench``.
+OSE workbench repositories should be in **all lower-case letters** with dashes ``-`` delimiting spaces, following the pattern ``ose-<machine>-workbench``.
 
-For example, the OSE workbench repository for tractors should be named ``ose-tractor-workbench``.
+For example, the OSE workbench repository for power cubes should be named ``ose-power-cube-workbench``.
 
 Note, the machine name is in **singular** form.
 
@@ -55,7 +55,7 @@ Workbenches **must** contain a ``InitGui.py`` file in the root of the repository
 
 Base Package
 ------------
-Workbenches should have a **base package**, or directory containing all their source code named ``ose<machinename>``, where ``<machinename>`` is the name of the machine in all lower-case letters without spaces, hypens, or underscores.
+Workbenches should have a **base package**, or directory containing all their source code named ``ose<machine>``, where ``<machine>`` is the name of the machine in all lower-case letters without spaces, hypens, or underscores.
 
 For example, the base package of the ``ose-power-cube-workbench`` should be named ``osepowercube``.
 
