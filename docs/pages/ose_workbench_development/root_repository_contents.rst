@@ -8,13 +8,13 @@ The following page describes the directories and files included in the root of t
     ├── docs/
     ├── <base package>/
     ├── test/
-    ├── CONTRIBUTING.md
-    ├── .gitignore
-    ├── InitGui.py
-    ├── LICENSE
     ├── README.md
+    ├── LICENSE
+    ├── CONTRIBUTING.md
+    ├── InitGui.py
     ├── .readthedocs.yml
-    └── .travis.yml
+    ├── .travis.yml
+    └── .gitignore
 
 README File
 -----------
