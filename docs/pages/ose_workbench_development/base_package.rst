@@ -1,5 +1,5 @@
-Base Package Structure
-======================
+Base Package
+============
 FreeCAD is made from the beginning to work as a command-line application without its user interface.
 Therefore, almost everything is separated between a "geometry" component and a "visual" component.
 When you execute FreeCAD in command-line mode, the geometry part is present, but the visual part is absent.
@@ -16,7 +16,7 @@ In doing so, workbenches gain the following advantages:
 
 At a high-level, the ``app`` package contains code related to the geometry of parts, and how those parts relate to each other.
 
-While the ``gui`` package contains code related to the graphical user interface of FreeCAD, such as what happens when buttons are clicked, or various components the user may interact with like dialogs and panels.
+While the ``gui`` package contains code related to the graphical user interface of FreeCAD, such as what happens when users interact with the workbench (e.g. a user clicks a button on a toolbar), or various components the user may interact with such as dialogs or panels.
 
 Code in the ``gui`` package may reference code in the ``app`` package, while **the reverse is not true**.
 
@@ -24,3 +24,5 @@ The main goal of this rule is to decouple machine-specific knowledge, such as th
 
 In doing so, other frontends besides FreeCAD's GUI can be used to display and interact with OSE's machines.
 For example, imagine other desktop, web, or mobile applications.
+
+See `App Package <app_package.html>`_ for additional information.
