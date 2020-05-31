@@ -6,7 +6,7 @@ When you execute FreeCAD in command-line mode, the geometry part is present, but
 
 For more information, see `"Python scripting tutorial - App and Gui", on the FreeCAD Wiki <https://wiki.freecadweb.org/Python_scripting_tutorial#App_and_Gui>`_.
 
-OSE workbenches mirror this structure and separate the base package into two main sub-packages: ``app`` and ``gui``.
+OSE workbenches mirror this structure, and separate the base package into two main sub-packages: ``app`` and ``gui``.
 
 In doing so, workbenches gain the following advantages:
 
@@ -22,7 +22,7 @@ Code in the ``gui`` package may reference code in the ``app`` package, while **t
 
 The main goal of this rule is to decouple machine-specific knowledge, such as the geometry of parts, from it's graphical representation.
 
-In doing so, other frontends besides FreeCAD's GUI can be used to display and interact with OSE's machines.
+In doing so, theoretically, other frontends besides FreeCAD's GUI can be used to display and interact with OSE's machines.
 For example, imagine other desktop, web, or mobile applications.
 
-See `App Package <app_package.html>`_ for additional information.
+See `App Package <app_package.html>`_ and `Gui Package <gui_package.html>`_ for additional information.
