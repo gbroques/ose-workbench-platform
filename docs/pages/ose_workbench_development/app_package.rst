@@ -87,3 +87,34 @@ All the exposed model classes are imported within the ``__init__.py`` file:
     from .axis import AxisModel
 
 For more information on model classes themselves, see `Model Classes <model_classes.html>`_.
+
+Attachment Sub-package
+----------------------
+The ``attachment`` sub-package exposes `Attachment Functions <attachment_functions.html>`_ that return keyword arguments to make one part appear "attached to" another.
+
+For example, the ``attachment`` package in the ``ose-3d-printer-workbench`` contains the following:
+
+.. code-block::
+
+    app/attachment
+    ├── get_axis_frame_attachment_kwargs/
+    ├── get_extruder_axis_attachment_kwargs/
+    ├── get_heated_bed_frame_axis_attachment_kwargs/
+    └── __init__.py
+
+The ``get_axis_frame_attachment_kwargs/`` package exposes an ``get_axis_frame_attachment_kwargs`` function for "attaching" the axis to the frame.
+
+Similarly, the ``get_extruder_axis_attachment_kwargs/`` package exposes an ``get_extruder_axis_attachment_kwargs`` function, and ``get_heated_bed_frame_axis_attachment_kwargs/`` exposes a ``get_heated_bed_frame_axis_attachment_kwargs`` function.
+
+All the exposed attachment functions are imported within the ``__init__.py`` file:
+
+.. code-block:: python
+
+    from .get_axis_frame_attachment_kwargs import (
+        get_axis_frame_attachment_kwargs, get_default_axis_creation_kwargs)
+    from .get_extruder_axis_attachment_kwargs import \
+        get_extruder_axis_attachment_kwargs
+    from .get_heated_bed_frame_axis_attachment_kwargs import \
+        get_heated_bed_frame_axis_attachment_kwargs
+
+For more information on attachment functions themselves, see `Attachment Functions <attachment_functions.html>`_.
