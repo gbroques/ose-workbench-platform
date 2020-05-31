@@ -10,13 +10,17 @@ The ``gui`` package, located within the `base package <base_package.html>`_, con
     ├── icon/
     ├── __init__.py
     ├── <command registry>.py
-    ├── <workbench class>.py
+    ├── <workbench>.py
 
-Workbench Class
----------------
-Every workbench will have a **workbench class** within the ``gui`` package that extends ``Gui.Workbench``.
+Workbench Module
+----------------
+Every workbench will have a **workbench module** within the ``gui`` package following the pattern ``<machine>_workbench.py``.
 
-For example, the **workbench class** for OSE's Tractor Workbench will be located within the ``osetractor.gui`` package inside the ``tractor_workbench.py`` module:
+Where ``<machine>`` is the name of the machine in **all lower-case letters**, with spaces delimited by underscores ``_``.
+
+The workbench module contains a *single* **workbench class** that extends ``Gui.Workbench`` following the pattern ``<Machine>Workbench``, where ``<Mahcine>`` is the name of the machine in **pascal** or **UpperCamelCase**.
+
+For example, the **workbench class** for OSE's Tractor Workbench will be located inside the ``tractor_workbench.py`` module and named ``TractorWorkbench``:
 
 .. code-block:: python
 
