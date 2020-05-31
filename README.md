@@ -87,6 +87,8 @@ Commands:
 
 Each sub-command may have flags and arguments, and additional information can be discovered via `osewb <command> -h` or `--help`.
 
+Is `osewb` too many characters to type? We recommend [aliasing](https://en.wikipedia.org/wiki/Alias_(command)) the ``osewb`` command as ``ose`` to reduce typing and increase speed even further.
+
 ### container
 OSE Workbench Platform includes a `container` command to make interacting with the requisite container for running tests and building documentation easier.
 
