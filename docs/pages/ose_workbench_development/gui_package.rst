@@ -65,4 +65,21 @@ For a complete reference for the ``Gui.Workbench`` class, see `Gui::PythonWorkbe
 
 Command Sub-package
 -------------------
-`Commands in FreeCAD <https://wiki.freecadweb.org/Command>`_ are executed when users perform various actions in the workbench such as clicking a button in a toolbar or selecting an option in a menu.
+The ``command`` sub-package exposes `Command Classes <command_classes.html>`_  that are executed when users perform various actions in the workbench such as clicking a button in a toolbar or selecting an option in a menu.
+
+For example, the ``command`` package in the ``ose-3d-printer-workbench`` contains the following:
+
+.. code-block::
+
+    gui/command
+    ├── add_axis/
+    ├── add_extruder/
+    ├── add_frame/
+    ├── add_heated_bed/
+    ├── __init__.py
+
+The ``add_axis/`` package exposes an ``AddAxisCommand`` that's executed when the user wants to add an axis to the document.
+
+Similarly, the ``add_extruder/`` package exposes an ``AddExtruderCommand`` class, ``add_frame/`` exposes ``AddFrameCommand``, and ``heated_bed/`` exposes ``AddHeatedBed``.
+
+For more information on command classes themselves, see `Command Classes <command_classes.html>`_.
