@@ -1,5 +1,5 @@
-Determining Workbench Granularity
-=================================
+Repository Scope and Naming
+===========================
 OSE Workbenches should generally be centered around **one** OSE machine in the `Global Village Construction Set (GVCS) <https://wiki.opensourceecology.org/wiki/Global_Village_Construction_Set>`_.
 
 Examples of OSE machines in the GVCS would be:

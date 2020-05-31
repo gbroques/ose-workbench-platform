@@ -1,5 +1,5 @@
-Root Structure
-==============
+Root Repository Contents
+========================
 The following page describes the directories and files included in the root of the repository.
 
 .. code-block::
