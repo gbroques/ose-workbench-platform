@@ -16,6 +16,7 @@ Every OSE workbench should follow these standards and guidelines to make working
    pages/ose_workbench_development/root_repository_contents
    pages/ose_workbench_development/base_package
    pages/ose_workbench_development/app_package
+   pages/ose_workbench_development/part_classes
    pages/ose_workbench_development/branching_and_workflow_strategy
    pages/ose_workbench_development/versioning
 

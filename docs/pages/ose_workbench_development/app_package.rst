@@ -13,3 +13,47 @@ For a formal introduction to these concepts, see `Solid modeling <https://en.wik
 FreeCAD exposes the ability to define and manipulate the geometry of parts through it's `Part module <https://wiki.freecadweb.org/Part_Module>`_.
 
 See the FreeCAD Wiki on `Creating and manipulating geometry <https://wiki.freecadweb.org/Manual:Creating_and_manipulating_geometry>`_, and `Topological data scripting <https://wiki.freecadweb.org/Topological_data_scripting>`_ for additional details.
+
+Sub-packages
+------------
+The following are typical sub-packages the ``app`` package may contain:
+
+.. code-block::
+
+    app
+    ├── part/
+    ├── model/
+    ├── attachment/
+    └── __init__.py
+
+.. Note:: The ``app`` package typically only contains sub-packages without any direct modules.
+
+Part Sub-package
+----------------
+The ``part`` sub-package exposes `Part Classes <part_classes.html>`_ encapsulating the geometry for parts, and is made up of further sub-packages for each part.
+
+For example, the ``part`` package in the ``ose-3d-printer-workbench`` contains the following:
+
+.. code-block::
+
+    app/part
+    ├── axis/
+    ├── extruder/
+    ├── frame/
+    ├── heated_bed/
+    └── __init__.py
+
+The ``axis/`` package exposes an ``Axis`` class for "making" the geometry of an axis.
+
+Similarly, the ``extruder/`` package exposes an ``Extruder`` class, ``heated_bed/`` exposes a ``HeatedBed`` class, and ``frame/`` exposes multiple classes related to a frame.
+
+All the exposed part classes are imported within the ``__init__.py`` file:
+
+.. code-block:: python
+
+    from .axis import Axis
+    from .extruder import Extruder
+    from .frame import AngledBarFrame, AngleFrameConnector, CNCCutFrame
+    from .heated_bed import HeatedBed
+
+For more information on part classes themselves, see `Part Classes <part_classes.html>`_.
