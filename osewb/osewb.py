@@ -2,6 +2,7 @@ from __future__ import print_function
 
 import argparse
 import os
+import webbrowser
 from typing import List, Union
 
 import docker
@@ -90,6 +91,28 @@ def main() -> None:
                 print('    docker stop {}\n'.format(base_package))
                 print('To start the container, run:\n'.format(base_package))
                 print('    docker start {}\n'.format(base_package))
+    elif command == 'browse':
+        root_of_git_repository = find_root_of_git_repository()
+        if root_of_git_repository is None:
+            return
+        if args['browse_command'] == 'docs':
+            path_to_index_html = os.path.join(
+                root_of_git_repository, 'docs/_build/index.html')
+            if not os.path.isfile(path_to_index_html):
+                print('No index.html found in {}'.format(path_to_index_html))
+                print('To build the documentation, run:\n')
+                print('    osewb docs\n')
+            else:
+                webbrowser.open(path_to_index_html)
+        elif args['browse_command'] == 'coverage':
+            path_to_index_html = os.path.join(
+                root_of_git_repository, 'htmlcov/index.html')
+            if not os.path.isfile(path_to_index_html):
+                print('No index.html found in {}'.format(path_to_index_html))
+                print('To build the coverage report, run:\n')
+                print('    osewb test --coverage\n')
+            else:
+                webbrowser.open(path_to_index_html)
 
 
 def execute_command_in_docker_container(command_template: str,
@@ -162,10 +185,21 @@ def _parse_command() -> str:
     docs_parser = subparsers.add_parser('docs',
                                         help='Make documentation',
                                         usage='osewb docs')
-
     init_parser = subparsers.add_parser('init',
                                         help='Initialize new workbench',
                                         usage='osewb init')
+    browse_parser = subparsers.add_parser('browse',
+                                          help='Commands for opening documents in a web browser',
+                                          usage='osewb browse <command>')
+    browse_subparser = browse_parser.add_subparsers(title='Commands',
+                                                    dest='browse_command',
+                                                    required=True)
+    browse_docs_parser = browse_subparser.add_parser('docs',
+                                                     help='Opens docs in web browser',
+                                                     usage='osewb browse docs')
+    browse_coverage_parser = browse_subparser.add_parser('coverage',
+                                                         help='Opens coverage report in web browser',
+                                                         usage='osewb browse coverage')
     args = vars(parser.parse_args())
     command = args.pop('command')
     return command, args

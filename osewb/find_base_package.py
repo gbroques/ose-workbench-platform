@@ -1,4 +1,5 @@
 import os
+from typing import Union
 
 from .check_for_executable_in_path import check_for_executable_in_path
 
@@ -20,7 +21,13 @@ def find_base_package() -> str:
     return directories[0]
 
 
-def find_root_of_git_repository():
+def find_root_of_git_repository() -> Union[str, None]:
+    """Find the root of the current git repository.
+    Returns None if there's an error, or not in a git repository.
+
+    :return: path to root of git repository
+    :rtype: str
+    """
     check_for_executable_in_path('git')
     pipe = os.popen('git rev-parse --show-toplevel')
     output = pipe.read().strip()

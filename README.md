@@ -12,6 +12,7 @@
   * [test](#test)
   * [docs](#docs)
   * [init](#init)
+  * [browse](#browse)
 * [Generating Code](#generating-code)
 * [Contributing](#contributing)
 * [License](#license)
@@ -76,11 +77,12 @@ optional arguments:
   -h, --help            show this help message and exit
 
 Commands:
-  {container,test,docs,init}
+  {container,test,docs,init,browse}
     container           Commands for interacting with containers
     test                Run tests in workbench
     docs                Make documentation
     init                Initialize new workbench
+    browse              Commands for opening documents in a web browser
 ```
 
 Each sub-command may have flags and arguments, and additional information can be discovered via `osewb <command> -h` or `--help`.
@@ -214,6 +216,24 @@ ose-tractor-workbench
 ```
 
 ![OSE Tractor Workbench](./ose-tractor-workbench.png)
+
+### browse
+OSE Workbench Platform includes a `browse` covenience command for opening documentation and coverage reports in a web browser.
+
+```
+$ osewb browse -h ↵
+usage: osewb browse <command>
+
+optional arguments:
+  -h, --help       show this help message and exit
+
+Commands:
+  {docs,coverage}
+    docs           Opens docs in web browser
+    coverage       Opens coverage report in web browser
+```
+
+The `docs` command opens `docs/_build/index.html` in a web browser, while `coverage` opens `htmlcov/index.html` in a web browser.
 
 ## Generating Code
 Within the root of a workbench repository, run the `make` command.
