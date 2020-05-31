@@ -1,18 +1,6 @@
 Root Structure
 ==============
-The following page describes the naming convention for OSE workbench repositories, and the directories and files included in the root of the repository.
-
-Repository Naming Convention
-----------------------------
-OSE workbench repositories should be in **all lower-case letters** with dashes ``-`` delimiting spaces, following the pattern ``ose-<machine>-workbench``.
-
-For example, the OSE workbench repository for power cubes should be named ``ose-power-cube-workbench``.
-
-Note, the machine name is in **singular** form.
-
-Directories and Files Overview
-------------------------------
-The following is an overview of the directories and files included in the root of an OSE workbench repository.
+The following page describes the directories and files included in the root of the repository.
 
 .. code-block::
 
