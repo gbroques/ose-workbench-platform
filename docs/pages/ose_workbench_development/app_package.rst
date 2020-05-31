@@ -57,3 +57,33 @@ All the exposed part classes are imported within the ``__init__.py`` file:
     from .heated_bed import HeatedBed
 
 For more information on part classes themselves, see `Part Classes <part_classes.html>`_.
+
+Model Sub-package
+-----------------
+The ``model`` sub-package exposes `Model Classes <model_classes.html>`_ for making the *static* geometry of part classes **dynamic**.
+
+For example, the ``model`` package in the ``ose-3d-printer-workbench`` contains the following:
+
+.. code-block::
+
+    app/model
+    ├── axis/
+    ├── extruder/
+    ├── frame/
+    ├── heated_bed/
+    └── __init__.py
+
+The ``axis/`` package exposes an ``AxisModel`` class for "making" the geometry of the ``Axis`` part class dynamic.
+
+Similarly, the ``extruder/`` package exposes an ``ExtruderModel`` class, ``heated_bed/`` exposes a ``HeatedBedModel`` class, and ``frame/`` exposes a ``FrameModel`` class.
+
+All the exposed model classes are imported within the ``__init__.py`` file:
+
+.. code-block:: python
+
+    from .extruder import ExtruderModel
+    from .frame import FrameModel
+    from .heated_bed import HeatedBedModel
+    from .axis import AxisModel
+
+For more information on model classes themselves, see `Model Classes <model_classes.html>`_.
