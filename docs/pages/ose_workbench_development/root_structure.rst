@@ -53,6 +53,8 @@ This naming convention follows `PEP 8's guidance on package naming <https://www.
 
     -- `PEP 8 <https://www.python.org/dev/peps/pep-0008/#package-and-module-names>`_
 
+For additional information, see `Base Package Structure <base_package_structure.html>`_.
+
 Documentation
 -------------
 Documentation for workbenches should be located in the ``docs/`` directory.

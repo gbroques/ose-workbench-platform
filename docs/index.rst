@@ -15,6 +15,7 @@ Every OSE workbench has the same structure and components to make working betwee
    pages/ose_workbench_development/branching_and_workflow_strategy
    pages/ose_workbench_development/versioning
    pages/ose_workbench_development/root_structure
+   pages/ose_workbench_development/base_package_structure
 
 .. toctree::
    :maxdepth: 1
