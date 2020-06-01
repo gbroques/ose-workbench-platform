@@ -6,8 +6,8 @@ The ``gui`` package, located within the `base package <base_package.html>`_, con
 
     gui
     ├── command/
-    ├── create_part_feature/
     ├── icon/
+    ├── part_feature/
     ├── __init__.py
     ├── <command registry>.py
     ├── <workbench>.py
@@ -168,3 +168,42 @@ The ``icon`` sub-package contains icons for the workbench (typically in ``.svg``
     from .icon import get_icon_path
 
     get_icon_path('MyIcon.svg') # => /home/user/.FreeCAD/Mod/my-workbench/myworkbench/gui/icon/MyIcon.svg
+
+
+Part Feature Sub-package
+------------------------
+The ``part_feature`` sub-package exposes functions to create `Part Feature objects <https://wiki.freecadweb.org/Part_Feature>`_.
+
+For example, the ``part_feature`` package in the ``ose-3d-printer-workbench`` contains the following:
+
+.. code-block::
+
+    gui/part_feature
+    ├── axis/
+    ├── extruder/
+    ├── frame/
+    ├── heated_bed/
+    └── __init__.py
+
+The ``axis/`` package exposes a ``create_axis`` function that creates and adds an axis part feature object to a specified document.
+
+Similarly, the ``extruder/`` package exposes a ``create_extruder`` function, ``frame/`` exposes ``create_frame``, and ``heated_bed/`` exposes ``create_heated_bed``.
+
+A simple example of a part feature creation function looks like:
+
+.. code-block:: python
+
+    from ose3dprinter.app.model import AxisModel
+
+
+    def create_axis(document, name):
+        """
+        Creates a axis object with the given name,
+        and adds it to a document.
+        """
+        obj = document.addObject('Part::FeaturePython', name)
+        AxisModel(obj)
+        obj.ViewObject.Proxy = 0  # Mandatory unless ViewProvider is coded
+        return obj
+
+The single responsibility of a part feature creation function is to add a ``Part::FeaturePython`` to a document, and decorate it with a model class, and *optionally* a `view provider <https://wiki.freecadweb.org/Viewprovider>`_.

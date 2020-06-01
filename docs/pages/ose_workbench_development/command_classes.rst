@@ -4,8 +4,6 @@ Command Classes are executed when users perform various actions in the workbench
 
 OSE Workbench Command Classes are an opinionated extension to `FreeCAD Command Classes <https://wiki.freecadweb.org/Command>`_ with the following observed conventions:
 
-
-
 1. Names sound like actions, typically begin with verbs, and always end with a "command" suffix
 
     * For example, a command class to add a frame to the document might be named ``AddFrameCommand``
