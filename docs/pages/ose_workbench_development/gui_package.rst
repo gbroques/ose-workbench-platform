@@ -158,3 +158,13 @@ You can see a simple and relatively complete command registry module example bas
 
     def from_command_name_to_key(command_name):
         return '{}_{}'.format(command_namespace, command_name)
+
+Icon Sub-package
+----------------
+The ``icon`` sub-package contains icons for the workbench (typically in ``.svg`` format) and exposes a ``get_icon_path`` function that takes the name of an icon file and returns the absolute path to the icon.
+
+.. code-block:: python
+
+    from .icon import get_icon_path
+
+    get_icon_path('MyIcon.svg') # => /home/user/.FreeCAD/Mod/my-workbench/myworkbench/gui/icon/MyIcon.svg
