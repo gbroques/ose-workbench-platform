@@ -10,6 +10,13 @@ Every OSE workbench should follow these standards and guidelines to make working
 
 .. toctree::
    :maxdepth: 1
+   :caption: Workbench Planning
+
+   pages/workbench_planning/deciding_on_a_machine
+   pages/workbench_planning/contributing_as_a_non_programmer
+
+.. toctree::
+   :maxdepth: 1
    :caption: OSE Workbench Development
 
    pages/ose_workbench_development/repository_scope_and_naming

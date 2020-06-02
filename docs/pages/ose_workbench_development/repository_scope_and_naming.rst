@@ -1,13 +1,6 @@
 Repository Scope and Naming
 ===========================
-OSE Workbenches should generally be centered around **one** OSE machine in the `Global Village Construction Set (GVCS) <https://wiki.opensourceecology.org/wiki/Global_Village_Construction_Set>`_.
-
-Examples of OSE machines in the GVCS would be:
-
-* Tractors
-* Compressed Earth Brick Presses
-* Power Cubes
-* and 3D Printers
+As dicussed in `Workbench Planning: Deciding on a Machine <../workbench_planning/deciding_on_a_machine.html>`_, workbenches should generally be centered around **one** OSE machine in the `Global Village Construction Set (GVCS) <https://wiki.opensourceecology.org/wiki/Global_Village_Construction_Set>`_.
 
 Each workbench should have a single `Git repository <https://en.wikipedia.org/wiki/Git>`_ hosted on a centralized, publicly available, free platform like `GitHub <https://github.com/>`_.
 
