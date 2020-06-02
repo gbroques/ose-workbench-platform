@@ -16,7 +16,9 @@ RUN apt-get update && \
     # Python 3 packages for pip install ose-workbench-platform
     python3-pip \
     python3-setuptools \
-    python-wheel
+    python-wheel \
+    # For sphinx.ext.graphviz and graphviz diagrams in docs
+    graphviz
 
 RUN pip install --upgrade pip==20.1.1
 RUN python3 -m pip install --upgrade pip==20.1.1

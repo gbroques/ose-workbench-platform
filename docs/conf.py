@@ -56,7 +56,9 @@ extensions = [
     'sphinx.ext.autosummary',
     # Helps with having many external links that point to the OSE Wiki.
     # https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html
-    'sphinx.ext.extlinks'
+    'sphinx.ext.extlinks',
+    # Allows embedding Graphviz graphs in your documents.
+    'sphinx.ext.graphviz'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
