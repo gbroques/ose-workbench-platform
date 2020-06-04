@@ -42,21 +42,35 @@ We may breakdown the Frame into:
       "Frame" -> "Angled Bar Connectors";
    }
 
+Terminology
+-----------
+The amalgamation of parts and sub-parts is called an **assembly**.
+
+Also note, there may not be a difference between a **part** and a **sub-part**.
+
+The "part" and "sub-part" terms are contextual.
+
+For example, the Frame is both a part in it's own right, and a sub-part of the 3D printer.
+
+Level of Breakdown
+------------------
 Similarly, we could breakdown the axes, extruder, and heated bed into sub-parts.
 
-Then, we could continue breaking down those sub-parts into sub-parts until we get to the most basic elements of the machine.
+Then, we could continue breaking down those sub-parts into sub-parts until we get to the most basic parts of the machine.
 
 There's no real limit to how far you can breakdown a machine. It's recommneded to continue breaking down a machine for as long as it's useful and practical.
 
 .. Tip:: See `Depth of Modularity <https://wiki.opensourceecology.org/wiki/Depth_of_Modularity>`_ for more information.
 
-The amalgamation of parts and sub-parts is called an **assembly**.
+Similar guidance as specified on `breaking down a machine into parts <breaking_down_a_machine_into_parts.html#level-of-breakdown>`_ applies.
 
-Also note, there may not be a difference between a **part** and a **sub-part**.
+For the minimum viable product (MVP), or first iteration of a workbench, it's easier to include less detail in the breakdown of parts into sub-parts.
 
-The "part" and "sub-part" labels are contextual.
+There are also concerns around file size, memory consumption, and computing time or performance when designing a workbench.
 
-For example, the Frame is both a part in it's own right, and a sub-part of the 3D printer.
+For example,  parts that include more details will take up more space on disk, take longer to render in FreeCAD's UI, and potentially slow down FreeCAD.
+
+Due to these limitations, starting with simplified parts is recommneded.
 
 Shared Sub-Parts
 ----------------
