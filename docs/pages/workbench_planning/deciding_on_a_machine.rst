@@ -33,4 +33,4 @@ In the above example, it would be wise to create a **Power Cube Library** that *
 
 Next Step
 ---------
-Once the machine is decided, you must `break that machine down into individual parts <breaking_down_a_machine_into_parts.html>`_.
+Once the machine is decided, you must `break down the machine into individual parts <breaking_down_a_machine_into_parts.html>`_.

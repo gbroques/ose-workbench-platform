@@ -31,6 +31,9 @@ Each of these parts usually correspond to buttons on the **main toolbar** of a w
 
 Clicking one of these buttons adds the corresponding part to the user's active document in FreeCAD.
 
-Next Step
----------
-The next step in workbench planning is `breaking these parts down further <breaking_down_parts_into_sub_parts.html>`_.
+Next Steps
+----------
+The next two steps in workbench planning can be performed in parallel:
+
+1. `Breaking down parts into sub-parts <breaking_down_parts_into_sub_parts.html>`_
+2. `Designing icons <designing_icons.html>`_
