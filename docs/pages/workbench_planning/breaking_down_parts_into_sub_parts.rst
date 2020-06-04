@@ -57,3 +57,11 @@ Also note, there may not be a difference between a **part** and a **sub-part**.
 The "part" and "sub-part" labels are contextual.
 
 For example, the Frame is both a part in it's own right, and a sub-part of the 3D printer.
+
+Shared Sub-Parts
+----------------
+This process of breaking down parts into sub-parts can reveal **shared sub-parts**.
+
+For example, the axis and extruder might both contain a motor, or the same fasteners like nuts, screws, and bolts.
+
+This information is useful because programmers can abstract the geometry and modeling for these shared parts into a common place for re-use.
