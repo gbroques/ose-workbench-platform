@@ -46,7 +46,7 @@ Similarly, we could breakdown the axes, extruder, and heated bed into sub-parts.
 
 Then, we could continue breaking down those sub-parts into sub-parts until we get to the most basic elements of the machine.
 
-There's no real limit to how far you can breakdown a machine. It's recommneded to continue breaking down a machine for as long as it's useful and pratctical.
+There's no real limit to how far you can breakdown a machine. It's recommneded to continue breaking down a machine for as long as it's useful and practical.
 
 .. Tip:: See `Depth of Modularity <https://wiki.opensourceecology.org/wiki/Depth_of_Modularity>`_ for more information.
 
@@ -64,4 +64,4 @@ This process of breaking down parts into sub-parts can reveal **shared sub-parts
 
 For example, the axis and extruder might both contain a motor, or the same fasteners like nuts, screws, and bolts.
 
-This information is useful because programmers can abstract the geometry and modeling for these shared parts into a common place for re-use.
+This information is useful because programmers can abstract the geometry and modeling for these parts into a common place for re-use.
