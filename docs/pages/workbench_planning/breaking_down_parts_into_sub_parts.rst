@@ -79,3 +79,7 @@ This process of breaking down parts into sub-parts can reveal **shared sub-parts
 For example, the axis and extruder might both contain a motor, or the same fasteners like nuts, screws, and bolts.
 
 This information is useful because programmers can abstract the geometry and modeling for these parts into a common place for re-use.
+
+Next Step
+---------
+Once the top-level parts are broken down into sub-parts, `those parts can be designed in FreeCAD <designing_parts.html>`_.
