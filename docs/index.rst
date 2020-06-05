@@ -20,6 +20,7 @@ Every workbench should follow these standards and guidelines to make working bet
    pages/workbench_planning/designing_icons
    pages/workbench_planning/breaking_down_parts_into_sub_parts
    pages/workbench_planning/designing_parts
+   pages/workbench_planning/defining_relationships_between_parts
 
 .. toctree::
    :maxdepth: 1

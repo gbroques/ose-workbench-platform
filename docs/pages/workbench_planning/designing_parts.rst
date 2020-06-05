@@ -51,3 +51,7 @@ Large                  3 inches    0.25 inches
    :align: center
 
    Angle Frame Connector with Different Sizes
+
+Next Step
+---------
+After the parts are designed, you can `define the relationship between parts <defining_relationships_between_parts.html>`_.
