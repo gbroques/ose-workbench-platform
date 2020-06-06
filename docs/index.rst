@@ -35,6 +35,7 @@ Every workbench should follow these standards and guidelines to make working bet
    pages/workbench_development/attachment_functions
    pages/workbench_development/gui_package
    pages/workbench_development/command_classes
+   pages/workbench_development/breakdown_strategy
    pages/workbench_development/branching_and_workflow_strategy
    pages/workbench_development/versioning
 
