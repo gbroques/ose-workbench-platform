@@ -62,13 +62,13 @@ There's no real limit to how far you can breakdown a machine. It's recommneded t
 
 .. Tip:: See `Depth of Modularity <https://wiki.opensourceecology.org/wiki/Depth_of_Modularity>`_ for more information.
 
-Similar guidance as specified on `breaking down a machine into parts <breaking_down_a_machine_into_parts.html#level-of-breakdown>`_ applies.
+Similar guidance as specified in `breaking down a machine <breaking_down_a_machine_into_parts.html#level-of-breakdown>`_ applies.
 
 For the first iteration of a workbench, it's easier to include less detail in the breakdown of parts.
 
-There are also concerns around file size, memory consumption, and performance when designing a workbench.
+File size, memory consumption, and performance must also be considered when designing a workbench.
 
-For example,  parts that include more details will take up more space on disk, take longer to render in FreeCAD's UI, and potentially slow down FreeCAD.
+For example, parts that include more details will take up more space on disk, take longer to render, and potentially slow down FreeCAD.
 
 Due to these limitations, starting with simplified parts is recommneded.
 
