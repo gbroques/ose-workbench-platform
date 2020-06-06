@@ -1,15 +1,15 @@
 Deciding on a Machine
 =====================
-OSE Workbenches should generally be centered around **one** OSE machine in the `Global Village Construction Set (GVCS) <https://wiki.opensourceecology.org/wiki/Global_Village_Construction_Set>`_.
+OSE Workbenches generally center around **one** machine in the `Global Village Construction Set (GVCS) <https://wiki.opensourceecology.org/wiki/Global_Village_Construction_Set>`_.
 
-Examples of OSE machines in the GVCS include:
+Examples of machines in the GVCS include:
 
 * `Tractors <https://wiki.opensourceecology.org/wiki/LifeTrac>`_
 * `Compressed Earth Brick (CEB) Presses <https://wiki.opensourceecology.org/wiki/CEB_Press>`_
 * `Power Cubes <https://wiki.opensourceecology.org/wiki/Power_Cube>`_
 * and `3D Printers <https://wiki.opensourceecology.org/wiki/3D_Printer>`_
 
-The first step in workbench planning is deciding on the machine the workbench will be focused on.
+The first step in workbench planning is deciding on a machine to focus on.
 
 The goal of an OSE workbench should be to stream-line the design of machine variants.
 

@@ -1,6 +1,6 @@
 Breaking Down Parts Into Sub-Parts
 ==================================
-Once the `machine is broken down into individual parts <breaking_down_a_machine_into_parts>`_, those parts can be further broken down into **sub-parts**.
+Once the `machine is broken down into individual parts <breaking_down_a_machine_into_parts>`_, then those parts can be further broken down into **sub-parts**.
 
 Going back to the simplified part breakdown of a 3D printer as an example:
 
@@ -64,21 +64,29 @@ There's no real limit to how far you can breakdown a machine. It's recommneded t
 
 Similar guidance as specified on `breaking down a machine into parts <breaking_down_a_machine_into_parts.html#level-of-breakdown>`_ applies.
 
-For the minimum viable product (MVP), or first iteration of a workbench, it's easier to include less detail in the breakdown of parts into sub-parts.
+For the first iteration of a workbench, it's easier to include less detail in the breakdown of parts.
 
-There are also concerns around file size, memory consumption, and computing time or performance when designing a workbench.
+There are also concerns around file size, memory consumption, and performance when designing a workbench.
 
 For example,  parts that include more details will take up more space on disk, take longer to render in FreeCAD's UI, and potentially slow down FreeCAD.
 
 Due to these limitations, starting with simplified parts is recommneded.
 
+3D Printing Considerations
+--------------------------
+Does the part need to be 3D printed?
+
+If so, then you'll need to include all details in the part.
+
+In cases like this, it's helpful to allow the user to create a simplified version of the part for modeling purposes, and the full-detailed part separately for exporting to STL or OBJ for printing.
+
 Shared Sub-Parts
 ----------------
-This process of breaking down parts into sub-parts can reveal **shared sub-parts**.
+The process of breaking down parts into sub-parts can reveal **shared sub-parts**.
 
 For example, the axis and extruder might both contain a motor, or the same fasteners like nuts, screws, and bolts.
 
-This information is useful because programmers can abstract the geometry and modeling for these parts into a common place for re-use.
+This information is useful to programmers as they can abstract the modeling for these parts into a common place for re-use.
 
 Next Step
 ---------

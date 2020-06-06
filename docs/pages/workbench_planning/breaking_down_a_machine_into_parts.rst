@@ -41,7 +41,7 @@ For example, we excluded *less-critical* parts of the 3D Printer such as the con
 
 Is our above simplified part breakdown still useful? Yes.
 
-Thus, if the workbench *only* includes a simplified minimal set of **core parts**, then it still has utility value.
+Thus, a workbench *only* including a simplified minimal set of **core parts** is useful.
 
 In fact, to begin workbench development, definining the *minimal set of core parts* for the machine is recommended.
 
