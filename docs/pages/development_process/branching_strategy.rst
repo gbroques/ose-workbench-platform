@@ -1,5 +1,5 @@
-Branching and Workflow Strategy
-===============================
+Branching Strategy
+==================
 OSE Workbenches should follow the `Feature Branch Workflow <https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow>`_:
 
     The core idea behind the **Feature Branch Workflow** is that all feature development should take place in a dedicated branch instead of the ``master`` branch.

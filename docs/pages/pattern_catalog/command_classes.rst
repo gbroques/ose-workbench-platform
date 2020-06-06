@@ -1,5 +1,9 @@
 Command Classes
 ===============
+.. admonition:: Motivation
+
+   Encapsulate action users can perform when interacting with FreeCAD's UI.
+
 Command Classes are executed when users perform various actions in the workbench such as clicking a button in a toolbar or selecting an option in a menu.
 
 OSE Workbench Command Classes are an opinionated extension to `FreeCAD Command Classes <https://wiki.freecadweb.org/Command>`_ with the following observed conventions:

@@ -1,5 +1,9 @@
 Gui Package
 ===========
+.. admonition:: Motivation
+
+   Organize code related to the graphical representation of parts and a workbench.
+
 The ``gui`` package, located within the `base package <base_package.html>`_, contains code related to the graphical user interface of FreeCAD, such as what happens when users interact with the workbench (e.g. a user clicks a button on a toolbar), or various components the user may interact with such as dialogs or panels.
 
 .. code-block::

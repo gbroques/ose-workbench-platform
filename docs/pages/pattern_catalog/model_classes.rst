@@ -1,5 +1,9 @@
 Model Classes
 =============
+.. admonition:: Motivation
+
+   Encapsulate values and persistence of user-configurable properties for parts.
+
 Model classes act as extensions to `Part Classes <part_classes.html>`_, for when you want dynamic geometry, or parameteric properties the user can manipulate in FreeCAD's GUI within the `Property Editor <https://wiki.freecadweb.org/Property_editor>`_ after the part is made.
 
 For example, extending our ``Box`` part class to make the length and width editable by the user:

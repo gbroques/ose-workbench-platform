@@ -1,6 +1,6 @@
-Versioning
-==========
-OSE workbenches should use `Semantic Versioning <https://semver.org/>`_:
+Versioning Strategy
+===================
+OSE workbenches should use `Semantic Versioning <https://semver.org/>`_ strategy:
 
     Given a version number MAJOR.MINOR.PATCH, increment the:
 

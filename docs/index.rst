@@ -8,8 +8,11 @@ The below **Workbench Planning** pages cover planning for workbench development.
 Note, anyone can contribute to the workbench planning process, and you don't need to be a programmer.
 Indeed, OSE workbench development teams benefit from a diversity of people with different backgrounds and skill-sets.
 
-The below **Workbench Development** pages describe the standards and guidelines for implementing workbenches using the FreeCAD platform, including structure, patterns for solving common problems, branching and workflow strategy, and versioning.
-Every workbench should follow these standards and guidelines to make working between various workbenches easier, and increase collaboration.
+The below **Development Process** pages describe various processes related to development such as breaking down development work, branching, and versioning.
+
+The below **Pattern Catalog** pages describe structure and patterns for solving common problems in workbenches using the FreeCAD platform.
+
+Every workbench should follow the above standards and guidelines to make working between various workbenches easier, and increase collaboration.
 
 .. toctree::
    :maxdepth: 1
@@ -24,20 +27,28 @@ Every workbench should follow these standards and guidelines to make working bet
 
 .. toctree::
    :maxdepth: 1
-   :caption: Workbench Development
+   :caption: Development Process
 
-   pages/workbench_development/repository_scope_and_naming
-   pages/workbench_development/root_repository_contents
-   pages/workbench_development/base_package
-   pages/workbench_development/app_package
-   pages/workbench_development/part_classes
-   pages/workbench_development/model_classes
-   pages/workbench_development/attachment_functions
-   pages/workbench_development/gui_package
-   pages/workbench_development/command_classes
-   pages/workbench_development/breakdown_strategy
-   pages/workbench_development/branching_and_workflow_strategy
-   pages/workbench_development/versioning
+   pages/development_process/breakdown_strategy
+   pages/development_process/branching_strategy
+   pages/development_process/versioning_strategy
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Pattern Catalog
+
+   pages/pattern_catalog/repository_scope_and_naming
+   pages/pattern_catalog/root_repository_contents
+   pages/pattern_catalog/base_package
+   pages/pattern_catalog/app_package
+   pages/pattern_catalog/part_classes
+   pages/pattern_catalog/model_classes
+   pages/pattern_catalog/attachment_functions
+   pages/pattern_catalog/gui_package
+   pages/pattern_catalog/command_classes
+   pages/pattern_catalog/breakdown_strategy
+   pages/pattern_catalog/branching_and_workflow_strategy
+   pages/pattern_catalog/versioning
 
 .. toctree::
    :maxdepth: 1

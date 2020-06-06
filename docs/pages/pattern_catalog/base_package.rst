@@ -1,5 +1,9 @@
 Base Package
 ============
+.. admonition:: Motivation
+
+   Encapsulate source code and separate the geometry of parts from their graphical representation.
+
 FreeCAD is made from the beginning to work as a command-line application without its user interface.
 Therefore, almost everything is separated between a "geometry" component and a "visual" component.
 When you execute FreeCAD in command-line mode, the geometry part is present, but the visual part is absent.

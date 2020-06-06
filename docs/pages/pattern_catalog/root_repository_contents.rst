@@ -1,5 +1,9 @@
 Root Repository Contents
 ========================
+.. admonition:: Motivation
+
+   Ensure workbenches contain the same core elements.
+
 The following page describes the directories and files included in the root of the repository.
 
 .. code-block::

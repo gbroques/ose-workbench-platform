@@ -1,5 +1,9 @@
 Attachment Functions
 ====================
+.. admonition:: Motivation
+
+   Make parts appear attached to each other.
+
 Attachment functions return keyword arguments to make one part to appear "attached to" another.
 
 Each attachment function is named following the pattern ``get_<attachee part>_<attached to part>_attachment_kwargs`` where:

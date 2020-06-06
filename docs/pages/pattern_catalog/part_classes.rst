@@ -1,5 +1,9 @@
 Part Classes
 ============
+.. admonition:: Motivation
+
+   Encapsulate how the geometry of a part is made.
+
 Parts are often thought about as real world objects, and therefore fit nicely into the paradigm of `Object Oriented Programming (OOP) <https://en.wikipedia.org/wiki/Object-oriented_programming>`_ as **classes**.
 
 Each part class has the `single-responsibility <https://en.wikipedia.org/wiki/Single-responsibility_principle>`_ to "make" the geometry for a given part.

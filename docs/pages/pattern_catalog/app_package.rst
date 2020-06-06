@@ -1,5 +1,9 @@
 App Package
 ===========
+.. admonition:: Motivation
+
+   Organize code related to the geometry parts, and allow parts to be made from a command-line context. 
+
 The ``app`` package, located within the `base package <base_package.html>`_, contains code for the geometry of parts, and how those parts relate to each other.
 
 The "geometry of parts" is defined as:
