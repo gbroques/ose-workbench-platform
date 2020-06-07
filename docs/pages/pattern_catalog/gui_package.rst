@@ -94,17 +94,15 @@ Every workbench contains a **command registry module** within the ``gui`` packag
 
 The command registry module is where all commands are imported, registered via ``Gui.addCommand``, and associated together into lists for adding to toolbars or menus.
 
-The command registry module name follows the pattern ``OSE-<Machine>.py``, where ``<Machine>`` is the name of the machine, with spaces delimited by dashes ``-``.
+The command registry module name follows the pattern ``OSE_<Machine>.py``, where ``<Machine>`` is the name of the machine, with spaces delimited by underscores ``_``.
 
-For example, the command registry module name for the 3D Printer workbench is named ``OSE-3D-Printer.py``.
+For example, the command registry module name for the 3D Printer workbench is named ``OSE_3D_Printer.py``.
 
-Normally python modules use all lower-case letters, and underscores ``_`` to delimit spaces, so why the deviation?
+Normally python modules use all lower-case letters, so why the deviation?
 
 FreeCAD derives a "Category" to organize commands from the name of the Python module where ``Gui.addCommand`` is called.
 
-Since all commands in the workbench are registered with ``Gui.addCommand`` in a Python module called ``OSE-3D-Printer.py``, the derived "Category" for grouping these commands is "OSE-3D-Printer".
-
-We use dashes to be consistent with other command categories like ``Standard-View`` and ``Standard-Test``.
+Since all commands in the workbench are registered with ``Gui.addCommand`` in a Python module called ``OSE_3D_Printer.py``, the derived "Category" for grouping these commands is "OSE_3D_Printer".
 
 .. image:: /_static/commands.png
 
@@ -135,10 +133,10 @@ You can see a simple and relatively complete command registry module example bas
         Register all workbench commands,
         and associate them to toolbars, menus, sub-menus, and context menu.
         """
-        add_frame_key = register(AddFrameCommand.NAME, AddFrameCommand())
-        add_heated_bed_key = register(
+        add_frame_key = _register(AddFrameCommand.NAME, AddFrameCommand())
+        add_heated_bed_key = _register(
             AddHeatedBedCommand.NAME, AddHeatedBedCommand())
-        add_extruder_key = register(AddExtruderCommand.NAME, AddExtruderCommand())
+        add_extruder_key = _register(AddExtruderCommand.NAME, AddExtruderCommand())
 
         #: Main Toolbar Commands
         main_toolbar_commands = [
@@ -149,18 +147,18 @@ You can see a simple and relatively complete command registry module example bas
         return main_toolbar_commands
 
 
-    def register(name, command):
+    def _register(name, command):
         """Register a command via Gui.addCommand.
 
         FreeCAD uses the filename where Gui.addCommand is executed as a category
         to group commands together in it's UI.
         """
-        key = from_command_name_to_key(name)
+        key = _from_command_name_to_key(name)
         Gui.addCommand(key, command)
         return key
 
 
-    def from_command_name_to_key(command_name):
+    def _from_command_name_to_key(command_name):
         return '{}_{}'.format(command_namespace, command_name)
 
 Icon Sub-package

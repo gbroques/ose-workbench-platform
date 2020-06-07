@@ -48,7 +48,7 @@ def setup(app):
 # -- Project information -----------------------------------------------------
 
 project = '{{ cookiecutter.workbench_title }}'
-copyright = '2020, {{ cookiecutter.owner_name }}'
+copyright = '{{ cookiecutter.year }}, {{ cookiecutter.owner_name }}'
 author = '{{ cookiecutter.owner_name }}'
 
 # The full version, including alpha/beta/rc tags

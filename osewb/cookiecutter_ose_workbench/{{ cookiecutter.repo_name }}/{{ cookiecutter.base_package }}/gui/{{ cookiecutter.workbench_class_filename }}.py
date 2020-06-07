@@ -20,11 +20,9 @@ class {{ cookiecutter.workbench_class_name }}(Gui.Workbench):
         """
         Executed when FreeCAD starts
         """
-        from importlib import import_module
-        command_registry = import_module(
-            '.{{ cookiecutter.command_registry_filename }}', package='{{ cookiecutter.base_package }}.gui')
+        import {{ cookiecutter.base_package }}.gui.{{ cookiecutter.command_registry_filename }} as registry
 
-        main_toolbar, main_menu = command_registry.register_commands()
+        main_toolbar, main_menu = registry.register_commands()
 
         self.appendToolbar('{{ cookiecutter.machine_title }}', main_toolbar)
         self.appendMenu('{{ cookiecutter.machine_title }}', main_menu)

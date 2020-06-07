@@ -28,10 +28,6 @@ conf = {
         # https://www.sphinx-doc.org/en/master/man/sphinx-apidoc.html
         'sphinx.ext.apidoc',
 
-        # Generate autodoc summaries
-        # https://www.sphinx-doc.org/en/master/usage/extensions/autosummary.html
-        'sphinx.ext.autosummary',
-
         # Helps with having many external links that point to the OSE Wiki.
         # https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html
         'sphinx.ext.extlinks',
@@ -61,6 +57,9 @@ conf = {
             'extlinks': {
                 'osewikipage': (
                     'https://wiki.opensourceecology.org/wiki/%s', ''
+                ),
+                'freecadwikipage': (
+                    'https://wiki.freecadweb.org/%s', ''
                 )
             }
         }

@@ -1,10 +1,10 @@
 
 osewb.docs
 ==========
-
-
-.. autosummary::
-    osewb.docs.conf
+.. automodule:: osewb.docs
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 
 conf

@@ -1,22 +1,15 @@
 
 osewb
 =====
+.. automodule:: osewb
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 .. toctree::
    :maxdepth: 1
 
    osewb.docs
-
-
-
-.. autosummary::
-    osewb.check_for_executable_in_path
-
-    osewb.find_base_package
-
-    osewb.generate_property_tables
-
-    osewb.osewb
 
 
 check_for_executable_in_path
