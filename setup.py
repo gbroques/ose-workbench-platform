@@ -26,7 +26,7 @@ setup(
         # | Source Requirements |
         # -----------------------
         'cookiecutter==1.7.2',
-        'jinja2-time==0.2.0'
+        'jinja2-time==0.2.0',
         'docker==4.2.0',
 
         # ---------------------
