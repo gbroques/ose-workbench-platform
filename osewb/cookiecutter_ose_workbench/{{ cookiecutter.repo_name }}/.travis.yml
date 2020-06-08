@@ -4,7 +4,7 @@ python:
 services:
     - docker
 install:
-    - docker build -t ose-workbench-platform https://github.com/gbroques/ose-workbench-platform.git#v0.1.0a11:osewb
+    - docker build -t ose-workbench-platform https://github.com/gbroques/ose-workbench-platform.git#v0.1.0a12:osewb
     - docker run --name {{ cookiecutter.base_package }} --detach --volume $(pwd):/var/app ose-workbench-platform
 script:
     - docker exec -it {{ cookiecutter.base_package }} pytest --cov {{ cookiecutter.base_package }}/app test/
