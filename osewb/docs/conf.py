@@ -44,10 +44,7 @@ conf = {
             # and break the build process.
             # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_mock_imports
             'autodoc_mock_imports': [
-                'FreeCAD',
-                'FreeCADGui',
-                'Part',
-                'PySide'
+                'FreeCADGui'
             ]
         },
         'extlinks': {

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Script to generate CSV files,
 documenting the custom properties of model objects in a tabular format.
@@ -10,8 +10,6 @@ Assumptions:
     * Assumes models classes only have one required argument in the constructor
       which is the Part::FeaturePython document object.
 """
-from __future__ import print_function
-
 import csv
 import importlib
 import os
