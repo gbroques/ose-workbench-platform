@@ -1,8 +1,12 @@
 FROM ubuntu:18.04
 
-RUN useradd -m docker --uid=1000
-# Set password of docker user to "docker"
-RUN echo "docker:docker" | chpasswd
+ARG USER=docker
+ARG UID=1000
+ARG GID=1000
+ARG PASSWORD=docker
+
+RUN useradd -m $USER --uid=$UID
+RUN echo "$USER:$PASSWORD" | chpasswd
 
 RUN apt-get update && \
     apt-get install --yes --no-install-recommends \
@@ -44,7 +48,7 @@ ENV PYTHONPATH=/usr/lib/freecad/lib/
 RUN ln -s /usr/lib/freecad/Mod /usr/lib/freecad-python3/Mod
 RUN ln -s /usr/lib/freecad/Ext /usr/lib/freecad-python3/Ext
 
-USER 1000:1000
+USER $UID:$GID
 
 # Keep container running
 CMD tail -f /dev/null

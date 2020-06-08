@@ -1,0 +1,12 @@
+language: python
+python:
+  - '3.6'
+services:
+    - docker
+install:
+    - docker build -t ose-workbench-platform --build-arg USER=$USER --build-arg UID=$(id -u) --build-arg GID=$(id -g) ./osewb
+    - docker run --name osewb --detach --volume $(pwd):/var/app ose-workbench-platform
+script:
+    - docker exec -it osewb pytest --cov osewb/ test/
+after_success:
+    - docker exec -e TRAVIS="$TRAVIS" -e TRAVIS_JOB_ID="$TRAVIS_JOB_ID" -e TRAVIS_BRANCH="$TRAVIS_BRANCH" -e TRAVIS_PULL_REQUEST="$TRAVIS_PULL_REQUEST" osewb coveralls
