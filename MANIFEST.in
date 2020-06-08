@@ -5,3 +5,4 @@ include *.md
 include LICENSE
 
 include osewb/Dockerfile
+include osewb/test-requirements.txt
