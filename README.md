@@ -1,5 +1,5 @@
 # OSE Workbench Platform
-[![PyPI version](https://badge.fury.io/py/ose-workbench-platform.svg)](https://badge.fury.io/py/ose-workbench-platform)
+[![PyPI version](https://badge.fury.io/py/ose-workbench-platform.svg)](https://badge.fury.io/py/ose-workbench-platform) [![Build Status](https://travis-ci.org/gbroques/ose-workbench-platform.svg?branch=master)](https://travis-ci.org/gbroques/ose-workbench-platform) [![Coverage Status](https://coveralls.io/repos/github/gbroques/ose-workbench-platform/badge.svg?branch=master)](https://coveralls.io/github/gbroques/ose-workbench-platform?branch=fix-travis)
 
 * [Introduction](#introduction)
 * [Pre-Requisites](#pre-requisites)
