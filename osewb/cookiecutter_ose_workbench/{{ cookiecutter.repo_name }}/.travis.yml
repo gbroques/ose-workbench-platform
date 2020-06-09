@@ -4,9 +4,24 @@ python:
 services:
     - docker
 install:
-    - docker build -t ose-workbench-platform https://github.com/gbroques/ose-workbench-platform.git#v0.1.0a14:osewb
-    - docker run --name {{ cookiecutter.base_package }} --detach --volume $(pwd):/var/app ose-workbench-platform
+    - >
+      docker build --tag ose-workbench-platform
+      --build-arg USER=$USER
+      --build-arg UID=$(id -u)
+      --build-arg GID=$(id -g)
+      https://github.com/gbroques/ose-workbench-platform.git#v0.1.0a14:osewb
+    - >
+      docker run --name {{ cookiecutter.base_package }}
+      --detach
+      --volume $(pwd):/var/app
+      ose-workbench-platform
 script:
     - docker exec -it {{ cookiecutter.base_package }} pytest --cov {{ cookiecutter.base_package }}/app test/
 after_success:
-    - docker exec -e TRAVIS="$TRAVIS" -e TRAVIS_JOB_ID="$TRAVIS_JOB_ID" -e TRAVIS_BRANCH="$TRAVIS_BRANCH" -e TRAVIS_PULL_REQUEST="$TRAVIS_PULL_REQUEST" {{ cookiecutter.base_package }} coveralls
+    - >
+      docker exec
+      -e TRAVIS="$TRAVIS"
+      -e TRAVIS_JOB_ID="$TRAVIS_JOB_ID"
+      -e TRAVIS_BRANCH="$TRAVIS_BRANCH"
+      -e TRAVIS_PULL_REQUEST="$TRAVIS_PULL_REQUEST"
+      {{ cookiecutter.base_package }} coveralls
