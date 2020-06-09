@@ -6,6 +6,11 @@ osewb.docs
    :undoc-members:
    :show-inheritance:
 
+.. toctree::
+   :maxdepth: 1
+
+   osewb.docs.ext
+
 
 conf
 ----

@@ -29,10 +29,24 @@ def run_apidoc(app):
         '--force',
         '--no-toc'
     ])
+    apidoc.main([
+        './examples',
+        '-o', 'osewb/examples',
+        '-d', max_depth,
+        '--templatedir=_templates/',
+        '--force',
+        '--no-toc'
+    ])
+
+
+def process_docstring(app, what, name, obj, options, lines):
+    if what == 'class' and name.endswith('Model'):
+        lines.append('.. model-property-table::')
 
 
 def setup(app):
     app.connect('builder-inited', run_apidoc)
+    app.connect('autodoc-process-docstring', process_docstring)
 
 
 # -- Project information -----------------------------------------------------
@@ -58,7 +72,8 @@ extensions = [
     # https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html
     'sphinx.ext.extlinks',
     # Allows embedding Graphviz graphs in your documents.
-    'sphinx.ext.graphviz'
+    'sphinx.ext.graphviz',
+    'osewb.docs.ext.model_property_table'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -76,10 +91,7 @@ add_module_names = False
 
 # -- Auto-doc Options --------------------------------------------------------
 autodoc_mock_imports = [
-    'FreeCAD',
-    'FreeCADGui',
-    'Part',
-    'PySide'
+    'FreeCADGui'
 ]
 
 # -- Options for HTML output -------------------------------------------------

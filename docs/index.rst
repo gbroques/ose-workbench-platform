@@ -53,6 +53,12 @@ Every workbench should follow the above standards and guidelines to make working
 
    osewb/osewb
 
+.. toctree::
+   :maxdepth: 1
+   :caption: osewb.doc.ext examples
+
+   osewb/examples/examples
+
 Indices and tables
 ==================
 
