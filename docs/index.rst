@@ -46,9 +46,6 @@ Every workbench should follow the above standards and guidelines to make working
    pages/pattern_catalog/attachment_functions
    pages/pattern_catalog/gui_package
    pages/pattern_catalog/command_classes
-   pages/pattern_catalog/breakdown_strategy
-   pages/pattern_catalog/branching_and_workflow_strategy
-   pages/pattern_catalog/versioning
 
 .. toctree::
    :maxdepth: 1
