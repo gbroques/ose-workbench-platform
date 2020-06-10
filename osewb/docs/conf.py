@@ -33,7 +33,11 @@ conf = {
         'sphinx.ext.extlinks',
 
         # Enables localization of theme strings in translated output
-        'sphinx_rtd_theme'
+        'sphinx_rtd_theme',
+
+        # Custom OSE Workbench Sphinx Extensions
+        # See respective docstring
+        'osewb.docs.ext.model_property_table'
     ],
 
     # Base configuration for the above Sphinx extensions
