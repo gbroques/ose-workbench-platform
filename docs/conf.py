@@ -15,6 +15,10 @@ import sys
 
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
+# Add lib folder of conda env to sys.path for building docs on Read the Docs
+# and importing FreeCAD
+sys.path.append(os.path.join(
+    os.environ['CONDA_ENVS_PATH'], os.environ['CONDA_DEFAULT_ENV'], 'lib'))
 
 
 def run_apidoc(app):
