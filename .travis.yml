@@ -17,7 +17,7 @@ install:
       --volume $(pwd):/var/app
       ose-workbench-platform
 script:
-    - docker exec -it osewb pytest --cov osewb/ test/
+    - docker exec -it osewb pytest --cov osewb/ tests/
 after_success:
     - >
       docker exec

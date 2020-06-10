@@ -30,7 +30,7 @@ def main() -> None:
             test_command = 'docker exec -it {} pytest'
             if with_coverage:
                 test_command += ' --cov {}/app'.format(base_package)
-            test_command += ' ./test'
+            test_command += ' ./tests'
             execute_command_in_docker_container(test_command, base_package)
             if with_coverage:
                 coverage_report_cmd = 'docker exec -it {} coverage html'

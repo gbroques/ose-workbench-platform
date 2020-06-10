@@ -16,7 +16,7 @@ install:
       --volume $(pwd):/var/app
       ose-workbench-platform
 script:
-    - docker exec -it {{ cookiecutter.base_package }} pytest --cov {{ cookiecutter.base_package }}/app test/
+    - docker exec -it {{ cookiecutter.base_package }} pytest --cov {{ cookiecutter.base_package }}/app tests/
 after_success:
     - >
       docker exec
