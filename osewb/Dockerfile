@@ -31,10 +31,6 @@ RUN apt-get update && \
 WORKDIR /var/app
 COPY ./test-requirements.txt ./
 
-# For generate_property_tables script
-COPY ./generate_property_tables.py /usr/bin/
-RUN chmod +x /usr/bin/generate_property_tables.py
-
 # Install test dependencies with Python 2.7
 RUN python3 -m pip install -r test-requirements.txt
 

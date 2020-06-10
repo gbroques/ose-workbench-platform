@@ -40,8 +40,6 @@ def main() -> None:
                 print('To view, open htmlcov/index.html in a web browser.')
         elif command == 'docs':
             execute_command_in_docker_container(
-                'docker exec -it {} generate_property_tables.py ' + base_package, base_package)
-            execute_command_in_docker_container(
                 'docker exec --workdir /var/app/docs -it {} rm -rf ./_build', base_package)
             clean_cmd = 'docker exec --workdir /var/app/docs -it {} rm -rf ' + base_package
             execute_command_in_docker_container(clean_cmd, base_package)
