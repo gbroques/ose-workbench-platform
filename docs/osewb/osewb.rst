@@ -28,14 +28,6 @@ find_base_package
    :show-inheritance:
 
 
-generate_property_tables
-------------------------
-.. automodule:: osewb.generate_property_tables
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
 osewb
 -----
 .. automodule:: osewb.osewb

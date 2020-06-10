@@ -30,4 +30,13 @@ For example, extending our ``Box`` part class to make the length and width edita
 
 The constructor or ``__init__`` method initializes the parameteric properties, and the ``execute`` method handles the construction of the geometry.
 
+Colloquially known in the FreeCAD community as `FeaturePython Objects <https://wiki.freecadweb.org/FeaturePython_Objects>`_ or `Scripted Objects <https://wiki.freecadweb.org/Scripted_objects>`_, we choose the name "model" as we believe the terms "feature python object" or "scripted object" are not accurate enough and are potentially misleading.
+
+Additionally, model classes handle **serialization**, or saving and restoring data through ``App::Property`` objects. This is a similar role to what some frameworks call a **Data Transfer Object (DTO)**.
+
+Model objects are saved in `FreeCAD .FcStd files <https://wiki.freecadweb.org/File_Format_FCStd>`_ with Python's ``json`` module.
+
+The ``json`` module transforms the model object into **JSON** (a string with a special format) for persisting the object to disk.
+Upon loading FreeCAD, the ``json`` module uses that string to recreate the original object, provided it has access to the source code that created the object.
+
 For additional information, see the FreeCAD Wiki on `FeaturePython Objects <https://wiki.freecadweb.org/FeaturePython_Objects>`_ and `Scripted Objects <https://wiki.freecadweb.org/Scripted_objects>`_.
