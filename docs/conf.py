@@ -56,7 +56,7 @@ copyright = '2020, G Roques'
 author = 'G Roques'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.0a16'
+release = '0.1.0a17'
 
 
 # -- General configuration ---------------------------------------------------
