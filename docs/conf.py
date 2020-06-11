@@ -17,8 +17,11 @@ sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
 # Add lib folder of conda env to sys.path for building docs on Read the Docs
 # and importing FreeCAD
-sys.path.append(os.path.join(
-    os.environ['CONDA_ENVS_PATH'], os.environ['CONDA_DEFAULT_ENV'], 'lib'))
+on_read_the_dcs = os.environ.get('READTHEDOCS') == 'True'
+if on_read_the_dcs:
+    conda_lib_path = os.path.join(
+        os.environ['CONDA_ENVS_PATH'], os.environ['CONDA_DEFAULT_ENV'], 'lib')
+    sys.path.append(conda_lib_path)
 
 
 def run_apidoc(app):
@@ -45,7 +48,7 @@ def run_apidoc(app):
 
 def process_docstring(app, what, name, obj, options, lines):
     if what == 'class' and name.endswith('Model'):
-        lines.append('.. model-property-table::')
+        lines.append('.. fc-custom-property-table::')
 
 
 def setup(app):
@@ -77,7 +80,7 @@ extensions = [
     'sphinx.ext.extlinks',
     # Allows embedding Graphviz graphs in your documents.
     'sphinx.ext.graphviz',
-    'osewb.docs.ext.model_property_table'
+    'osewb.docs.ext.freecad_custom_property_table'
 ]
 
 # Add any paths that contain templates here, relative to this directory.

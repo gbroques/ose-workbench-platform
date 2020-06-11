@@ -5,8 +5,11 @@ import sys
 
 # Add lib folder of conda env to sys.path for building docs on Read the Docs
 # and importing FreeCAD
-sys.path.append(os.path.join(
-    os.environ['CONDA_ENVS_PATH'], os.environ['CONDA_DEFAULT_ENV'], 'lib'))
+on_read_the_dcs = os.environ.get('READTHEDOCS') == 'True'
+if on_read_the_dcs:
+    conda_lib_path = os.path.join(
+        os.environ['CONDA_ENVS_PATH'], os.environ['CONDA_DEFAULT_ENV'], 'lib')
+    sys.path.append(conda_lib_path)
 
 # Configuration for Sphinx Python Documentation Generator
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
@@ -44,7 +47,7 @@ conf = {
 
         # Custom OSE Workbench Sphinx Extensions
         # See respective docstring
-        'osewb.docs.ext.model_property_table'
+        'osewb.docs.ext.freecad_custom_property_table'
     ],
 
     # Base configuration for the above Sphinx extensions

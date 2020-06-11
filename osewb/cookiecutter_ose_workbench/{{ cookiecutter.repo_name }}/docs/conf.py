@@ -43,7 +43,7 @@ def run_apidoc(app):
 
 def process_docstring(app, what, name, obj, options, lines):
     if what == 'class' and name.endswith('Model'):
-        lines.append('.. model-property-table::')
+        lines.append('.. fc-custom-property-table::')
 
 
 def setup(app):

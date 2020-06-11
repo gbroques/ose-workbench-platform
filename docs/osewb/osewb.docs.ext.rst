@@ -7,9 +7,9 @@ osewb.docs.ext
    :show-inheritance:
 
 
-model_property_table
---------------------
-.. automodule:: osewb.docs.ext.model_property_table
+freecad_custom_property_table
+-----------------------------
+.. automodule:: osewb.docs.ext.freecad_custom_property_table
    :members:
    :undoc-members:
    :show-inheritance:
