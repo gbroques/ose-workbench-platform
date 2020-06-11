@@ -41,8 +41,14 @@ def run_apidoc(app):
     ])
 
 
+def process_docstring(app, what, name, obj, options, lines):
+    if what == 'class' and name.endswith('Model'):
+        lines.append('.. model-property-table::')
+
+
 def setup(app):
     app.connect('builder-inited', run_apidoc)
+    app.connect('autodoc-process-docstring', process_docstring)
 
 
 # -- Project information -----------------------------------------------------

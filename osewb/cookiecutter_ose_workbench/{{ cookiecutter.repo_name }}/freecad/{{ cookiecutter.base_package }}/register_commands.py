@@ -27,14 +27,6 @@ def register_commands():
 
 
 def _register(name, command):
-    """Register a command via Gui.addCommand.
-    FreeCAD uses the filename where Gui.addCommand is executed as a category
-    to group commands together in it's UI.
-    """
-    key = _from_command_name_to_key(name)
+    key = '{}_{}'.format(command_namespace, name)
     Gui.addCommand(key, command)
     return key
-
-
-def _from_command_name_to_key(command_name):
-    return '{}_{}'.format(command_namespace, command_name)

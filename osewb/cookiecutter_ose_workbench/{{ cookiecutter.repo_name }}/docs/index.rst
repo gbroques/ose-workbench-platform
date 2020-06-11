@@ -7,7 +7,7 @@ For more information on codebase conventions and patterns, see the `OSE Workbenc
 
 .. toctree::
    :maxdepth: 2
-   :caption: Base Package
+   :caption: Library Package
 
    {{ cookiecutter.base_package }}/{{ cookiecutter.base_package }}
 

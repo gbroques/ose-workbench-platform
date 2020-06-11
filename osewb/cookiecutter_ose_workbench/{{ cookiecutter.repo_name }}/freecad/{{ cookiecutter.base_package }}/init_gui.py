@@ -1,28 +1,24 @@
 import FreeCAD as App
 import FreeCADGui as Gui
 
+from .icon import get_icon_path
+from .register_commands import register_commands
+
 
 class {{ cookiecutter.workbench_class_name }}(Gui.Workbench):
     """
     {{ cookiecutter.machine_display_name }} Workbench
     """
-
-    def __init__(self):
-        from .icon import get_icon_path
-
-        cls = self.__class__
-        cls.MenuText = '{{ cookiecutter.machine_title }}'
-        cls.ToolTip = \
-            'A workbench for designing {{ cookiecutter.machine_display_name }} machines by Open Source Ecology'
-        cls.Icon = get_icon_path('Box.svg')
+    MenuText = '{{ cookiecutter.machine_title }}'
+    ToolTip = \
+        'A workbench for designing {{ cookiecutter.machine_display_name }} machines by Open Source Ecology'
+    Icon = get_icon_path('Box.svg')
 
     def Initialize(self):
         """
         Executed when FreeCAD starts
         """
-        import {{ cookiecutter.base_package }}.gui.{{ cookiecutter.command_registry_filename }} as registry
-
-        main_toolbar, main_menu = registry.register_commands()
+        main_toolbar, main_menu = register_commands()
 
         self.appendToolbar('{{ cookiecutter.machine_title }}', main_toolbar)
         self.appendMenu('{{ cookiecutter.machine_title }}', main_menu)
@@ -42,3 +38,6 @@ class {{ cookiecutter.workbench_class_name }}(Gui.Workbench):
 
     def GetClassName(self):
         return 'Gui::PythonWorkbench'
+
+
+Gui.addWorkbench({{ cookiecutter.workbench_class_name }}())

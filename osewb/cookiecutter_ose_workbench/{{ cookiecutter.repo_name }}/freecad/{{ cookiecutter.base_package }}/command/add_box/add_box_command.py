@@ -1,7 +1,7 @@
 import FreeCAD as App
 import Part
-from {{ cookiecutter.base_package }}.app.part import Box
-from {{ cookiecutter.base_package }}.gui.icon import get_icon_path
+from freecad.{{ cookiecutter.base_package }}.icon import get_icon_path
+from {{ cookiecutter.base_package }}.part import Box
 
 
 class AddBoxCommand:

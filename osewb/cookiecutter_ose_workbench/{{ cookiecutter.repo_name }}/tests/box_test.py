@@ -2,7 +2,7 @@ import unittest
 
 # Need to import FreeCAD
 import FreeCAD as App
-from {{ cookiecutter.base_package }}.app.part import Box
+from {{ cookiecutter.base_package }}.part import Box
 
 
 class BoxTest(unittest.TestCase):
