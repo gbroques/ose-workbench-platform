@@ -47,7 +47,8 @@ conf = {
 
         # Custom OSE Workbench Sphinx Extensions
         # See respective docstring
-        'osewb.docs.ext.freecad_custom_property_table'
+        'osewb.docs.ext.freecad_custom_property_table',
+        'osewb.docs.ext.freecad_icon'
     ],
 
     # Base configuration for the above Sphinx extensions
@@ -72,6 +73,9 @@ conf = {
                 'freecadwikipage': (
                     'https://wiki.freecadweb.org/%s', ''
                 )
+            },
+            'freecad_custom_property_table': {
+                'remove_app_property_prefix_from_type': True
             }
         }
     }
