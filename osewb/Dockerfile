@@ -36,7 +36,7 @@ RUN python3 -m pip install -r test-requirements.txt
 
 # Install ose-workbench-platform for building docs inside container
 # Typical docs/conf.py files import osewb.docs for standard base configuration
-RUN python3 -m pip install ose-workbench-platform==0.1.0a17
+RUN python3 -m pip install ose-workbench-platform==0.1.0a18
 
 # To give acess to FreeCAD in Python
 ENV PYTHONPATH=/usr/lib/freecad/lib/
