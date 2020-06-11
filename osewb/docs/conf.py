@@ -1,5 +1,12 @@
 """Shared base configuration for OSE workbench documentation.
 """
+import os
+import sys
+
+# Add lib folder of conda env to sys.path for building docs on Read the Docs
+# and importing FreeCAD
+sys.path.append(os.path.join(
+    os.environ['CONDA_ENVS_PATH'], os.environ['CONDA_DEFAULT_ENV'], 'lib'))
 
 # Configuration for Sphinx Python Documentation Generator
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
