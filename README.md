@@ -1,5 +1,7 @@
 # OSE Workbench Platform
-[![PyPI version](https://badge.fury.io/py/ose-workbench-platform.svg)](https://badge.fury.io/py/ose-workbench-platform) [![Build Status](https://travis-ci.org/gbroques/ose-workbench-platform.svg?branch=master)](https://travis-ci.org/gbroques/ose-workbench-platform) [![Coverage Status](https://coveralls.io/repos/github/gbroques/ose-workbench-platform/badge.svg?branch=master)](https://coveralls.io/github/gbroques/ose-workbench-platform?branch=fix-travis)
+[![PyPI version](https://badge.fury.io/py/ose-workbench-platform.svg)](https://badge.fury.io/py/ose-workbench-platform)
+[![Build Status](https://travis-ci.org/gbroques/ose-workbench-platform.svg?branch=master)](https://travis-ci.org/gbroques/ose-workbench-platform)
+[![Coverage Status](https://coveralls.io/repos/github/gbroques/ose-workbench-platform/badge.svg?branch=master)](https://coveralls.io/github/gbroques/ose-workbench-platform?branch=fix-travis)
 
 * [Introduction](#introduction)
 * [Pre-Requisites](#pre-requisites)
@@ -183,7 +185,7 @@ Navigate to where you want to initialize a directory for your new workbench. The
 Where `<machine_display_name>` is the name of the machine in **Title Case**. If this contains spaces, then surround the value in double-quotes `""`.
 
 ```
-$ osewb init Tractor
+$ osewb init Tractor ↵
 Workbench initialized in "ose-tractor-workbench" directory.
 
 Next, change directories and initialize the git repository:
@@ -194,7 +196,7 @@ Next, change directories and initialize the git repository:
 The above examples initializes a new workbench, in a `ose-tractor-workbench` directory, with the basic structure and files needed.
 
 ```
-$ tree ose-tractor-workbench --dirsfirst
+$ tree ose-tractor-workbench --dirsfirst ↵
 ose-tractor-workbench
 ├── docs
 │   ├── _static

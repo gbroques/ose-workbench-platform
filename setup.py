@@ -14,7 +14,7 @@ setup(
     long_description_content_type='text/markdown',
     url='https://github.com/gbroques/ose-workbench-platform',
     author='G Roques',
-    version='0.1.0a18',
+    version='0.1.0a19',
     packages=['osewb', 'osewb.docs', 'osewb.docs.ext'],
     include_package_data=True,
     entry_points={
