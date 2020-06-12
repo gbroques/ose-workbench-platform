@@ -163,59 +163,81 @@ For additional information, see [sphinx-build](https://www.sphinx-doc.org/en/mas
 ### init
 OSE Workbench Platform includes a `init` command for initializing a new workbench.
 
+```
+$ osewb init -h ↵
+usage: osewb init <machine_display_name>
+
+positional arguments:
+  machine_display_name  Name of machine in title-case. Surround in double-
+                        quotes if name contains spaces (e.g. "CEB Brick
+                        Press")
+
+optional arguments:
+  -h, --help            show this help message and exit
+```
+
 Navigate to where you want to initialize a directory for your new workbench. Then run:
 
-    osewb init
+    osewb init <machine_display_name>
 
-You'll be prompted to enter the machine name in **Title Case**.
-```
-machine_display_name [CEB Brick Press]: Tractor ↵
-```
-
-Then, you'll be prompted for several more values.
-
-Each successive prompt derives it's default value from answers to previous prompts.
-
-You can press the <kbd>Enter</kbd> key for most prompts to stick with the defaults.
-```
-repo_name [ose-tractor-workbench]: ↵
-machine_title [OSE Tractor]: ↵
-workbench_title [OSE Tractor Workbench]: ↵
-base_package [osetractor]: ↵
-command_registry_filename [OSE-Tractor]: ↵
-command_namespace [OSETractor]: ↵
-workbench_class_filename [tractor_workbench]: ↵
-workbench_class_name [TractorWorkbench]: ↵
-```
-
-The above examples initializes a new workbench, in a `ose-tractor-workbench` directory, with the basic structure and files needed for the workbench.
+Where `<machine_display_name>` is the name of the machine in **Title Case**. If this contains spaces, then surround the value in double-quotes `""`.
 
 ```
+$ osewb init Tractor
+Workbench initialized in "ose-tractor-workbench" directory.
+
+Next, change directories and initialize the git repository:
+
+    cd ose-tractor-workbench && git init
+```
+
+The above examples initializes a new workbench, in a `ose-tractor-workbench` directory, with the basic structure and files needed.
+
+```
+$ tree ose-tractor-workbench --dirsfirst
 ose-tractor-workbench
-    ├── InitGui.py
-    ├── osetractor
-    │   ├── app
-    │   │   ├── __init__.py
-    │   │   └── part
-    │   │       ├── box
-    │   │       │   ├── box.py
-    │   │       │   └── __init__.py
-    │   │       └── __init__.py
-    │   ├── gui
-    │   │   ├── command
-    │   │   │   ├── add_box
-    │   │   │   │   ├── add_box_command.py
-    │   │   │   │   └── __init__.py
-    │   │   │   └── __init__.py
-    │   │   ├── icon
-    │   │   │   ├── Box.svg
-    │   │   │   └── __init__.py
-    │   │   ├── __init__.py
-    │   │   ├── OSE-Tractor.py
-    │   │   └── tractor_workbench.py
-    │   └── __init__.py
-    └── README.md
+├── docs
+│   ├── _static
+│   ├── _templates
+│   │   ├── package.rst_t
+│   │   └── toc.rst_t
+│   ├── conf.py
+│   ├── index.rst
+│   └── requirements.txt
+├── freecad
+│   └── osetractor
+│       ├── command
+│       │   ├── add_box
+│       │   │   ├── add_box_command.py
+│       │   │   └── __init__.py
+│       │   └── __init__.py
+│       ├── icon
+│       │   ├── Box.svg
+│       │   └── __init__.py
+│       ├── init_gui.py
+│       ├── __init__.py
+│       └── register_commands.py
+├── osetractor
+│   ├── part
+│   │   ├── box
+│   │   │   ├── box.py
+│   │   │   └── __init__.py
+│   │   └── __init__.py
+│   └── __init__.py
+├── tests
+│   ├── box_test.py
+│   └── __init__.py
+├── CONTRIBUTING.md
+├── environment.yml
+├── LICENSE
+├── MANIFEST.in
+├── README.md
+└── setup.py
+
+12 directories, 25 files
 ```
+
+For more information, see the [Pattern Catalog](https://ose-workbench-platform.readthedocs.io/en/latest/) in the docs.
 
 ![OSE Tractor Workbench](./ose-tractor-workbench.png)
 

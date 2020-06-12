@@ -28,8 +28,28 @@ def find_root_of_git_repository() -> Union[str, None]:
     :return: path to root of git repository
     :rtype: str
     """
+    return exec_git_command('git rev-parse --show-toplevel')
+
+
+def find_git_user_name() -> Union[str, None]:
+    """Find the user name defined by git config.
+
+    :return: Git user name
+    :rtype: str
+    """
+    return exec_git_command('git config user.name')
+
+
+def exec_git_command(git_command) -> Union[str, None]:
+    """Find the root of the current git repository.
+    Returns None if there's an error, or not in a git repository.
+
+    :param git_command: git command string
+    :return: path to root of git repository
+    :rtype: str
+    """
     check_for_executable_in_path('git')
-    pipe = os.popen('git rev-parse --show-toplevel')
+    pipe = os.popen(git_command)
     output = pipe.read().strip()
     if pipe.close() is not None:
         return None

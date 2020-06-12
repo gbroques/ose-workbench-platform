@@ -9,14 +9,32 @@ import docker
 from cookiecutter.main import cookiecutter
 
 from .check_for_executable_in_path import check_for_executable_in_path
-from .find_base_package import find_base_package, find_root_of_git_repository
+from .find_base_package import (find_base_package, find_git_user_name,
+                                find_root_of_git_repository)
 
 
 def main() -> None:
     command, args = _parse_command()
     if command == 'init':
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        cookiecutter(os.path.join(dir_path, 'cookiecutter_ose_workbench'))
+        machine_display_name = args['machine_display_name']
+        git_user_name = find_git_user_name()
+        if not git_user_name:
+            print('Must configure your git user name:\n')
+            print('    git config --global user.name "FIRST_NAME LAST_NAME"\n')
+            print('This is used for the owner name throughout the workbench.')
+            return
+        cookiecutter(os.path.join(dir_path, 'cookiecutter_ose_workbench'),
+                     no_input=True,
+                     extra_context={
+                         'machine_display_name': machine_display_name,
+                         'owner_name': git_user_name})
+        slugified_machine_name = machine_display_name.lower().replace(' ', '-')
+        repo_name = 'ose-{}-workbench'.format(slugified_machine_name)
+        print('Workbench initialized in "{}" directory.\n'.format(repo_name))
+        print('Next, change directories and initialize the git repository:\n'.format(
+            repo_name))
+        print('    cd {} && git init\n'.format(repo_name))
     elif command == 'test' or command == 'docs':
         check_for_executable_in_path('docker')
         base_package = find_base_package()
@@ -185,7 +203,10 @@ def _parse_command() -> str:
                                         usage='osewb docs')
     init_parser = subparsers.add_parser('init',
                                         help='Initialize new workbench',
-                                        usage='osewb init')
+                                        usage='osewb init <machine_display_name>')
+    init_parser.add_argument('machine_display_name',
+                             type=str,
+                             help='Name of machine in title-case. Surround in double-quotes if name contains spaces (e.g. "CEB Brick Press")')
     browse_parser = subparsers.add_parser('browse',
                                           help='Commands for opening documents in a web browser',
                                           usage='osewb browse <command>')
