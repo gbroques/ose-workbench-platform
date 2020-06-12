@@ -73,10 +73,10 @@ conf = {
                 'freecadwikipage': (
                     'https://wiki.freecadweb.org/%s', ''
                 )
-            },
-            'freecad_custom_property_table': {
-                'remove_app_property_prefix_from_type': True
             }
+        },
+        'freecad_custom_property_table': {
+            'remove_app_property_prefix_from_type': True
         }
     }
 }
