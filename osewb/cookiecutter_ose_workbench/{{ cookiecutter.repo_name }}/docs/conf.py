@@ -41,14 +41,8 @@ def run_apidoc(app):
     ])
 
 
-def process_docstring(app, what, name, obj, options, lines):
-    if what == 'class' and name.endswith('Model'):
-        lines.append('.. fc-custom-property-table::')
-
-
 def setup(app):
     app.connect('builder-inited', run_apidoc)
-    app.connect('autodoc-process-docstring', process_docstring)
 
 
 # -- Project information -----------------------------------------------------
@@ -83,6 +77,10 @@ add_module_names = conf['add_module_names']
 
 # -- Auto-doc Options --------------------------------------------------------
 autodoc_mock_imports = conf['ext']['autodoc']['autodoc_mock_imports']
+
+# -- FreeCAD Custom Property Table Options -----------------------------------
+remove_app_property_prefix_from_type = conf['ext'][
+    'freecad_custom_property_table']['remove_app_property_prefix_from_type']
 
 # -- Options for HTML output -------------------------------------------------
 

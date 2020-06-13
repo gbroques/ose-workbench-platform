@@ -1,5 +1,6 @@
-name: {{ cookiecutter.repo_name }}
+name: {{ cookiecutter.base_package }}
 channels:
-    - conda-forge
+  - conda-forge
+  - gbroques
 dependencies:
-    - freecad=0.18.4
+  - ose-workbench-platform==0.1.0a19

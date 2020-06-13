@@ -23,7 +23,6 @@ requirements:
     # Source Dependencies
     # -------------------
     - cookiecutter ==1.7.2
-    - docker-py ==4.2.0
     - jinja2-time ==0.2.0
     - pip
     - python
@@ -49,7 +48,6 @@ requirements:
     # Source Dependencies
     # -------------------
     - cookiecutter ==1.7.2
-    - docker-py ==4.2.0
     - jinja2-time ==0.2.0
     - pip
     - python

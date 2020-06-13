@@ -4,12 +4,9 @@ import argparse
 import os
 import pathlib
 import webbrowser
-from typing import List, Union
 
-import docker
 from cookiecutter.main import cookiecutter
 
-from .check_for_executable_in_path import check_for_executable_in_path
 from .find_base_package import (find_base_package, find_git_user_name,
                                 find_root_of_git_repository)
 
@@ -37,33 +34,39 @@ def main() -> None:
             repo_name))
         print('    cd {} && git init\n'.format(repo_name))
     elif command == 'test' or command == 'docs':
-        check_for_executable_in_path('docker')
+        root_of_git_repository = find_root_of_git_repository()
+        if root_of_git_repository is None:
+            return
         base_package = find_base_package()
         if base_package is None:
             return None
-        container_name = find_workbench_container(base_package)
-        if container_name is None:
-            return None
         if command == 'test':
             with_coverage = args['coverage']
-            test_command = 'docker exec -it {} pytest'
+            test_command = 'pytest'
             if with_coverage:
-                test_command += ' --cov {}/app'.format(base_package)
-            test_command += ' ./tests'
-            execute_command_in_docker_container(test_command, base_package)
+                test_command += ' --cov {}'.format(base_package)
+            test_dir = os.path.join(root_of_git_repository, 'tests')
+            test_command += ' ' + test_dir
+            execute_command(test_command)
             if with_coverage:
-                coverage_report_cmd = 'docker exec -it {} coverage html'
-                execute_command_in_docker_container(
-                    coverage_report_cmd, base_package)
+                execute_command('coverage html')
                 print('Coverage report generated in htmlcov/ directory.')
-                print('To view, open htmlcov/index.html in a web browser.')
+                print('To view, open htmlcov/index.html in a web browser, or run:\n')
+                print('    osewb browse coverage\n')
         elif command == 'docs':
-            execute_command_in_docker_container(
-                'docker exec --workdir /var/app/docs -it {} rm -rf ./_build', base_package)
-            clean_cmd = 'docker exec --workdir /var/app/docs -it {} rm -rf ' + base_package
-            execute_command_in_docker_container(clean_cmd, base_package)
-            execute_command_in_docker_container(
-                'docker exec --workdir /var/app/docs -it {} sphinx-build . ./_build', base_package)
+            path_to_docs_dir = os.path.join(
+                root_of_git_repository, 'docs')
+            path_to_build_dir = os.path.join(
+                path_to_docs_dir, '_build')
+            path_to_sphinx_source_dir = os.path.join(
+                path_to_docs_dir, base_package)
+            execute_command('rm -rf {}'.format(path_to_build_dir))
+            execute_command('rm -rf {}'.format(path_to_sphinx_source_dir))
+            execute_command(
+                'cd {} && sphinx-build . {}'.format(path_to_docs_dir, path_to_build_dir))
+            print('Docs generated in docs/_build/ directory.')
+            print('To view, open docs/_build/index.html in a web browser, or run:\n')
+            print('    osewb browse docs\n')
     elif command == 'env':
         if args['env_command'] == 'bootstrap':
             conda_prefix = os.environ.get('CONDA_PREFIX', None)
@@ -90,50 +93,6 @@ def main() -> None:
             print('Environment bootstrapped.')
             print('To reactivate your environment, run:\n')
             print('    conda activate {}\n'.format(conda_env_name))
-    elif command == 'container':
-        image_tag = 'ose-workbench-platform'
-        if args['container_command'] == 'image':
-            print('Building {} image with the following command:\n'.format(image_tag))
-            path_to_script = os.path.dirname(os.path.abspath(__file__))
-            build_command = '    docker build --tag {} {}'.format(
-                image_tag, path_to_script)
-            print(build_command + '\n')
-            os.system(build_command)
-            print('\nBuilt {} image.\n'.format(image_tag))
-            print('To delete, or remove the image, run:\n')
-            print('    docker rmi {}\n'.format(image_tag))
-            print('To create a container from this image, run:\n')
-            print('    osewb container create\n')
-        elif args['container_command'] == 'create':
-            client = docker.from_env()
-            images = client.images.list()
-            image_tags = [tag.split(':')[0]
-                          for image in images for tag in image.tags]
-            is_platform_image_created = image_tag in image_tags
-            if not is_platform_image_created:
-                print('{} image not created.\n'.format(image_tag))
-                print('To create the {} image, run:\n'.format(image_tag))
-                print('    osewb container image\n'.format(image_tag))
-                return
-            base_package = find_base_package()
-            if base_package is not None:
-                if base_package in get_container_names(all=True):
-                    print('Container {} already created.'.format(base_package))
-                    return
-                print('Creating {} container with the following command:\n'.format(
-                    base_package))
-                repo_root = find_root_of_git_repository()
-                create_command = '    docker create --name {} --volume {}:/var/app {}'.format(
-                    base_package, repo_root, image_tag)
-                print(create_command + '\n')
-                os.system(create_command)
-                print('\nCreated {} container.\n'.format(base_package))
-                print('To delete, or remove the container, run:\n')
-                print('    docker rm {}\n'.format(base_package))
-                print('To stop the container, run:\n'.format(base_package))
-                print('    docker stop {}\n'.format(base_package))
-                print('To start the container, run:\n'.format(base_package))
-                print('    docker start {}\n'.format(base_package))
     elif command == 'browse':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
@@ -166,46 +125,10 @@ def setup_conda_environment_hook_directy(conda_etc_base_path, directory, text):
     pathlib.Path(env_vars_path).write_text(text)
 
 
-def execute_command_in_docker_container(command_template: str,
-                                        container_name: str) -> None:
-    command = command_template.format(container_name)
+def execute_command(command: str) -> None:
     print('Executing the following command:\n')
     print('    {}\n'.format(command))
     os.system(command)
-
-
-def print_multiple_containers_found_message(ose_containers: List[str]) -> None:
-    comma_delimited_containers = ', '.join(ose_containers)
-    print('Found multiple OSE containers running: {}.'.format(
-        comma_delimited_containers))
-    print('Executing command within first container: {}.'.format(
-        ose_containers[0]))
-
-
-def find_workbench_container(base_package: str) -> Union[str, None]:
-    running_container_names = get_container_names()
-    all_container_names = get_container_names(all=True)
-    potential_running_workbench_containers = [
-        name for name in running_container_names if name == base_package]
-    potential_all_workbench_containers = [
-        name for name in all_container_names if name == base_package]
-    if len(potential_running_workbench_containers) == 0:
-        print('No {} container running.'.format(base_package))
-        if len(potential_all_workbench_containers) == 0:
-            print('To create a {} container, run:\n'.format(base_package))
-            print('   osewb container create\n')
-            return None
-        else:
-            print('To start the {} container, run:\n'.format(base_package))
-            print('   docker start {}\n'.format(base_package))
-            return None
-    return potential_running_workbench_containers[0]
-
-
-def get_container_names(all: bool = False) -> List[str]:
-    client = docker.from_env()
-    containers = client.containers.list(all=all)
-    return [container.name for container in containers]
 
 
 def _parse_command() -> str:
@@ -224,18 +147,6 @@ def _parse_command() -> str:
     env_subparser.add_parser('bootstrap',
                              help='Bootstrap environment',
                              usage='osewb env bootstrap')
-    container_parser = subparsers.add_parser('container',
-                                             help='Commands for interacting with containers',
-                                             usage='osewb container <command>')
-    container_subparser = container_parser.add_subparsers(title='Commands',
-                                                          dest='container_command',
-                                                          required=True)
-    image_parser = container_subparser.add_parser('image',
-                                                  help='Build image for container',
-                                                  usage='osewb container image')
-    create_parser = container_subparser.add_parser('create',
-                                                   help='Create container -- must be in workbench repository',
-                                                   usage='osewb container create')
     test_parser = subparsers.add_parser('test',
                                         help='Run tests in workbench',
                                         usage='osewb test')

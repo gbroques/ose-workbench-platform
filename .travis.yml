@@ -11,9 +11,9 @@ install:
   - conda info --all
   - conda install --channel defaults conda-build=3.18.11 conda-verify=3.1.1
   - conda config --add channels conda-forge
-  - conda build .
-  - conda create --use-local --name ose-workbench-platform-environment ose-workbench-platform
-  - conda activate ose-workbench-platform-environment
+  - conda build --quiet .
+  - conda create --use-local --name osewb ose-workbench-platform
+  - conda activate osewb
   - export PYTHONPATH=$PYTHONPATH:$CONDA_PREFIX/lib
 script:
     - pytest --cov osewb/ tests/

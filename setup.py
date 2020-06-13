@@ -28,13 +28,20 @@ setup(
         # -----------------------
         'cookiecutter==1.7.2',
         'jinja2-time==0.2.0',
-        'docker==4.2.0',
 
         # ---------------------
         # | Docs Requirements |
         # ---------------------
         'sphinx==3.0.2',
-        'sphinx-rtd-theme==0.4.3'
+        'sphinx-rtd-theme==0.4.3',
+
+        # ---------------------
+        # | Test Requirements |
+        # ---------------------
+        'coverage==5.1',
+        'coveralls==2.0.0',
+        'pytest==5.4.3',
+        'pytest-cov==2.9.0'
     ],
     classifiers=[
         # Full List: https://pypi.org/pypi?%3Aaction=list_classifiers

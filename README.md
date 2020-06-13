@@ -10,7 +10,7 @@
 * [Unit Tests](#unit-tests)
 * [Documentation](#documentation)
 * [Commands](#commands)
-  * [container](#container)
+  * [env](#env)
   * [test](#test)
   * [docs](#docs)
   * [init](#init)
@@ -38,21 +38,10 @@ Having a common platform for OSE workbench development also makes it easier for 
 
 ## Pre-Requisites
 1. Install [Git](https://git-scm.com/)
-2. Install [Python](https://www.python.org/)
-3. Install [Docker](https://docs.docker.com/get-docker/)
+2. Install [Miniconda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html)
 
-## Installation
-
-    pip install ose-workbench-platform
-
-After installing `ose-workbench-platform`, you'll have access to the `osewb` command.
-
-See [Commands](#commands) for additional information.
-
-## Containerization
-We use [Docker](https://en.wikipedia.org/wiki/Docker_(software)) to create a reproducible [virtualized OSE workbench development environment](https://en.wikipedia.org/wiki/OS-level_virtualization) with requisite dependencies for development-time tasks like running unit tests, and generating documentation from source-code comments.
-
-While having to [install and learn Docker](https://www.docker.com/) is a burden, our hope is that it's simpler than developers having to manually setup their own local development environment with the requisite dependencies for OSE workbench development.
+## Virtual Development Environment
+We use [Conda](https://docs.conda.io/projects/conda/en/latest/index.html) to create a reproducible [virtualized OSE workbench development environment](https://en.wikipedia.org/wiki/OS-level_virtualization) with requisite dependencies for development-time tasks like running FreeCAD, executing unit tests, and generating documentation from source-code comments.
 
 ## Unit Tests
 For running unit tests we use [pytest](https://docs.pytest.org/en/latest/).
@@ -79,9 +68,8 @@ optional arguments:
   -h, --help            show this help message and exit
 
 Commands:
-  {container,test,docs,init,browse}
-    container           Commands for interacting with containers
-    test                Run tests in workbench
+  {env,test,docs,init,browse}
+    env                 Commands for interacting with environments    test                Run tests in workbench
     docs                Make documentation
     init                Initialize new workbench
     browse              Commands for opening documents in a web browser
@@ -91,42 +79,40 @@ Each sub-command may have flags and arguments, and additional information can be
 
 Is `osewb` too many characters to type? We recommend [aliasing](https://en.wikipedia.org/wiki/Alias_(command)) the ``osewb`` command as ``ose`` to reduce typing and increase speed even further.
 
-### container
-OSE Workbench Platform includes a `container` command to make interacting with the requisite container for running tests and building documentation easier.
+### env
+OSE Workbench Platform includes a `env` command to make interacting with the requisite environment for running tests and building documentation easier.
 
 ```
-$ osewb container -h ↵
-usage: osewb container <command>
+$ osewb env -h ↵
+usage: osewb env <command>
 
 optional arguments:
-  -h, --help      show this help message and exit
+  -h, --help   show this help message and exit
 
 Commands:
-  {image,create}
-    image         Build image for container
-    create        Create container -- must be in workbench repository
+  {bootstrap}
+    bootstrap  Bootstrap environment
 ```
 
 In order to run the `test` and `docs` commands, you must first:
 
-1. Build the `ose-workbench-platform` image using `osewb container image`
-2. Create a container for your workbench by running `osewb container create` within the workbench repository
+1. Create a conda environment from the `environment.yml` file located in the root of the workbench repository
+2. Activate the environment with `conda activate <environment name>`
+3. Bootstrap the environment with the `osewb env boostrap` command
 
-Note, you only need **one** `ose-workbench-platform` image that acts as a blue-print for creating a container per workbench.
+Note, each workbench will have it's own separate environment.
 
-Workbench containers will be named after the base package in the workbench repository (e.g. `ose3dprinter`, `osetractor`, `osepowercube`, etc.).
+Workbench environments will be named after the base package in the workbench repository (e.g. `ose3dprinter`, `osetractor`, `osepowercube`, etc.).
 
-Once the container for the workbench is created, you may interact with it using normal `docker` commands.
-
-Some common operations you may wish to perform on the container are:
+Some common commands relating to managing environments with `conda` are documented in the below table.
 
 |Description|Command|
 |-----------|-------|
-|**Starting** the container|`docker start <container name>`|
-|**Stopping** the container|`docker stop <container name>`|
-|**Removing** the container|`docker rm <container name>`|
+|**Creating** the environment|`conda env create --file environment.yml`|
+|**Activating** the environment|`conda activate <environment name>`|
+|**Deactivating** the environment|`conda deactivate`|
 
-Refer to the [Docker CLI reference documentation](https://docs.docker.com/engine/reference/commandline/docker/) for additional information.
+Refer to the [Conda CLI reference documentation](https://docs.conda.io/projects/conda/en/latest/commands.html) for additional information.
 
 ### test
 OSE Workbench Platform includes a `test` command for interacting with the test-suite of a workbench.

@@ -2,7 +2,17 @@
 The following sections are meant as contributing *guidelines*, or **best-practices**. You're encouraged to follow them, but contributions may still be accepted without following them strictly.
 
 ## Pre-Requisites
-Install [OSE Workbench Platform](https://github.com/gbroques/ose-workbench-platform).
+Create a conda environment:
+
+    conda env create --file environment.yml
+
+Active environment:
+
+    conda activate {{ cookiecutter.base_package }}
+
+Bootstrap activated environment:
+
+    osewb env bootstrap
 
 ## Code Style Guide
 Code should follow the official [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/).

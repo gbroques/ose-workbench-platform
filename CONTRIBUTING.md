@@ -3,14 +3,30 @@ The following sections are meant as contributing *guidelines*, or **best-practic
 
 Are you a potential first-time contributor? Look for issues tagged with <a href="https://github.com/gbroques/ose-3d-printer-workbench/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22" style="height: 20px; padding: .15em 4px; font-weight: 600; line-height: 15px; border-radius: 2px; box-shadow: inset 0 -1px 0 rgba(27,31,35,.12); font-size: 12px;background-color: #7057ff; color: white">good first issue</a>.
 
+## Pre-Requisites
+1. Install [conda](https://docs.conda.io/projects/conda/en/latest/)
+2. Install [conda-build](https://docs.conda.io/projects/conda-build/en/latest/install-conda-build.html)
+
 ## Developing Locally
-Run the following command from the root of the repository:
+Create `osewb` conda environment with `freecad`:
+
+    conda create --name osewb --channel conda-forge --yes freecad==0.18.4
+
+Activate `osewb` environment:
+
+    conda activate osewb
+
+Install `ose-workbench-platform`:
 
     pip install --editable .
 
-See ["Editable Installs"](https://pip.pypa.io/en/stable/reference/pip_install/#editable-installs) on the pip docs for additional information.
+Bootstrap conda environment:
 
-This will give you access to the `osewb` command locally for testing any changes to the source code.
+    osewb env bootstrap
+
+Verify everything works:
+
+    osewb test
 
 ## Code Style Guide
 Code should follow the official [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/).
