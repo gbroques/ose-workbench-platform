@@ -1,0 +1,89 @@
+{% set name = "ose-workbench-platform" %}
+{% set version = "0.1.0a19" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: 91448729d482e3da24874fdcc2fcb30c755a1d5e9f5e20aaa1309e38b6cbce69
+
+build:
+  number: 0
+  entry_points:
+    - osewb = osewb.osewb:main
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  host:
+    - freecad ==0.18.4
+
+    # -------------------
+    # Source Dependencies
+    # -------------------
+    - cookiecutter ==1.7.2
+    - docker-py ==4.2.0
+    - jinja2-time ==0.2.0
+    - pip
+    - python
+
+    # -----------------
+    # Docs Dependencies
+    # -----------------
+    - sphinx ==3.0.2
+    - sphinx_rtd_theme ==0.4.3
+
+    # -----------------
+    # Test Dependencies
+    # -----------------
+    - coverage==5.1
+    - coveralls==2.0.0
+    - pytest==5.4.3
+    - pytest-cov==2.9.0
+
+  run:
+    - freecad ==0.18.4
+
+    # -------------------
+    # Source Dependencies
+    # -------------------
+    - cookiecutter ==1.7.2
+    - docker-py ==4.2.0
+    - jinja2-time ==0.2.0
+    - pip
+    - python
+
+    # -----------------
+    # Docs Dependencies
+    # -----------------
+    - sphinx ==3.0.2
+    - sphinx_rtd_theme ==0.4.3
+
+    # -----------------
+    # Test Dependencies
+    # -----------------
+    - coverage ==5.1
+    - coveralls ==2.0.0
+    - pytest ==5.4.3
+    - pytest-cov ==2.9.0
+
+test:
+  imports:
+    - osewb
+    - osewb.docs
+    - osewb.docs.ext
+  commands:
+    - osewb --help
+
+about:
+  home: https://github.com/gbroques/ose-workbench-platform
+  license: GNU General Public License v2 or later (GPLv2+)
+  license_file: LICENSE
+  summary: "Common platform for developing Open Source Ecology (OSE) workbenches."
+  doc_url: https://ose-workbench-platform.readthedocs.io/en/latest/
+  dev_url: https://github.com/gbroques/ose-workbench-platform
+
+extra:
+  recipe-maintainers:
+    - gbroques
