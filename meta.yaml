@@ -1,5 +1,5 @@
 {% set name = "ose-workbench-platform" %}
-{% set version = "0.1.0a19" %}
+{% set version = "0.1.0a20" %}
 
 package:
   name: "{{ name|lower }}"
