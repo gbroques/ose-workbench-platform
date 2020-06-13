@@ -1,13 +1,12 @@
-{% set name = "ose-workbench-platform" %}
-{% set version = "0.1.0a20" %}
+{% set data = load_setup_py_data(setup_file='./setup.py', from_recipe_dir=True) %}
 
 package:
-  name: "{{ name|lower }}"
-  version: "{{ version }}"
+  name: {{ data.name }}
+  version: {{ data.version }}
 
 source:
-  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: 91448729d482e3da24874fdcc2fcb30c755a1d5e9f5e20aaa1309e38b6cbce69
+  url: "https://pypi.io/packages/source/{{ data.name[0] }}/{{ data.name }}/{{ data.name }}-{{ data.version }}.tar.gz"
+  sha256: f009a4fb15f5815e77068390e1ff7ae218faa32cbc50b18605224200911e299c
 
 build:
   number: 0

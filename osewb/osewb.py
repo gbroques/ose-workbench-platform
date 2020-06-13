@@ -10,6 +10,7 @@ from cookiecutter.main import cookiecutter
 from .find_base_package import (find_base_package, find_git_user_name,
                                 find_root_of_git_repository)
 
+from .version import __version__
 
 def main() -> None:
     command, args = _parse_command()
@@ -26,7 +27,8 @@ def main() -> None:
                      no_input=True,
                      extra_context={
                          'machine_display_name': machine_display_name,
-                         'owner_name': git_user_name})
+                         'owner_name': git_user_name,
+                         'ose_workbench_platform_version': __version__})
         slugified_machine_name = machine_display_name.lower().replace(' ', '-')
         repo_name = 'ose-{}-workbench'.format(slugified_machine_name)
         print('Workbench initialized in "{}" directory.\n'.format(repo_name))
@@ -135,6 +137,7 @@ def _parse_command() -> str:
     parser = argparse.ArgumentParser(
         description='A collection commands for OSE workbench development.',
         usage='osewb <command> [<args>]\n')
+    parser.add_argument('--version', action='version', version=__version__)
     subparsers = parser.add_subparsers(title='Commands',
                                        dest='command',
                                        required=True)

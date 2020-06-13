@@ -13,6 +13,8 @@
 import os
 import sys
 
+from osewb import version
+
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
 # Add lib folder of conda env to sys.path for building docs on Read the Docs
@@ -63,7 +65,7 @@ copyright = '2020, G Roques'
 author = 'G Roques'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.0a20'
+release = version.__version__
 
 
 # -- General configuration ---------------------------------------------------

@@ -1,6 +1,7 @@
 name: osewb
 channels:
   - conda-forge
-  - gbroques
 dependencies:
-  - ose-workbench-platform==0.1.0a20
+  - freecad==0.18.4
+  - sphinx ==3.0.2
+  - sphinx_rtd_theme ==0.4.3

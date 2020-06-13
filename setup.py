@@ -3,6 +3,10 @@ from os import path
 
 from setuptools import setup
 
+version = {}
+with open('osewb/version.py') as fp:
+    exec(fp.read(), version)
+
 current_dir = path.abspath(path.dirname(__file__))
 with io.open(path.join(current_dir, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
@@ -14,7 +18,7 @@ setup(
     long_description_content_type='text/markdown',
     url='https://github.com/gbroques/ose-workbench-platform',
     author='G Roques',
-    version='0.1.0a20',
+    version=version['__version__'],
     packages=['osewb', 'osewb.docs', 'osewb.docs.ext'],
     include_package_data=True,
     entry_points={
