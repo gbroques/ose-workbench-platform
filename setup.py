@@ -35,5 +35,10 @@ setup(
         # ---------------------
         'sphinx==3.0.2',
         'sphinx-rtd-theme==0.4.3'
+    ],
+    classifiers=[
+        # Full List: https://pypi.org/pypi?%3Aaction=list_classifiers
+        'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)',
+        'Programming Language :: Python :: 3 :: Only'
     ]
 )
