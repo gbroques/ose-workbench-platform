@@ -1,28 +1,21 @@
 language: python
 python:
   - '3.6'
-services:
-    - docker
 install:
-    - >
-      docker build --tag ose-workbench-platform
-      --build-arg USER=$USER
-      --build-arg UID=$(id -u)
-      --build-arg GID=$(id -g)
-      ./osewb
-    - >
-      docker run
-      --name osewb
-      --detach
-      --volume $(pwd):/var/app
-      ose-workbench-platform
+  - sudo apt update
+  - wget https://repo.continuum.io/miniconda/Miniconda3-py37_4.8.2-Linux-x86_64.sh -O miniconda.sh;
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - source "$HOME/miniconda/etc/profile.d/conda.sh"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda info --all
+  - conda install --channel defaults conda-build=3.18.11 conda-verify=3.1.1
+  - conda config --add channels conda-forge
+  - conda build .
+  - conda create --use-local --name ose-workbench-platform-environment ose-workbench-platform
+  - conda activate ose-workbench-platform-environment
+  - export PYTHONPATH=$PYTHONPATH:$CONDA_PREFIX/lib
 script:
-    - docker exec -it osewb pytest --cov osewb/ tests/
+    - pytest --cov osewb/ tests/
 after_success:
-    - >
-      docker exec
-      -e TRAVIS="$TRAVIS"
-      -e TRAVIS_JOB_ID="$TRAVIS_JOB_ID"
-      -e TRAVIS_BRANCH="$TRAVIS_BRANCH"
-      -e TRAVIS_PULL_REQUEST="$TRAVIS_PULL_REQUEST"
-      osewb coveralls
+    - coveralls
