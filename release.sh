@@ -1,4 +1,5 @@
 #!/bin/sh
+# TODO: Add verison argument, edit osewb.version, commit, tag, and push.
 # https://github.com/plyint/encpass.sh
 . encpass.sh
 
