@@ -2,6 +2,7 @@ from __future__ import print_function
 
 import argparse
 import os
+import pathlib
 import webbrowser
 from typing import List, Union
 
@@ -63,6 +64,32 @@ def main() -> None:
             execute_command_in_docker_container(clean_cmd, base_package)
             execute_command_in_docker_container(
                 'docker exec --workdir /var/app/docs -it {} sphinx-build . ./_build', base_package)
+    elif command == 'env':
+        if args['env_command'] == 'bootstrap':
+            conda_prefix = os.environ.get('CONDA_PREFIX', None)
+            if not conda_prefix:
+                print('Environment varibale "CONDA_PREFIX" not set.')
+                print('Is your environment activated?')
+                return
+            conda_env_name = os.path.basename(conda_prefix)
+            conda_lib = os.path.join(conda_prefix, 'lib')
+            conda_etc_base_path = os.path.join(conda_prefix, 'etc', 'conda')
+
+            activate_instructions = '#!/bin/sh\n' + \
+                'export INITIAL_PYTHONPATH=${PYTHONPATH}\n' + \
+                'export PYTHONPATH={}:${{PYTHONPATH}}\n'.format(conda_lib)
+            setup_conda_environment_hook_directy(
+                conda_etc_base_path, 'activate.d', activate_instructions)
+
+            deactivate_instructions = '#!/bin/sh\n' + \
+                'export PYTHONPATH=${INITIAL_PYTHONPATH}\n' + \
+                'unset INITIAL_PYTHONPATH\n'
+            setup_conda_environment_hook_directy(
+                conda_etc_base_path, 'deactivate.d', deactivate_instructions)
+
+            print('Environment bootstrapped.')
+            print('To reactivate your environment, run:\n')
+            print('    conda activate {}\n'.format(conda_env_name))
     elif command == 'container':
         image_tag = 'ose-workbench-platform'
         if args['container_command'] == 'image':
@@ -131,6 +158,14 @@ def main() -> None:
                 webbrowser.open(path_to_index_html)
 
 
+def setup_conda_environment_hook_directy(conda_etc_base_path, directory, text):
+    directory_path = os.path.join(conda_etc_base_path, directory)
+    pathlib.Path(directory_path).mkdir(parents=True, exist_ok=True)
+    env_vars_path = os.path.join(directory_path, 'env_vars.sh')
+    pathlib.Path(env_vars_path).touch(exist_ok=True)
+    pathlib.Path(env_vars_path).write_text(text)
+
+
 def execute_command_in_docker_container(command_template: str,
                                         container_name: str) -> None:
     command = command_template.format(container_name)
@@ -180,6 +215,15 @@ def _parse_command() -> str:
     subparsers = parser.add_subparsers(title='Commands',
                                        dest='command',
                                        required=True)
+    env_parser = subparsers.add_parser('env',
+                                       help='Commands for interacting with environments',
+                                       usage='osewb env <command>')
+    env_subparser = env_parser.add_subparsers(title='Commands',
+                                              dest='env_command',
+                                              required=True)
+    env_subparser.add_parser('bootstrap',
+                             help='Bootstrap environment',
+                             usage='osewb env bootstrap')
     container_parser = subparsers.add_parser('container',
                                              help='Commands for interacting with containers',
                                              usage='osewb container <command>')
