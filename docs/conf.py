@@ -13,10 +13,11 @@
 import os
 import sys
 
-from osewb import version
-
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
+
+from osewb import version  # noqa: E402
+
 # Add lib folder of conda env to sys.path for building docs on Read the Docs
 # and importing FreeCAD
 on_read_the_dcs = os.environ.get('READTHEDOCS') == 'True'
