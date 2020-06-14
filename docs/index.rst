@@ -32,6 +32,7 @@ Every workbench should follow the above standards and guidelines to make working
    pages/development_process/breakdown_strategy
    pages/development_process/branching_strategy
    pages/development_process/versioning_strategy
+   pages/development_process/third_party_services
 
 .. toctree::
    :maxdepth: 1

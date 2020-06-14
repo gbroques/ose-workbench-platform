@@ -66,7 +66,6 @@ def main() -> None:
             execute_command('rm -rf {}'.format(path_to_sphinx_source_dir))
             execute_command(
                 'cd {} && sphinx-build . {}'.format(path_to_docs_dir, path_to_build_dir))
-            print('Docs generated in docs/_build/ directory.')
             print('To view, open docs/_build/index.html in a web browser, or run:\n')
             print('    osewb browse docs\n')
     elif command == 'env':
