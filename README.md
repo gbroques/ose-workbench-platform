@@ -67,10 +67,12 @@ A collection commands for OSE workbench development.
 
 optional arguments:
   -h, --help            show this help message and exit
+  --version             show program's version number and exit
 
 Commands:
   {env,test,docs,init,browse}
-    env                 Commands for interacting with environments    test                Run tests in workbench
+    env                 Commands for interacting with environments
+    test                Run tests in workbench
     docs                Make documentation
     init                Initialize new workbench
     browse              Commands for opening documents in a web browser
