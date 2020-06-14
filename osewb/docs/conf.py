@@ -18,6 +18,9 @@ conf = {
     # Designed for great reader experience on both desktop and mobile devices.
     # https://github.com/readthedocs/sphinx_rtd_theme
     'html_theme': 'sphinx_rtd_theme',
+    'html_css_files': [
+        'https://ose-workbench-platform.readthedocs.io/en/latest/_static/theme_overrides.css'
+    ],
 
     # Whether module names are prepended to all object names
     # (for object types where a “module” of some kind is defined),
