@@ -8,7 +8,7 @@
 * [Introduction](#introduction)
 * [Pre-Requisites](#pre-requisites)
 * [Installation](#installation)
-* [Containerization](#containerization)
+* [Virtual Development Environment](#virtual-development-environment)
 * [Unit Tests](#unit-tests)
 * [Documentation](#documentation)
 * [Commands](#commands)
