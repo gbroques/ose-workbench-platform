@@ -23,6 +23,9 @@ git push
 git push --tags
 set +x
 
+rm -rf dist/
+python3 setup.py sdist
+
 # https://github.com/plyint/encpass.sh
 . encpass.sh
 
