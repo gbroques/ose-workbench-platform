@@ -1,1 +1,1 @@
-recursive-include freecad/{{ cookiecutter.base_package }}/icons *
+recursive-include freecad/{{ cookiecutter.base_package }}/icon *
