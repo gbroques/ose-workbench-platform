@@ -59,16 +59,7 @@ If the implementation is easy to explain, it may be a good idea.
 Namespaces are one honking great idea -- let's do more of those!
 ```
 
-## Deploying to PyPi
-From the root of repository:
+## Cutting Releases
+A [release.bash](./release.bash) convenience script has been included in the root of the repository to have cutting releases easier.
 
-1. `python setup.py sdist`
-
-2. `twine upload dist/*`
-    * `pip install twine` (if not already installed)
-
-You'll be prompted for your [PyPi](https://pypi.org/) username and password:
-```
-Enter your username: gbroques ↵
-Enter your password: ↵
-```
+Currently, only G Roques, the maintainer, has credentials to deploy the a release to PyPi and Anaconda Cloud.
