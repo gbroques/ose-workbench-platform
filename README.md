@@ -40,7 +40,7 @@ Having a common platform for OSE workbench development also makes it easier for 
 
 ## Pre-Requisites
 1. Install [Git](https://git-scm.com/)
-2. Install [Miniconda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html)
+2. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 
 ## Virtual Development Environment
 We use [Conda](https://docs.conda.io/projects/conda/en/latest/index.html) to create a reproducible [virtualized OSE workbench development environment](https://en.wikipedia.org/wiki/OS-level_virtualization) with requisite dependencies for development-time tasks like running FreeCAD, executing unit tests, and generating documentation from source-code comments.
