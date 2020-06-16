@@ -42,6 +42,23 @@ Having a common platform for OSE workbench development also makes it easier for 
 1. Install [Git](https://git-scm.com/)
 2. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 
+## Installation
+Install the `ose-workbench-platform` package from the `gbroques` channel in a dedicated conda environment named `osewb` (short for **O**pen **S**ource **E**cology **W**ork**B**ench): 
+
+    conda create --name osewb --channel gbroques ose-workbench-platform
+
+Activate your new `osewb` environment:
+
+    conda activate osewb
+
+Test your installation:
+
+    osewb --help
+
+You can deactivate this environment later by running:
+
+    conda deactivate
+
 ## Virtual Development Environment
 We use [Conda](https://docs.conda.io/projects/conda/en/latest/index.html) to create a reproducible [virtualized OSE workbench development environment](https://en.wikipedia.org/wiki/OS-level_virtualization) with requisite dependencies for development-time tasks like running FreeCAD, executing unit tests, and generating documentation from source-code comments.
 
