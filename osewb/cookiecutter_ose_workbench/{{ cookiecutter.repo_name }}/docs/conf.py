@@ -91,6 +91,8 @@ html_theme = conf['html_theme']
 
 html_logo = './_static/ose-sticker-logo.svg'
 
+html_css_files = conf['html_css_files']
+
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".

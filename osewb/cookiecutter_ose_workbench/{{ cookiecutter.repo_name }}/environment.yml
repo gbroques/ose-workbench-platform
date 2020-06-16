@@ -3,4 +3,4 @@ channels:
   - conda-forge
   - gbroques
 dependencies:
-  - ose-workbench-platform=={{ ose_workbench_platform_version }}
+  - ose-workbench-platform=={{ cookiecutter.ose_workbench_platform_version }}

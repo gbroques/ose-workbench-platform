@@ -8,7 +8,7 @@
     "workbench_class_name": "{{ cookiecutter.machine_display_name.replace(' ', '') }}Workbench",
     "owner_name": "G Roques",
     "year": "{% now 'utc', '%Y' %}",
-    "ose_workbench_platform_version": "",
+    "ose_workbench_platform_version": null,
     "_copy_without_render": [
         "docs/_templates/*"
     ],

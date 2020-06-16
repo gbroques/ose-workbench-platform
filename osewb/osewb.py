@@ -9,8 +9,8 @@ from cookiecutter.main import cookiecutter
 
 from .find_base_package import (find_base_package, find_git_user_name,
                                 find_root_of_git_repository)
-
 from .version import __version__
+
 
 def main() -> None:
     command, args = _parse_command()
