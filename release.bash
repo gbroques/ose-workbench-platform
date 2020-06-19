@@ -7,7 +7,7 @@
 #   * Deploy to Anaconda Cloud
 # =========================================
 if [[ $# -eq 0 ]] ; then
-    echo 'Usage: ./release.sh <version> (e.g. 0.2.0)'
+    echo 'Usage: ./release.bash <version> (e.g. 0.2.0)'
     exit 1
 fi
 
