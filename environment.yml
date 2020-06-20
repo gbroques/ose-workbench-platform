@@ -4,6 +4,6 @@ name: osewb
 channels:
   - conda-forge
 dependencies:
-  - freecad==0.19.alpha2
-  - sphinx ==3.1.1
-  - sphinx_rtd_theme ==0.5.0
+  - freecad==0.19.alpha2  # Also in meta.yaml and CONTRIBUTING.md
+  - sphinx ==3.1.1  # Also in meta.yaml
+  - sphinx_rtd_theme ==0.5.0  # Also in meta.yaml

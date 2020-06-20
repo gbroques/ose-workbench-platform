@@ -10,7 +10,7 @@ Are you a potential first-time contributor? Look for issues tagged with <a href=
 ## Developing Locally
 Create `osewb` conda environment with `freecad`:
 
-    conda create --name osewb --channel conda-forge --yes freecad==0.18.4
+    conda create --name osewb --channel conda-forge --yes freecad==0.19.alpha2
 
 Activate `osewb` environment:
 
@@ -60,6 +60,6 @@ Namespaces are one honking great idea -- let's do more of those!
 ```
 
 ## Cutting Releases
-A [release.bash](./release.bash) convenience script has been included in the root of the repository to have cutting releases easier.
+A [release.bash](./release.bash) convenience script has been included in the root of the repository to make cutting releases easier.
 
 Currently, only G Roques, the maintainer, has credentials to deploy the a release to PyPi and Anaconda Cloud.

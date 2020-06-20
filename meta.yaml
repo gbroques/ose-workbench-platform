@@ -20,7 +20,7 @@ requirements:
 
   run:
     - python
-    - freecad ==0.19.alpha2  # Also in environment.yml
+    - freecad ==0.19.alpha2  # Also in environment.yml and CONTRIBUTING.md
     {% for package in data.install_requires %}
     # sphinx-rtd-theme PyPi package is named sphinx_rtd_theme on conda
     {% if package.startswith('sphinx-rtd-theme') %}

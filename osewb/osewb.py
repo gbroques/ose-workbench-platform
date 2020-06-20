@@ -4,12 +4,13 @@ import argparse
 import os
 import pathlib
 import webbrowser
+from subprocess import PIPE, Popen
 
 from cookiecutter.main import cookiecutter
 
+from ._version import __version__
 from .find_base_package import (find_base_package, find_git_user_name,
                                 find_root_of_git_repository)
-from ._version import __version__
 
 
 def main() -> None:
@@ -44,7 +45,7 @@ def main() -> None:
             return None
         if command == 'test':
             with_coverage = args['coverage']
-            test_command = 'pytest'
+            test_command = 'pytest --color=yes'
             if with_coverage:
                 test_command += ' --cov {}'.format(base_package)
             test_dir = os.path.join(root_of_git_repository, 'tests')
@@ -65,7 +66,7 @@ def main() -> None:
             execute_command('rm -rf {}'.format(path_to_build_dir))
             execute_command('rm -rf {}'.format(path_to_sphinx_source_dir))
             execute_command(
-                'cd {} && sphinx-build . {}'.format(path_to_docs_dir, path_to_build_dir))
+                'cd {} && sphinx-build --color . {}'.format(path_to_docs_dir, path_to_build_dir))
             print('To view, open docs/_build/index.html in a web browser, or run:\n')
             print('    osewb browse docs\n')
     elif command == 'env':
@@ -129,7 +130,11 @@ def setup_conda_environment_hook_directy(conda_etc_base_path, directory, text):
 def execute_command(command: str) -> None:
     print('Executing the following command:\n')
     print('    {}\n'.format(command))
-    os.system(command)
+    with Popen(command, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True) as process:
+        for line in process.stdout:
+            print(line, end='')
+    if process.returncode != 0:
+        exit(1)
 
 
 def _parse_command() -> str:
