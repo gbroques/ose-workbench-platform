@@ -24,9 +24,9 @@ OSE Workbench Command Classes are an opinionated extension to `FreeCAD Command C
 .. code-block::
 
     gui/command
-    ├── add_frame/
-    │   ├── add_frame_command.py
-    │   ├── __init__.py
+    └── add_frame/
+        ├── add_frame_command.py
+        └── __init__.py
 
 .. code-block:: python
 

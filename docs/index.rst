@@ -40,12 +40,12 @@ Every workbench should follow the above standards and guidelines to make working
 
    pages/pattern_catalog/repository_scope_and_naming
    pages/pattern_catalog/root_repository_contents
-   pages/pattern_catalog/base_package
-   pages/pattern_catalog/app_package
+   pages/pattern_catalog/app_gui_architecture
+   pages/pattern_catalog/library_package
    pages/pattern_catalog/part_classes
    pages/pattern_catalog/model_classes
    pages/pattern_catalog/attachment_functions
-   pages/pattern_catalog/gui_package
+   pages/pattern_catalog/workbench_package
    pages/pattern_catalog/command_classes
 
 .. toctree::

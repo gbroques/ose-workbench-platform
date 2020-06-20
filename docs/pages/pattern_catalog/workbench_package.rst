@@ -1,53 +1,55 @@
-Gui Package
-===========
+Workbench Package
+=================
 .. admonition:: Motivation
 
    Organize code related to the graphical representation of parts and a workbench.
 
-The ``gui`` package, located within the `base package <base_package.html>`_, contains code related to the graphical user interface of FreeCAD, such as what happens when users interact with the workbench (e.g. a user clicks a button on a toolbar), or various components the user may interact with such as dialogs or panels.
+The workbench package, located within the ``freecad/`` directory, contains code related to the graphical user interface of FreeCAD, such as what happens when users interact with the workbench (e.g. a user clicks a button on a toolbar), or various components the user may interact with such as dialogs or panels.
 
 .. code-block::
 
-    gui
+    freecad/<workbench package>/
     ├── command/
     ├── icon/
     ├── part_feature/
     ├── __init__.py
-    ├── <command registry>.py
-    ├── <workbench>.py
+    ├── init_gui.py
+    └── register_commands.py
 
-Workbench Module
-----------------
-Every workbench will have a **workbench module** within the ``gui`` package following the pattern ``<machine>_workbench.py``.
+init_gui.py
+-----------
+Every workbench will have a ``init_gui.py`` module within the workbench package.
 
-Where ``<machine>`` is the name of the machine in **all lower-case letters**, with spaces delimited by underscores ``_``.
+The ``init_gui.py`` module contains a *single* **workbench class** that extends ``Gui.Workbench`` following the pattern ``<Machine>Workbench``, where ``<Mahcine>`` is the name of the machine in **pascal** or **UpperCamelCase**.
 
-The workbench module contains a *single* **workbench class** that extends ``Gui.Workbench`` following the pattern ``<Machine>Workbench``, where ``<Mahcine>`` is the name of the machine in **pascal** or **UpperCamelCase**.
-
-For example, the **workbench class** for OSE's Tractor Workbench will be located inside the ``tractor_workbench.py`` module and named ``TractorWorkbench``:
+For example, the **workbench class** for OSE's Tractor Workbench will be located inside the ``init_gui.py`` module and named ``TractorWorkbench``:
 
 .. code-block:: python
 
     import FreeCAD as App
     import FreeCADGui as Gui
 
+    from .icon import get_icon_path
+    from .register_commands import register_commands
+
 
     class TractorWorkbench(Gui.Workbench):
-
-        def __init__(self):
-            from .icon import get_icon_path
-
-            cls = self.__class__
-            cls.MenuText = 'OSE Tractor'
-            cls.ToolTip = \
-                'A workbench for designing Tractor machines by Open Source Ecology'
-            cls.Icon = get_icon_path('TractorWorkbenchLogo.svg')
+        """
+        Tractor Workbench
+        """
+        MenuText = 'OSE Tractor'
+        ToolTip = \
+            'A workbench for designing Tractor machines by Open Source Ecology'
+        Icon = get_icon_path('Tractor.svg')
 
         def Initialize(self):
             """
             Executed when FreeCAD starts
             """
-            ...
+            main_toolbar, main_menu = register_commands()
+
+            self.appendToolbar('OSE Tractor', main_toolbar)
+            self.appendMenu('OSE Tractor', main_menu)
 
         def Activated(self):
             """
@@ -65,7 +67,12 @@ For example, the **workbench class** for OSE's Tractor Workbench will be located
         def GetClassName(self):
             return 'Gui::PythonWorkbench'
 
-For a complete reference for the ``Gui.Workbench`` class, see `Gui::PythonWorkbench Class Reference <https://www.freecadweb.org/api/d1/d9a/classGui_1_1PythonWorkbench.html>`_.
+
+    Gui.addWorkbench(TractorWorkbench())
+
+.. Important:: FreeCAD imports this module when it initializes it's GUI. The last statement in ``init_gui.py`` instantiates the **workbench class** and adds it to FreeCAD via ``Gui.addWorkbench``.
+
+For a complete reference of the ``Gui.Workbench`` class, see `Gui::PythonWorkbench Class Reference <https://www.freecadweb.org/api/d1/d9a/classGui_1_1PythonWorkbench.html>`_.
 
 Command Sub-package
 -------------------
@@ -75,12 +82,12 @@ For example, the ``command`` package in the ``ose-3d-printer-workbench`` contain
 
 .. code-block::
 
-    gui/command
+    freecad/<workbench package>/command
     ├── add_axis/
     ├── add_extruder/
     ├── add_frame/
     ├── add_heated_bed/
-    ├── __init__.py
+    └── __init__.py
 
 The ``add_axis/`` package exposes an ``AddAxisCommand`` that's executed when the user wants to add an axis to the document.
 
@@ -90,21 +97,9 @@ For more information on command classes themselves, see `Command Classes <comman
 
 Command Registry Module
 -----------------------
-Every workbench contains a **command registry module** within the ``gui`` package.
+Every workbench contains a **command registry module** within the workbench package named ``register_commands.py``.
 
 The command registry module is where all commands are imported, registered via ``Gui.addCommand``, and associated together into lists for adding to toolbars or menus.
-
-The command registry module name follows the pattern ``OSE_<Machine>.py``, where ``<Machine>`` is the name of the machine, with spaces delimited by underscores ``_``.
-
-For example, the command registry module name for the 3D Printer workbench is named ``OSE_3D_Printer.py``.
-
-Normally python modules use all lower-case letters, so why the deviation?
-
-FreeCAD derives a "Category" to organize commands from the name of the Python module where ``Gui.addCommand`` is called.
-
-Since all commands in the workbench are registered with ``Gui.addCommand`` in a Python module called ``OSE_3D_Printer.py``, the derived "Category" for grouping these commands is "OSE_3D_Printer".
-
-.. image:: /_static/commands.png
 
 When you register custom commands for an external workbench via ``Gui.addCommand(commandName, commandObject)``, FreeCAD adds the command to it's global command registry.
 
@@ -148,18 +143,10 @@ You can see a simple and relatively complete command registry module example bas
 
 
     def _register(name, command):
-        """Register a command via Gui.addCommand.
-
-        FreeCAD uses the filename where Gui.addCommand is executed as a category
-        to group commands together in it's UI.
-        """
-        key = _from_command_name_to_key(name)
+        key = '{}_{}'.format(command_namespace, name)
         Gui.addCommand(key, command)
         return key
 
-
-    def _from_command_name_to_key(command_name):
-        return '{}_{}'.format(command_namespace, command_name)
 
 Icon Sub-package
 ----------------
@@ -180,7 +167,7 @@ For example, the ``part_feature`` package in the ``ose-3d-printer-workbench`` co
 
 .. code-block::
 
-    gui/part_feature
+    freecad/<workbench package>/part_feature
     ├── axis/
     ├── extruder/
     ├── frame/

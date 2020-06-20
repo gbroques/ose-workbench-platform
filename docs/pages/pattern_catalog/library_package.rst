@@ -1,10 +1,10 @@
-App Package
-===========
+Library Package
+===============
 .. admonition:: Motivation
 
    Organize code related to the geometry parts, and allow parts to be made from a command-line context. 
 
-The ``app`` package, located within the `base package <base_package.html>`_, contains code for the geometry of parts, and how those parts relate to each other.
+The library package, located within the root level of the repository, contains code for the geometry of parts, and how those parts relate to each other.
 
 The "geometry of parts" is defined as:
 
@@ -20,17 +20,17 @@ See the FreeCAD Wiki on `Creating and manipulating geometry <https://wiki.freeca
 
 Sub-packages
 ------------
-The following are typical sub-packages the ``app`` package may contain:
+The following are typical sub-packages the library package may contain:
 
 .. code-block::
 
-    app
+    <library package>/
     ├── part/
     ├── model/
     ├── attachment/
     └── __init__.py
 
-.. Note:: The ``app`` package typically only contains sub-packages without any direct modules.
+.. Note:: The library package typically only contains sub-packages without any direct modules.
 
 Part Sub-package
 ----------------
@@ -40,7 +40,7 @@ For example, the ``part`` package in the ``ose-3d-printer-workbench`` contains t
 
 .. code-block::
 
-    app/part
+    <library package>/part/
     ├── axis/
     ├── extruder/
     ├── frame/
@@ -70,7 +70,7 @@ For example, the ``model`` package in the ``ose-3d-printer-workbench`` contains 
 
 .. code-block::
 
-    app/model
+    <library package>/model
     ├── axis/
     ├── extruder/
     ├── frame/
@@ -100,7 +100,7 @@ For example, the ``attachment`` package in the ``ose-3d-printer-workbench`` cont
 
 .. code-block::
 
-    app/attachment
+    <library package>/attachment
     ├── get_axis_frame_attachment_kwargs/
     ├── get_extruder_axis_attachment_kwargs/
     ├── get_heated_bed_frame_axis_attachment_kwargs/
