@@ -10,7 +10,7 @@ def find_base_package() -> str:
         return None
     contents = os.listdir(repo_root)
     directories = [c for c in contents if os.path.isdir(
-        os.path.join(repo_root, c)) and c.startswith('ose')]
+        os.path.join(repo_root, c)) and c.startswith('ose') and not c.endswith('egg-info')]
     if len(directories) == 0:
         print('No base package starting with "ose" found in repository.')
         return None
