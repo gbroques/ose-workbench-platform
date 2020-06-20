@@ -35,11 +35,3 @@ osewb
    :undoc-members:
    :show-inheritance:
 
-
-version
--------
-.. automodule:: osewb.version
-   :members:
-   :undoc-members:
-   :show-inheritance:
-

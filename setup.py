@@ -4,7 +4,7 @@ from os import path
 from setuptools import setup
 
 version = {}
-with open('osewb/version.py') as fp:
+with open('osewb/_version.py') as fp:
     exec(fp.read(), version)
 
 current_dir = path.abspath(path.dirname(__file__))

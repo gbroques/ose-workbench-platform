@@ -16,7 +16,7 @@ import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
 
-from osewb import version as project_version  # noqa: E402
+from osewb import _version as project_version  # noqa: E402
 
 # Add lib folder of conda env to sys.path for building docs on Read the Docs
 # and importing FreeCAD
