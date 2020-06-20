@@ -33,11 +33,12 @@ setup(
         'cookiecutter==1.7.2',
         'jinja2-time==0.2.0',
 
-        # ---------------------
-        # | Docs Requirements |
-        # ---------------------
-        'sphinx==3.0.2',
-        'sphinx-rtd-theme==0.4.3',
+        # ---------------------------
+        # | Docs Requirements        |
+        # | Also in environment.yaml |
+        # ----------------------------
+        'sphinx==3.1.1',
+        'sphinx-rtd-theme==0.5.0',
 
         # ---------------------
         # | Test Requirements |

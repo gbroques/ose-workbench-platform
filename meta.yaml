@@ -20,32 +20,10 @@ requirements:
 
   run:
     - python
-    - freecad ==0.18.4
-
-    # -------------------
-    # Source Dependencies
-    # -------------------
-    - cookiecutter ==1.7.2
-    - jinja2-time ==0.2.0
-
-    # -----------------
-    # Docs Dependencies
-    # -----------------
-    - sphinx ==3.0.2
-    - sphinx_rtd_theme ==0.4.3
-
-    # -----------------
-    # Test Dependencies
-    # -----------------
-    - coverage ==5.1
-    - coveralls ==2.0.0
-    - pytest ==5.4.3
-    - pytest-cov ==2.9.0
-
-    # -----------------
-    # Lint Dependencies
-    # -----------------
-    - flake8 ==3.8.3
+    - freecad ==0.19.alpha2  # Also in environment.yml
+    {% for package in data.install_requires %}
+    - {{ package }}
+    {% endfor %}
 
 test:
   imports:

@@ -1,7 +1,9 @@
+# For Read the Docs
+# see .readthedocs.yml
 name: osewb
 channels:
   - conda-forge
 dependencies:
-  - freecad==0.18.4
-  - sphinx ==3.0.2
-  - sphinx_rtd_theme ==0.4.3
+  - freecad==0.19.alpha2
+  - sphinx ==3.1.1
+  - sphinx_rtd_theme ==0.5.0
