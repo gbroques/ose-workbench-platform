@@ -45,7 +45,12 @@ setup(
         'coverage==5.1',
         'coveralls==2.0.0',
         'pytest==5.4.3',
-        'pytest-cov==2.9.0'
+        'pytest-cov==2.9.0',
+
+        # ---------------------
+        # | Lint Requirements |
+        # ---------------------
+        'flake8==3.8.3'
     ],
     classifiers=[
         # Full List: https://pypi.org/pypi?%3Aaction=list_classifiers

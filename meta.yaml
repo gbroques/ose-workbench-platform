@@ -42,6 +42,11 @@ requirements:
     - pytest ==5.4.3
     - pytest-cov ==2.9.0
 
+    # -----------------
+    # Lint Dependencies
+    # -----------------
+    - flake8 ==3.8.3
+
 test:
   imports:
     - osewb
