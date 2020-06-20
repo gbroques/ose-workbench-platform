@@ -15,31 +15,11 @@ build:
 
 requirements:
   host:
-    - freecad ==0.18.4
-
-    # -------------------
-    # Source Dependencies
-    # -------------------
-    - cookiecutter ==1.7.2
-    - jinja2-time ==0.2.0
     - pip
     - python
-
-    # -----------------
-    # Docs Dependencies
-    # -----------------
-    - sphinx ==3.0.2
-    - sphinx_rtd_theme ==0.4.3
-
-    # -----------------
-    # Test Dependencies
-    # -----------------
-    - coverage==5.1
-    - coveralls==2.0.0
-    - pytest==5.4.3
-    - pytest-cov==2.9.0
 
   run:
+    - python
     - freecad ==0.18.4
 
     # -------------------
@@ -47,8 +27,6 @@ requirements:
     # -------------------
     - cookiecutter ==1.7.2
     - jinja2-time ==0.2.0
-    - pip
-    - python
 
     # -----------------
     # Docs Dependencies
