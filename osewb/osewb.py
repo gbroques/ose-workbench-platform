@@ -18,7 +18,7 @@ def main() -> None:
     elif command == 'test' or command == 'docs' or command == 'make':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
-            return
+            return None
         base_package = find_base_package()
         if base_package is None:
             return None
@@ -41,7 +41,7 @@ def main() -> None:
     elif command == 'browse':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
-            return
+            return None
         browse_subcommand = args['browse_command']
         handle_browse_command(root_of_git_repository, browse_subcommand)
 
