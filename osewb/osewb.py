@@ -2,14 +2,15 @@ import argparse
 import os
 import webbrowser
 from pathlib import Path
-from subprocess import PIPE, Popen
 
 from isort import SortImports
 from jinja2 import Environment, PackageLoader
 
 from ._version import __version__
+from .execute_command import execute_command
 from .find_base_package import find_base_package, find_root_of_git_repository
 from .handle_init_command import handle_init_command
+from .handle_test_command import handle_test_command
 
 
 def main() -> None:
@@ -25,18 +26,9 @@ def main() -> None:
         if base_package is None:
             return None
         if command == 'test':
-            with_coverage = args['coverage']
-            test_command = 'pytest --color=yes'
-            if with_coverage:
-                test_command += ' --cov {}'.format(base_package)
-            test_dir = os.path.join(root_of_git_repository, 'tests')
-            test_command += ' ' + test_dir
-            execute_command(test_command)
-            if with_coverage:
-                execute_command('coverage html')
-                print('Coverage report generated in htmlcov/ directory.')
-                print('To view, open htmlcov/index.html in a web browser, or run:\n')
-                print('    osewb browse coverage\n')
+            handle_test_command(base_package,
+                                root_of_git_repository,
+                                with_coverage=args['coverage'])
         elif command == 'docs':
             path_to_docs_dir = os.path.join(
                 root_of_git_repository, 'docs')
@@ -152,16 +144,6 @@ def setup_conda_environment_hook_directory(conda_etc_base_path,
     env_vars_path = os.path.join(directory_path, 'env_vars.sh')
     Path(env_vars_path).touch(exist_ok=True)
     Path(env_vars_path).write_text(text)
-
-
-def execute_command(command: str) -> None:
-    print('Executing the following command:\n')
-    print('    {}\n'.format(command))
-    with Popen(command, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True) as process:
-        for line in process.stdout:
-            print(line, end='')
-    if process.returncode != 0:
-        exit(1)
 
 
 def _parse_command() -> str:
