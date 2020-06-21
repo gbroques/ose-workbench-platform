@@ -12,6 +12,7 @@
 * [Unit Tests](#unit-tests)
 * [Documentation](#documentation)
 * [Commands](#commands)
+  * [make](#make)
   * [env](#env)
   * [test](#test)
   * [docs](#docs)
