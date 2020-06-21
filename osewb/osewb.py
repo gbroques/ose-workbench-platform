@@ -4,38 +4,19 @@ import webbrowser
 from pathlib import Path
 from subprocess import PIPE, Popen
 
-from cookiecutter.main import cookiecutter
 from isort import SortImports
 from jinja2 import Environment, PackageLoader
 
 from ._version import __version__
-from .find_base_package import (find_base_package, find_git_user_name,
-                                find_root_of_git_repository)
+from .find_base_package import find_base_package, find_root_of_git_repository
+from .handle_init_command import handle_init_command
 
 
 def main() -> None:
     command, args = _parse_command()
     if command == 'init':
-        dir_path = os.path.dirname(os.path.realpath(__file__))
         machine_display_name = args['machine_display_name']
-        git_user_name = find_git_user_name()
-        if not git_user_name:
-            print('Must configure your git user name:\n')
-            print('    git config --global user.name "FIRST_NAME LAST_NAME"\n')
-            print('This is used for the owner name throughout the workbench.')
-            return
-        cookiecutter(os.path.join(dir_path, 'cookiecutter_ose_workbench'),
-                     no_input=True,
-                     extra_context={
-                         'machine_display_name': machine_display_name,
-                         'owner_name': git_user_name,
-                         'ose_workbench_platform_version': __version__})
-        slugified_machine_name = machine_display_name.lower().replace(' ', '-')
-        repo_name = 'ose-{}-workbench'.format(slugified_machine_name)
-        print('Workbench initialized in "{}" directory.\n'.format(repo_name))
-        print('Next, change directories and initialize the git repository:\n'.format(
-            repo_name))
-        print('    cd {} && git init\n'.format(repo_name))
+        handle_init_command(machine_display_name)
     elif command == 'test' or command == 'docs':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
