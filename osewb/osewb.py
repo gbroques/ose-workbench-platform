@@ -1,12 +1,12 @@
-from __future__ import print_function
-
 import argparse
 import os
-import pathlib
 import webbrowser
+from pathlib import Path
 from subprocess import PIPE, Popen
 
 from cookiecutter.main import cookiecutter
+from isort import SortImports
+from jinja2 import Environment, PackageLoader
 
 from ._version import __version__
 from .find_base_package import (find_base_package, find_git_user_name,
@@ -75,7 +75,7 @@ def main() -> None:
             if not conda_prefix:
                 print('Environment varibale "CONDA_PREFIX" not set.')
                 print('Is your environment activated?')
-                return
+                return None
             conda_env_name = os.path.basename(conda_prefix)
             conda_lib = os.path.join(conda_prefix, 'lib')
             conda_etc_base_path = os.path.join(conda_prefix, 'etc', 'conda')
@@ -83,18 +83,62 @@ def main() -> None:
             activate_instructions = '#!/bin/sh\n' + \
                 'export INITIAL_PYTHONPATH=${PYTHONPATH}\n' + \
                 'export PYTHONPATH={}:${{PYTHONPATH}}\n'.format(conda_lib)
-            setup_conda_environment_hook_directy(
+            setup_conda_environment_hook_directory(
                 conda_etc_base_path, 'activate.d', activate_instructions)
 
             deactivate_instructions = '#!/bin/sh\n' + \
                 'export PYTHONPATH=${INITIAL_PYTHONPATH}\n' + \
                 'unset INITIAL_PYTHONPATH\n'
-            setup_conda_environment_hook_directy(
+            setup_conda_environment_hook_directory(
                 conda_etc_base_path, 'deactivate.d', deactivate_instructions)
 
             print('Environment bootstrapped.')
             print('To reactivate your environment, run:\n')
             print('    conda activate {}\n'.format(conda_env_name))
+    elif command == 'make':
+        root_of_git_repository = find_root_of_git_repository()
+        if root_of_git_repository is None:
+            return None
+        base_package = find_base_package()
+        if base_package is None:
+            return None
+        if args['make_command'] == 'part':
+            print("base package", base_package)
+            name = args['name']
+            env = Environment(
+                loader=PackageLoader('osewb', 'templates'),
+            )
+            template = env.get_template('part.py')
+            part_package_path = Path(os.path.join(
+                root_of_git_repository,
+                base_package,
+                'part'
+            ))
+            part_package_path.mkdir(exist_ok=True)
+            part_package_init_module_path = part_package_path.joinpath(
+                '__init__.py')
+            part_lower = name.lower()
+            import_statement = 'from .{} import {}\n'.format(part_lower, name)
+            with part_package_init_module_path.open('a') as f:
+                f.write(import_statement)
+            SortImports(part_package_init_module_path.resolve())
+            new_part_package_path = Path(
+                part_package_path).joinpath(part_lower)
+            new_part_package_path.mkdir(exist_ok=True)
+            init_module_path = new_part_package_path.joinpath('__init__.py')
+            init_module_path.touch(exist_ok=True)
+            with init_module_path.open('a') as f:
+                f.write(import_statement)
+            SortImports(init_module_path.resolve())
+            module_name = '{}.py'.format(part_lower)
+            part_module_path = new_part_package_path.joinpath(module_name)
+            part_module_existed_before = part_module_path.exists()
+            part_module_path.touch(exist_ok=True)
+            if part_module_existed_before:
+                print('{} already exists. Skipping part class creation.'.format(
+                    module_name))
+                return None
+            part_module_path.write_text(template.render(name=name) + '\n')
     elif command == 'browse':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
@@ -119,12 +163,14 @@ def main() -> None:
                 webbrowser.open(path_to_index_html)
 
 
-def setup_conda_environment_hook_directy(conda_etc_base_path, directory, text):
+def setup_conda_environment_hook_directory(conda_etc_base_path,
+                                           directory,
+                                           text):
     directory_path = os.path.join(conda_etc_base_path, directory)
-    pathlib.Path(directory_path).mkdir(parents=True, exist_ok=True)
+    Path(directory_path).mkdir(parents=True, exist_ok=True)
     env_vars_path = os.path.join(directory_path, 'env_vars.sh')
-    pathlib.Path(env_vars_path).touch(exist_ok=True)
-    pathlib.Path(env_vars_path).write_text(text)
+    Path(env_vars_path).touch(exist_ok=True)
+    Path(env_vars_path).write_text(text)
 
 
 def execute_command(command: str) -> None:
@@ -145,6 +191,16 @@ def _parse_command() -> str:
     subparsers = parser.add_subparsers(title='Commands',
                                        dest='command',
                                        required=True)
+    make_parser = subparsers.add_parser('make',
+                                        help='Commands for making new code',
+                                        usage='osewb make <command>')
+    make_subparser = make_parser.add_subparsers(title='Commands',
+                                                dest='make_command',
+                                                required=True)
+    part_subparser = make_subparser.add_parser('part',
+                                               help='Make Part class',
+                                               usage='osewb make part <name>')
+    part_subparser.add_argument('name', help='Name for the part class')
     env_parser = subparsers.add_parser('env',
                                        help='Commands for interacting with environments',
                                        usage='osewb env <command>')

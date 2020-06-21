@@ -31,7 +31,8 @@ setup(
         # | Source Requirements |
         # -----------------------
         'cookiecutter==1.7.2',
-        'jinja2-time==0.2.0',
+        'Jinja2<3.0.0',  # Also a requirement of cookiecutter
+        'jinja2-time>=0.2.0',  # Also a requirement of cookiecutter
 
         # ---------------------------
         # | Docs Requirements        |
@@ -51,7 +52,8 @@ setup(
         # ---------------------
         # | Lint Requirements |
         # ---------------------
-        'flake8==3.8.3'
+        'flake8==3.8.3',
+        'isort==4.3.21'
     ],
     classifiers=[
         # Full List: https://pypi.org/pypi?%3Aaction=list_classifiers

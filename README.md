@@ -88,7 +88,8 @@ optional arguments:
   --version             show program's version number and exit
 
 Commands:
-  {env,test,docs,init,browse}
+  {make,env,test,docs,init,browse}
+    make                Commands for making new code
     env                 Commands for interacting with environments
     test                Run tests in workbench
     docs                Make documentation
@@ -99,6 +100,27 @@ Commands:
 Each sub-command may have flags and arguments, and additional information can be discovered via `osewb <command> -h` or `--help`.
 
 Is `osewb` too many characters to type? We recommend [aliasing](https://en.wikipedia.org/wiki/Alias_(command)) the ``osewb`` command as ``ose`` to reduce typing and increase speed even further.
+
+### make
+OSE Workbench Platform includes a `make` command for making new code.
+
+```
+$ ose make -h ↵
+usage: osewb make <command>
+
+optional arguments:
+  -h, --help  show this help message and exit
+
+Commands:
+  {part}
+    part      Make Part class
+```
+
+For example,
+
+    osewb make part Box
+
+Will make a new `Box` part class.
 
 ### env
 OSE Workbench Platform includes a `env` command to make interacting with the requisite environment for running tests and building documentation easier.
@@ -267,17 +289,6 @@ Commands:
 ```
 
 The `docs` command opens `docs/_build/index.html` in a web browser, while `coverage` opens `htmlcov/index.html` in a web browser.
-
-## Generating Code
-Within the root of a workbench repository, run the `make` command.
-
-For example,
-
-    osewb make command AddMotor
-
-Will generate a new `AddMotor` command class.
-
-> **NOTE:** This idea is not yet implemented.
 
 ## Contributing
 See [Contributing Guidelines](./CONTRIBUTING.md).
