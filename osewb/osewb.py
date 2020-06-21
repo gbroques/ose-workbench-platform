@@ -79,9 +79,9 @@ def _parse_command() -> str:
     test_parser.add_argument('-c', '--coverage',
                              action='store_true',
                              help='Run tests with coverage, and generate report')
-    docs_parser = subparsers.add_parser('docs',
-                                        help='Make documentation',
-                                        usage='osewb docs')
+    subparsers.add_parser('docs',
+                          help='Make documentation',
+                          usage='osewb docs')
     init_parser = subparsers.add_parser('init',
                                         help='Initialize new workbench',
                                         usage='osewb init <machine_display_name>')
@@ -94,12 +94,12 @@ def _parse_command() -> str:
     browse_subparser = browse_parser.add_subparsers(title='Commands',
                                                     dest='browse_command',
                                                     required=True)
-    browse_docs_parser = browse_subparser.add_parser('docs',
-                                                     help='Opens docs in web browser',
-                                                     usage='osewb browse docs')
-    browse_coverage_parser = browse_subparser.add_parser('coverage',
-                                                         help='Opens coverage report in web browser',
-                                                         usage='osewb browse coverage')
+    browse_subparser.add_parser('docs',
+                                help='Opens docs in web browser',
+                                usage='osewb browse docs')
+    browse_subparser.add_parser('coverage',
+                                help='Opens coverage report in web browser',
+                                usage='osewb browse coverage')
     args = vars(parser.parse_args())
     command = args.pop('command')
     return command, args
