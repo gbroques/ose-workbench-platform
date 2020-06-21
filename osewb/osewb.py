@@ -1,16 +1,13 @@
 import argparse
 import os
 import webbrowser
-from pathlib import Path
-
-from isort import SortImports
-from jinja2 import Environment, PackageLoader
 
 from ._version import __version__
 from .find_base_package import find_base_package, find_root_of_git_repository
 from .handle_docs_command import handle_docs_command
 from .handle_env_command import handle_env_command
 from .handle_init_command import handle_init_command
+from .handle_make_command import handle_make_command
 from .handle_test_command import handle_test_command
 
 
@@ -19,7 +16,7 @@ def main() -> None:
     if command == 'init':
         machine_display_name = args['machine_display_name']
         handle_init_command(machine_display_name)
-    elif command == 'test' or command == 'docs':
+    elif command == 'test' or command == 'docs' or command == 'make':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
             return
@@ -32,53 +29,16 @@ def main() -> None:
                                 with_coverage=args['coverage'])
         elif command == 'docs':
             handle_docs_command(base_package, root_of_git_repository)
+        elif command == 'make':
+            make_subcommand = args['make_command']
+            name = args['name']
+            handle_make_command(base_package,
+                                root_of_git_repository,
+                                make_subcommand,
+                                name)
     elif command == 'env':
         env_subcommand = args['env_command']
         handle_env_command(env_subcommand)
-    elif command == 'make':
-        root_of_git_repository = find_root_of_git_repository()
-        if root_of_git_repository is None:
-            return None
-        base_package = find_base_package()
-        if base_package is None:
-            return None
-        if args['make_command'] == 'part':
-            print("base package", base_package)
-            name = args['name']
-            env = Environment(
-                loader=PackageLoader('osewb', 'templates'),
-            )
-            template = env.get_template('part.py')
-            part_package_path = Path(os.path.join(
-                root_of_git_repository,
-                base_package,
-                'part'
-            ))
-            part_package_path.mkdir(exist_ok=True)
-            part_package_init_module_path = part_package_path.joinpath(
-                '__init__.py')
-            part_lower = name.lower()
-            import_statement = 'from .{} import {}\n'.format(part_lower, name)
-            with part_package_init_module_path.open('a') as f:
-                f.write(import_statement)
-            SortImports(part_package_init_module_path.resolve())
-            new_part_package_path = Path(
-                part_package_path).joinpath(part_lower)
-            new_part_package_path.mkdir(exist_ok=True)
-            init_module_path = new_part_package_path.joinpath('__init__.py')
-            init_module_path.touch(exist_ok=True)
-            with init_module_path.open('a') as f:
-                f.write(import_statement)
-            SortImports(init_module_path.resolve())
-            module_name = '{}.py'.format(part_lower)
-            part_module_path = new_part_package_path.joinpath(module_name)
-            part_module_existed_before = part_module_path.exists()
-            part_module_path.touch(exist_ok=True)
-            if part_module_existed_before:
-                print('{} already exists. Skipping part class creation.'.format(
-                    module_name))
-                return None
-            part_module_path.write_text(template.render(name=name) + '\n')
     elif command == 'browse':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
