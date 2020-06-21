@@ -1,4 +1,5 @@
 import argparse
+from typing import Tuple
 
 from ._version import __version__
 from .find_base_package import find_base_package, find_root_of_git_repository
@@ -6,6 +7,7 @@ from .handle_browse_command import handle_browse_command
 from .handle_docs_command import handle_docs_command
 from .handle_env_command import handle_env_command
 from .handle_init_command import handle_init_command
+from .handle_lint_command import handle_lint_command
 from .handle_make_command import handle_make_command
 from .handle_test_command import handle_test_command
 
@@ -38,15 +40,18 @@ def main() -> None:
     elif command == 'env':
         env_subcommand = args['env_command']
         handle_env_command(env_subcommand)
-    elif command == 'browse':
+    elif command == 'browse' or command == 'lint':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
             return None
-        browse_subcommand = args['browse_command']
-        handle_browse_command(root_of_git_repository, browse_subcommand)
+        if command == 'browse':
+            browse_subcommand = args['browse_command']
+            handle_browse_command(root_of_git_repository, browse_subcommand)
+        elif command == 'lint':
+            handle_lint_command(root_of_git_repository)
 
 
-def _parse_command() -> str:
+def _parse_command() -> Tuple[str, dict]:
     parser = argparse.ArgumentParser(
         description='A collection commands for OSE workbench development.',
         usage='osewb <command> [<args>]\n')
@@ -82,6 +87,9 @@ def _parse_command() -> str:
     subparsers.add_parser('docs',
                           help='Make documentation',
                           usage='osewb docs')
+    lint_parser = subparsers.add_parser('lint',
+                                        help='Lint code',
+                                        usage='osewb lint')
     init_parser = subparsers.add_parser('init',
                                         help='Initialize new workbench',
                                         usage='osewb init <machine_display_name>')

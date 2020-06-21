@@ -16,6 +16,7 @@
   * [env](#env)
   * [test](#test)
   * [docs](#docs)
+  * [lint](#lint)
   * [init](#init)
   * [browse](#browse)
 * [Generating Code](#generating-code)
@@ -89,11 +90,12 @@ optional arguments:
   --version             show program's version number and exit
 
 Commands:
-  {make,env,test,docs,init,browse}
+  {make,env,test,docs,lint,init,browse}
     make                Commands for making new code
     env                 Commands for interacting with environments
     test                Run tests in workbench
     docs                Make documentation
+    lint                Lint code
     init                Initialize new workbench
     browse              Commands for opening documents in a web browser
 ```
@@ -191,6 +193,20 @@ The `docs` command will:
 * Generate property tables for each Model class in the workbench and output them as `.csv` files in `docs/property_table/`
 
 For additional information, see [sphinx-build](https://www.sphinx-doc.org/en/master/man/sphinx-build.html) and [Sphinx Configuration](https://www.sphinx-doc.org/en/master/usage/configuration.html).
+
+### lint
+OSE Workbench Platform includes a `lint` command for linting the code of a workbench.
+
+    osewb lint
+
+The `lint` command will:
+
+* Run `flake8` with configuration located in [.flake8](./.flake8).
+* Run `mypy` for static type checking with configuration located in [.mypy.ini](./.mypy.ini).
+
+For additional information, see:
+* [flake8](https://flake8.pycqa.org/en/latest/)
+* [mypy](http://www.mypy-lang.org/)
 
 ### init
 OSE Workbench Platform includes a `init` command for initializing a new workbench.

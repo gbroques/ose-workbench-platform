@@ -53,7 +53,10 @@ setup(
         # | Lint Requirements |
         # ---------------------
         'flake8==3.8.3',
-        'isort==4.3.21'
+        'flake8-colors==0.1.6',
+        'flake8-isort==3.0.0',
+        'isort==4.3.21',
+        'mypy==0.781'
     ],
     classifiers=[
         # Full List: https://pypi.org/pypi?%3Aaction=list_classifiers
