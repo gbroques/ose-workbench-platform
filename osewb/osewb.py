@@ -73,7 +73,7 @@ def main() -> None:
         if args['env_command'] == 'bootstrap':
             conda_prefix = os.environ.get('CONDA_PREFIX', None)
             if not conda_prefix:
-                print('Environment varibale "CONDA_PREFIX" not set.')
+                print('Environment variable "CONDA_PREFIX" not set.')
                 print('Is your environment activated?')
                 return None
             conda_env_name = os.path.basename(conda_prefix)
