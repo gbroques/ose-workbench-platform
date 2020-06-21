@@ -7,8 +7,8 @@ from isort import SortImports
 from jinja2 import Environment, PackageLoader
 
 from ._version import __version__
-from .execute_command import execute_command
 from .find_base_package import find_base_package, find_root_of_git_repository
+from .handle_docs_command import handle_docs_command
 from .handle_init_command import handle_init_command
 from .handle_test_command import handle_test_command
 
@@ -30,18 +30,7 @@ def main() -> None:
                                 root_of_git_repository,
                                 with_coverage=args['coverage'])
         elif command == 'docs':
-            path_to_docs_dir = os.path.join(
-                root_of_git_repository, 'docs')
-            path_to_build_dir = os.path.join(
-                path_to_docs_dir, '_build')
-            path_to_sphinx_source_dir = os.path.join(
-                path_to_docs_dir, base_package)
-            execute_command('rm -rf {}'.format(path_to_build_dir))
-            execute_command('rm -rf {}'.format(path_to_sphinx_source_dir))
-            execute_command(
-                'cd {} && sphinx-build --color . {}'.format(path_to_docs_dir, path_to_build_dir))
-            print('To view, open docs/_build/index.html in a web browser, or run:\n')
-            print('    osewb browse docs\n')
+            handle_docs_command(base_package, root_of_git_repository)
     elif command == 'env':
         if args['env_command'] == 'bootstrap':
             conda_prefix = os.environ.get('CONDA_PREFIX', None)
