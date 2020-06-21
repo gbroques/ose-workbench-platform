@@ -97,9 +97,22 @@ For more information on command classes themselves, see `Command Classes <comman
 
 Command Registry Module
 -----------------------
-Every workbench contains a **command registry module** within the workbench package named ``register_commands.py``.
+Every workbench contains a **command registry module** within the workbench package.
 
 The command registry module is where all commands are imported, registered via ``Gui.addCommand``, and associated together into lists for adding to toolbars or menus.
+
+The command registry module name follows the pattern ``OSE_<Machine>.py``, where ``<Machine>`` is the name of the machine, with spaces delimited by underscores ``_``.
+
+For example, the command registry module name for the 3D Printer workbench is named ``OSE_3D_Printer.py``.
+
+Normally python modules use all lower-case letters, so why the deviation?
+
+FreeCAD derives a "Category" to organize commands from the name of the Python module where ``Gui.addCommand`` is called.
+
+Since all commands in the workbench are registered with ``Gui.addCommand`` in a Python module called ``OSE_3D_Printer.py``, the derived "Category" for grouping these commands is "OSE_3D_Printer".
+
+.. image:: /_static/commands.png
+   :alt: Available commands in FreeCAD grouped together by categories
 
 When you register custom commands for an external workbench via ``Gui.addCommand(commandName, commandObject)``, FreeCAD adds the command to it's global command registry.
 

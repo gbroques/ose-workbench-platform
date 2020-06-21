@@ -2,7 +2,7 @@ import FreeCAD as App
 import FreeCADGui as Gui
 
 from .icon import get_icon_path
-from .register_commands import register_commands
+from .{{ cookiecutter.command_registry_filename }} import register_commands
 
 
 class {{ cookiecutter.workbench_class_name }}(Gui.Workbench):

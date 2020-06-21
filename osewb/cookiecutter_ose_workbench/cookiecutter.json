@@ -4,6 +4,7 @@
     "machine_title": "OSE {{ cookiecutter.machine_display_name }}",
     "workbench_title": "{{ cookiecutter.machine_title }} Workbench",
     "base_package": "ose{{ cookiecutter.machine_display_name.lower().replace(' ', '') }}",
+    "command_registry_filename": "OSE_{{ cookiecutter.machine_display_name.replace(' ', '_') }}",
     "command_namespace": "OSE{{ cookiecutter.machine_display_name.replace(' ', '') }}",
     "workbench_class_name": "{{ cookiecutter.machine_display_name.replace(' ', '') }}Workbench",
     "owner_name": "G Roques",
