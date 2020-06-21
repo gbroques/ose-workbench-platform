@@ -1,9 +1,8 @@
 import argparse
-import os
-import webbrowser
 
 from ._version import __version__
 from .find_base_package import find_base_package, find_root_of_git_repository
+from .handle_browse_command import handle_browse_command
 from .handle_docs_command import handle_docs_command
 from .handle_env_command import handle_env_command
 from .handle_init_command import handle_init_command
@@ -43,24 +42,8 @@ def main() -> None:
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
             return
-        if args['browse_command'] == 'docs':
-            path_to_index_html = os.path.join(
-                root_of_git_repository, 'docs/_build/index.html')
-            if not os.path.isfile(path_to_index_html):
-                print('No index.html found in {}'.format(path_to_index_html))
-                print('To build the documentation, run:\n')
-                print('    osewb docs\n')
-            else:
-                webbrowser.open(path_to_index_html)
-        elif args['browse_command'] == 'coverage':
-            path_to_index_html = os.path.join(
-                root_of_git_repository, 'htmlcov/index.html')
-            if not os.path.isfile(path_to_index_html):
-                print('No index.html found in {}'.format(path_to_index_html))
-                print('To build the coverage report, run:\n')
-                print('    osewb test --coverage\n')
-            else:
-                webbrowser.open(path_to_index_html)
+        browse_subcommand = args['browse_command']
+        handle_browse_command(root_of_git_repository, browse_subcommand)
 
 
 def _parse_command() -> str:
