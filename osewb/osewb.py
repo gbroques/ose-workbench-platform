@@ -48,7 +48,8 @@ def main() -> None:
             browse_subcommand = args['browse_command']
             handle_browse_command(root_of_git_repository, browse_subcommand)
         elif command == 'lint':
-            handle_lint_command(root_of_git_repository)
+            should_fix = args['fix']
+            handle_lint_command(root_of_git_repository, should_fix)
 
 
 def _parse_command() -> Tuple[str, dict]:
@@ -90,6 +91,9 @@ def _parse_command() -> Tuple[str, dict]:
     lint_parser = subparsers.add_parser('lint',
                                         help='Lint code',
                                         usage='osewb lint')
+    lint_parser.add_argument('-f', '--fix',
+                             action='store_true',
+                             help='Attempt to automatically fix linter issues')
     init_parser = subparsers.add_parser('init',
                                         help='Initialize new workbench',
                                         usage='osewb init <machine_display_name>')

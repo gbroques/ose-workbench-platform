@@ -3,8 +3,18 @@ from pathlib import Path
 from .execute_command import execute_command
 
 
-def handle_lint_command(root_of_git_repository: str) -> None:
+def handle_lint_command(root_of_git_repository: str,
+                        should_fix: bool = False) -> None:
     project_root = get_project_root()
+    setup_cfg = project_root.joinpath('setup.cfg').resolve()
+    if should_fix:
+        execute_command('isort --recursive {}'.format(root_of_git_repository))
+        execute_command('autopep8 ' +
+                        '--global-config {} '.format(setup_cfg) +
+                        '--in-place ' +
+                        '--aggressive ' +
+                        '--recursive {}'.format(root_of_git_repository))
+        return None
     flake8_config = project_root.joinpath('.flake8').resolve()
     flake8_code = execute_command(
         'flake8 --config {} {}'.format(flake8_config, root_of_git_repository), exit_on_non_zero_code=False)
@@ -16,7 +26,8 @@ def handle_lint_command(root_of_git_repository: str) -> None:
     was_lint_error = any([pair[1] for pair in return_code_pairs])
     if was_lint_error:
         print('\nLint errors detected from the following command(s):')
-        commands_with_errors = [pair[0] for pair in return_code_pairs if pair[1]]
+        commands_with_errors = [pair[0]
+                                for pair in return_code_pairs if pair[1]]
         print('    {}\n'.format(', '.join(commands_with_errors)))
         exit(1)
     print('No lint warnings or errors detected!')

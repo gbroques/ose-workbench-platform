@@ -204,6 +204,12 @@ The `lint` command will:
 * Run `flake8` with configuration located in [.flake8](./.flake8).
 * Run `mypy` for static type checking with configuration located in [.mypy.ini](./.mypy.ini).
 
+For automatically fixing *some* linter issues, pass the `-f` or `--fix` flag to the `lint` command:
+
+    osewb lint --fix
+
+This will run [isort](https://github.com/timothycrosley/isort) and [autopep8](https://github.com/hhatto/autopep8) recursively on the root of the workbench repository.
+
 For additional information, see:
 * [flake8](https://flake8.pycqa.org/en/latest/)
 * [mypy](http://www.mypy-lang.org/)

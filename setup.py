@@ -56,6 +56,7 @@ setup(
         'flake8-colors==0.1.6',
         'flake8-isort==3.0.0',
         'isort==4.3.21',
+        'autopep8==1.5.3',
         'mypy==0.781'
     ],
     classifiers=[
