@@ -13,7 +13,6 @@
 * [Documentation](#documentation)
 * [Commands](#commands)
   * [make](#make)
-  * [env](#env)
   * [test](#test)
   * [docs](#docs)
   * [lint](#lint)
@@ -64,6 +63,25 @@ You can deactivate this environment later by running:
 ## Virtual Development Environment
 We use [Conda](https://docs.conda.io/projects/conda/en/latest/index.html) to create a reproducible [virtualized OSE workbench development environment](https://en.wikipedia.org/wiki/OS-level_virtualization) with requisite dependencies for development-time tasks like running FreeCAD, executing unit tests, and generating documentation from source-code comments.
 
+In order to perform various development-time tasks for a workbench, you must first:
+
+1. Create a conda environment from the `environment.yml` file located in the root of the workbench repository
+2. Activate the environment with `conda activate <environment name>`
+
+Note, each workbench will have it's own separate environment.
+
+Workbench environments will be named after the base package in the workbench repository (e.g. `ose3dprinter`, `osetractor`, `osepowercube`, etc.).
+
+Some common commands relating to managing environments with `conda` are documented in the below table.
+
+|Description|Command|
+|-----------|-------|
+|**Creating** the environment|`conda env create --file environment.yml`|
+|**Activating** the environment|`conda activate <environment name>`|
+|**Deactivating** the environment|`conda deactivate`|
+
+Refer to the [Conda CLI reference documentation](https://docs.conda.io/projects/conda/en/latest/commands.html) for additional information.
+
 ## Unit Tests
 For running unit tests we use [pytest](https://docs.pytest.org/en/latest/).
 
@@ -90,9 +108,8 @@ optional arguments:
   --version             show program's version number and exit
 
 Commands:
-  {make,env,test,docs,lint,init,browse}
+  {make,test,docs,lint,init,browse}
     make                Commands for making new code
-    env                 Commands for interacting with environments
     test                Run tests in workbench
     docs                Make documentation
     lint                Lint code
@@ -124,41 +141,6 @@ For example,
     osewb make part Box
 
 Will make a new `Box` part class.
-
-### env
-OSE Workbench Platform includes a `env` command to make interacting with the requisite environment for running tests and building documentation easier.
-
-```
-$ osewb env -h ↵
-usage: osewb env <command>
-
-optional arguments:
-  -h, --help   show this help message and exit
-
-Commands:
-  {bootstrap}
-    bootstrap  Bootstrap environment
-```
-
-In order to run the `test` and `docs` commands, you must first:
-
-1. Create a conda environment from the `environment.yml` file located in the root of the workbench repository
-2. Activate the environment with `conda activate <environment name>`
-3. Bootstrap the environment with the `osewb env boostrap` command
-
-Note, each workbench will have it's own separate environment.
-
-Workbench environments will be named after the base package in the workbench repository (e.g. `ose3dprinter`, `osetractor`, `osepowercube`, etc.).
-
-Some common commands relating to managing environments with `conda` are documented in the below table.
-
-|Description|Command|
-|-----------|-------|
-|**Creating** the environment|`conda env create --file environment.yml`|
-|**Activating** the environment|`conda activate <environment name>`|
-|**Deactivating** the environment|`conda deactivate`|
-
-Refer to the [Conda CLI reference documentation](https://docs.conda.io/projects/conda/en/latest/commands.html) for additional information.
 
 ### test
 OSE Workbench Platform includes a `test` command for interacting with the test-suite of a workbench.

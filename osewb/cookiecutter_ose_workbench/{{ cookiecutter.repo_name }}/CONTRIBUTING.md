@@ -6,13 +6,9 @@ Create a conda environment:
 
     conda env create --file environment.yml
 
-Active environment:
+Activate environment:
 
     conda activate {{ cookiecutter.base_package }}
-
-Bootstrap activated environment:
-
-    osewb env bootstrap
 
 ## Code Style Guide
 Code should follow the official [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/).

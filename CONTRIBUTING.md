@@ -20,9 +20,11 @@ Install `ose-workbench-platform`:
 
     pip install --editable .
 
-Bootstrap conda environment:
+Add the `$CONDA_PREFIX/lib` directory to `$PYTHONPATH` by running:
 
-    osewb env bootstrap
+    ./post-link.sh
+
+**Note:** This allows `FreeCAD` to be imported as a module within `python`.
 
 Verify everything works:
 

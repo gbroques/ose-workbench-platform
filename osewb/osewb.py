@@ -5,7 +5,6 @@ from ._version import __version__
 from .find_base_package import find_base_package, find_root_of_git_repository
 from .handle_browse_command import handle_browse_command
 from .handle_docs_command import handle_docs_command
-from .handle_env_command import handle_env_command
 from .handle_init_command import handle_init_command
 from .handle_lint_command import handle_lint_command
 from .handle_make_command import handle_make_command
@@ -37,9 +36,6 @@ def main() -> None:
                                 root_of_git_repository,
                                 make_subcommand,
                                 name)
-    elif command == 'env':
-        env_subcommand = args['env_command']
-        handle_env_command(env_subcommand)
     elif command == 'browse' or command == 'lint':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
@@ -70,15 +66,6 @@ def _parse_command() -> Tuple[str, dict]:
                                                help='Make Part class',
                                                usage='osewb make part <name>')
     part_subparser.add_argument('name', help='Name for the part class')
-    env_parser = subparsers.add_parser('env',
-                                       help='Commands for interacting with environments',
-                                       usage='osewb env <command>')
-    env_subparser = env_parser.add_subparsers(title='Commands',
-                                              dest='env_command',
-                                              required=True)
-    env_subparser.add_parser('bootstrap',
-                             help='Bootstrap environment',
-                             usage='osewb env bootstrap')
     test_parser = subparsers.add_parser('test',
                                         help='Run tests in workbench',
                                         usage='osewb test')
