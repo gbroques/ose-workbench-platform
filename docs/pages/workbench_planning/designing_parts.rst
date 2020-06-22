@@ -1,5 +1,5 @@
-Desigining Parts
-================
+Designing Parts
+===============
 Once the `machine is broken down into individual parts <breaking_down_a_machine_into_parts>`_, and `those parts are broken down into sub-parts <breaking_down_parts_into_sub_parts.html>`_, then someone can design those parts in FreeCAD.
 
 The generated `FreeCAD asset files <https://wiki.freecadweb.org/File_Format_FCStd>`_ for each part can be documented on the OSE Wiki as a **Part Library**.
