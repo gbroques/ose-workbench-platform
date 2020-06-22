@@ -21,8 +21,13 @@ def handle_init_command(machine_display_name: str) -> None:
         'owner_name': git_user_name,
         'ose_workbench_platform_version': __version__})
     slugified_machine_name = machine_display_name.lower().replace(' ', '-')
+    conda_env_name = 'ose' + machine_display_name.lower().replace(' ', '')
     repo_name = 'ose-{}-workbench'.format(slugified_machine_name)
     print('Workbench initialized in "{}" directory.\n'.format(repo_name))
-    print('Next, change directories and initialize the git repository:\n'.format(
-        repo_name))
+    print('Perform the following commands to get started:\n')
+    print('1. Change directories and initialize the git repository:\n')
     print('    cd {} && git init\n'.format(repo_name))
+    print('2. Create a conda environment and activate it:\n')
+    print('    conda env create --file environment.yml && conda activate {}\n'.format(conda_env_name))
+    print('3. Verify your installation:\n')
+    print('    osewb -h\n')

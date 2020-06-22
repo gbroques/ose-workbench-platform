@@ -13,7 +13,7 @@ from .handle_test_command import handle_test_command
 
 def main() -> None:
     command, args = _parse_command()
-    if command == 'init':
+    if command == 'make' and args['make_command'] == 'workbench':
         machine_display_name = args['machine_display_name']
         handle_init_command(machine_display_name)
     elif command == 'test' or command == 'docs' or command == 'make':
@@ -62,10 +62,18 @@ def _parse_command() -> Tuple[str, dict]:
     make_subparser = make_parser.add_subparsers(title='Commands',
                                                 dest='make_command',
                                                 required=True)
+    workbench_subparser = make_subparser.add_parser('workbench',
+                                                    help='Make Workbench',
+                                                    usage='osewb make workbench <machine_display_name>',
+                                                    aliases=['wb'])
+    workbench_subparser.add_argument('machine_display_name',
+                                     type=str,
+                                     help='Name of machine in title-case. Surround in double-quotes if name contains spaces (e.g. "CEB Brick Press")')
     part_subparser = make_subparser.add_parser('part',
                                                help='Make Part class',
                                                usage='osewb make part <name>')
-    part_subparser.add_argument('name', help='Name for the part class')
+    part_subparser.add_argument(
+        'name', help='Name for the part class in pascal or upper camel-case (e.g. MyBox).')
     test_parser = subparsers.add_parser('test',
                                         help='Run tests in workbench',
                                         usage='osewb test')
@@ -81,15 +89,10 @@ def _parse_command() -> Tuple[str, dict]:
     lint_parser.add_argument('-f', '--fix',
                              action='store_true',
                              help='Attempt to automatically fix linter issues')
-    init_parser = subparsers.add_parser('init',
-                                        help='Initialize new workbench',
-                                        usage='osewb init <machine_display_name>')
-    init_parser.add_argument('machine_display_name',
-                             type=str,
-                             help='Name of machine in title-case. Surround in double-quotes if name contains spaces (e.g. "CEB Brick Press")')
     browse_parser = subparsers.add_parser('browse',
                                           help='Commands for opening documents in a web browser',
-                                          usage='osewb browse <command>')
+                                          usage='osewb browse <command>',
+                                          aliases=['br'])
     browse_subparser = browse_parser.add_subparsers(title='Commands',
                                                     dest='browse_command',
                                                     required=True)
@@ -98,7 +101,8 @@ def _parse_command() -> Tuple[str, dict]:
                                 usage='osewb browse docs')
     browse_subparser.add_parser('coverage',
                                 help='Opens coverage report in web browser',
-                                usage='osewb browse coverage')
+                                usage='osewb browse coverage',
+                                aliases=['cov'])
     args = vars(parser.parse_args())
     command = args.pop('command')
     return command, args

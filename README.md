@@ -108,39 +108,122 @@ optional arguments:
   --version             show program's version number and exit
 
 Commands:
-  {make,test,docs,lint,init,browse}
+  {make,test,docs,lint,browse,br}
     make                Commands for making new code
     test                Run tests in workbench
     docs                Make documentation
     lint                Lint code
-    init                Initialize new workbench
-    browse              Commands for opening documents in a web browser
+    browse (br)         Commands for opening documents in a web browser
 ```
 
 Each sub-command may have flags and arguments, and additional information can be discovered via `osewb <command> -h` or `--help`.
 
 Is `osewb` too many characters to type? We recommend [aliasing](https://en.wikipedia.org/wiki/Alias_(command)) the ``osewb`` command as ``ose`` to reduce typing and increase speed even further.
 
+For further convenience, any command over four characters shall include a short-alias under four characters or less. For example, `br` is the short-alias for the five-character `browse` command.
+
 ### make
-OSE Workbench Platform includes a `make` command for making new code.
+OSE Workbench Platform includes a `make` command for "making" new code.
 
 ```
 $ ose make -h ↵
 usage: osewb make <command>
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help           show this help message and exit
 
 Commands:
-  {part}
-    part      Make Part class
+  {workbench,wb,part}
+    workbench (wb)     Make Workbench
+    part               Make Part class
 ```
+
+#### workbench
+Navigate to where you want to initialize a directory for your new workbench. Then run:
+
+    osewb make workbench <machine_display_name>
+
+Where `<machine_display_name>` is the name of the machine in **Title Case**. If this contains spaces, then surround the value in double-quotes `""`.
+
+```
+$ osewb make workbench Tractor ↵
+Workbench initialized in "ose-tractor-workbench" directory.
+
+Perform the following commands to get started:
+
+1. Change directories and initialize the git repository:
+
+    cd ose-tractor-workbench && git init
+
+2. Create a conda environment and activate it:
+
+    conda env create --file environment.yml && conda activate osetractor
+
+3. Verify your installation:
+
+    osewb -h
+```
+
+The above examples initializes a new workbench, in a `ose-tractor-workbench` directory, with the basic structure and files needed.
+
+```
+$ tree ose-tractor-workbench --dirsfirst ↵
+ose-tractor-workbench
+├── docs
+│   ├── _static
+│   ├── _templates
+│   │   ├── package.rst_t
+│   │   └── toc.rst_t
+│   ├── conf.py
+│   ├── index.rst
+│   └── requirements.txt
+├── freecad
+│   └── osetractor
+│       ├── command
+│       │   ├── add_box
+│       │   │   ├── add_box_command.py
+│       │   │   └── __init__.py
+│       │   └── __init__.py
+│       ├── icon
+│       │   ├── Box.svg
+│       │   └── __init__.py
+│       ├── init_gui.py
+│       ├── __init__.py
+│       └── register_commands.py
+├── osetractor
+│   ├── part
+│   │   ├── box
+│   │   │   ├── box.py
+│   │   │   └── __init__.py
+│   │   └── __init__.py
+│   └── __init__.py
+├── tests
+│   ├── box_test.py
+│   └── __init__.py
+├── CONTRIBUTING.md
+├── environment.yml
+├── LICENSE
+├── MANIFEST.in
+├── README.md
+└── setup.py
+
+12 directories, 25 files
+```
+
+For more information, see the [Pattern Catalog](https://ose-workbench-platform.readthedocs.io/en/latest/) in the docs.
+
+![OSE Tractor Workbench](./ose-tractor-workbench.png)
+
+#### part
+Within the repository of a workbench, run the `osewb make part` command to make a new **Part Class**.
 
 For example,
 
     osewb make part Box
 
-Will make a new `Box` part class.
+Makes a new `Box` part class.
+
+For more information, see [Part Classes](https://ose-workbench-platform.readthedocs.io/en/latest/pages/pattern_catalog/part_classes.html) in the docs.
 
 ### test
 OSE Workbench Platform includes a `test` command for interacting with the test-suite of a workbench.
@@ -196,87 +279,6 @@ For additional information, see:
 * [flake8](https://flake8.pycqa.org/en/latest/)
 * [mypy](http://www.mypy-lang.org/)
 
-### init
-OSE Workbench Platform includes a `init` command for initializing a new workbench.
-
-```
-$ osewb init -h ↵
-usage: osewb init <machine_display_name>
-
-positional arguments:
-  machine_display_name  Name of machine in title-case. Surround in double-
-                        quotes if name contains spaces (e.g. "CEB Brick
-                        Press")
-
-optional arguments:
-  -h, --help            show this help message and exit
-```
-
-Navigate to where you want to initialize a directory for your new workbench. Then run:
-
-    osewb init <machine_display_name>
-
-Where `<machine_display_name>` is the name of the machine in **Title Case**. If this contains spaces, then surround the value in double-quotes `""`.
-
-```
-$ osewb init Tractor ↵
-Workbench initialized in "ose-tractor-workbench" directory.
-
-Next, change directories and initialize the git repository:
-
-    cd ose-tractor-workbench && git init
-```
-
-The above examples initializes a new workbench, in a `ose-tractor-workbench` directory, with the basic structure and files needed.
-
-```
-$ tree ose-tractor-workbench --dirsfirst ↵
-ose-tractor-workbench
-├── docs
-│   ├── _static
-│   ├── _templates
-│   │   ├── package.rst_t
-│   │   └── toc.rst_t
-│   ├── conf.py
-│   ├── index.rst
-│   └── requirements.txt
-├── freecad
-│   └── osetractor
-│       ├── command
-│       │   ├── add_box
-│       │   │   ├── add_box_command.py
-│       │   │   └── __init__.py
-│       │   └── __init__.py
-│       ├── icon
-│       │   ├── Box.svg
-│       │   └── __init__.py
-│       ├── init_gui.py
-│       ├── __init__.py
-│       └── register_commands.py
-├── osetractor
-│   ├── part
-│   │   ├── box
-│   │   │   ├── box.py
-│   │   │   └── __init__.py
-│   │   └── __init__.py
-│   └── __init__.py
-├── tests
-│   ├── box_test.py
-│   └── __init__.py
-├── CONTRIBUTING.md
-├── environment.yml
-├── LICENSE
-├── MANIFEST.in
-├── README.md
-└── setup.py
-
-12 directories, 25 files
-```
-
-For more information, see the [Pattern Catalog](https://ose-workbench-platform.readthedocs.io/en/latest/) in the docs.
-
-![OSE Tractor Workbench](./ose-tractor-workbench.png)
-
 ### browse
 OSE Workbench Platform includes a `browse` covenience command for opening documentation and coverage reports in a web browser.
 
@@ -285,12 +287,12 @@ $ osewb browse -h ↵
 usage: osewb browse <command>
 
 optional arguments:
-  -h, --help       show this help message and exit
+  -h, --help           show this help message and exit
 
 Commands:
-  {docs,coverage}
-    docs           Opens docs in web browser
-    coverage       Opens coverage report in web browser
+  {docs,coverage,cov}
+    docs               Opens docs in web browser
+    coverage (cov)     Opens coverage report in web browser
 ```
 
 The `docs` command opens `docs/_build/index.html` in a web browser, while `coverage` opens `htmlcov/index.html` in a web browser.
