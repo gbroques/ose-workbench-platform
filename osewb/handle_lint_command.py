@@ -6,12 +6,20 @@ from .execute_command import execute_command
 def handle_lint_command(root_of_git_repository: str) -> None:
     project_root = get_project_root()
     flake8_config = project_root.joinpath('.flake8').resolve()
-    execute_command('flake8 --config {} {}'.format(flake8_config, root_of_git_repository))
-
+    flake8_code = execute_command(
+        'flake8 --config {} {}'.format(flake8_config, root_of_git_repository), exit_on_non_zero_code=False)
     mypy_config = project_root.joinpath('.mypy.ini').resolve()
-    execute_command('mypy --config-file {} {}'.format(mypy_config, root_of_git_repository), env={
+    mypy_code = execute_command('mypy --config-file {} {}'.format(mypy_config, root_of_git_repository), env={
         'MYPY_FORCE_COLOR': '1'
-    })
+    }, exit_on_non_zero_code=False)
+    return_code_pairs = [('flake8', flake8_code), ('mypy', mypy_code)]
+    was_lint_error = any([pair[1] for pair in return_code_pairs])
+    if was_lint_error:
+        print('\nLint errors detected from the following command(s):')
+        commands_with_errors = [pair[0] for pair in return_code_pairs if pair[1]]
+        print('    {}\n'.format(', '.join(commands_with_errors)))
+        exit(1)
+    print('No lint warnings or errors detected!')
 
 
 def get_project_root() -> Path:
