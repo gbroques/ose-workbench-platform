@@ -16,7 +16,6 @@
   * [test](#test)
   * [docs](#docs)
   * [lint](#lint)
-  * [init](#init)
   * [browse](#browse)
 * [Generating Code](#generating-code)
 * [Contributing](#contributing)
@@ -139,7 +138,7 @@ Commands:
 ```
 
 #### workbench
-Navigate to where you want to initialize a directory for your new workbench. Then run:
+Navigate to where you want to create your new workbench. Then run:
 
     osewb make workbench <machine_display_name>
 
@@ -166,6 +165,7 @@ Perform the following commands to get started:
 
 The above examples initializes a new workbench, in a `ose-tractor-workbench` directory, with the basic structure and files needed.
 
+**TODO:** The below `tree` diagram needs to be updated.
 ```
 $ tree ose-tractor-workbench --dirsfirst ↵
 ose-tractor-workbench
