@@ -76,7 +76,6 @@ release = project_version.__version__
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.apidoc',
     'sphinx.ext.autosummary',
     # Helps with having many external links that point to the OSE Wiki.
     # https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html

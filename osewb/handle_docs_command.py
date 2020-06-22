@@ -13,6 +13,6 @@ def handle_docs_command(base_package, root_of_git_repository) -> None:
     execute_command('rm -rf {}'.format(path_to_build_dir))
     execute_command('rm -rf {}'.format(path_to_sphinx_source_dir))
     execute_command(
-        'cd {} && sphinx-build --color . {}'.format(path_to_docs_dir, path_to_build_dir))
+        'cd {} && sphinx-build -W --keep-going --color . {}'.format(path_to_docs_dir, path_to_build_dir))
     print('To view, open docs/_build/index.html in a web browser, or run:\n')
     print('    osewb browse docs\n')
