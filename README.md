@@ -201,8 +201,8 @@ OSE Workbench Platform includes a `lint` command for linting the code of a workb
 
 The `lint` command will:
 
-* Run `flake8` with configuration located in [.flake8](./.flake8).
-* Run `mypy` for static type checking with configuration located in [.mypy.ini](./.mypy.ini).
+* Run `flake8` with configuration located in [.flake8](./osewb/.flake8).
+* Run `mypy` for static type checking with configuration located in [.mypy.ini](./osewb/.mypy.ini).
 
 For automatically fixing *some* linter issues, pass the `-f` or `--fix` flag to the `lint` command:
 

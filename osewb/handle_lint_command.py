@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from .execute_command import execute_command
@@ -5,20 +6,20 @@ from .execute_command import execute_command
 
 def handle_lint_command(root_of_git_repository: str,
                         should_fix: bool = False) -> None:
-    project_root = get_project_root()
-    setup_cfg = project_root.joinpath('setup.cfg').resolve()
+    current_dir = Path(os.path.dirname(os.path.realpath(__file__)))
+    pycodestyle_config = current_dir.joinpath('.pycodestyle').resolve()
     if should_fix:
         execute_command('isort --recursive {}'.format(root_of_git_repository))
         execute_command('autopep8 ' +
-                        '--global-config {} '.format(setup_cfg) +
+                        '--global-config {} '.format(pycodestyle_config) +
                         '--in-place ' +
                         '--aggressive ' +
                         '--recursive {}'.format(root_of_git_repository))
         return None
-    flake8_config = project_root.joinpath('.flake8').resolve()
+    flake8_config = current_dir.joinpath('.flake8').resolve()
     flake8_code = execute_command(
         'flake8 --config {} {}'.format(flake8_config, root_of_git_repository), exit_on_non_zero_code=False)
-    mypy_config = project_root.joinpath('.mypy.ini').resolve()
+    mypy_config = current_dir.joinpath('.mypy.ini').resolve()
     mypy_code = execute_command('mypy --config-file {} {}'.format(mypy_config, root_of_git_repository), env={
         'MYPY_FORCE_COLOR': '1'
     }, exit_on_non_zero_code=False)
@@ -31,8 +32,3 @@ def handle_lint_command(root_of_git_repository: str,
         print('    {}\n'.format(', '.join(commands_with_errors)))
         exit(1)
     print('No lint warnings or errors detected!')
-
-
-def get_project_root() -> Path:
-    """Returns project root folder."""
-    return Path(__file__).parent.parent
