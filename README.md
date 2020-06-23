@@ -12,12 +12,11 @@
 * [Unit Tests](#unit-tests)
 * [Documentation](#documentation)
 * [Commands](#commands)
-  * [make](#make)
   * [test](#test)
-  * [docs](#docs)
   * [lint](#lint)
+  * [docs](#docs)
+  * [make](#make)
   * [browse](#browse)
-* [Generating Code](#generating-code)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -107,11 +106,11 @@ optional arguments:
   --version             show program's version number and exit
 
 Commands:
-  {make,test,docs,lint,browse,br}
-    make                Commands for making new code
+  {test,lint,docs,make,browse,br}
     test                Run tests in workbench
-    docs                Make documentation
     lint                Lint code
+    docs                Make documentation
+    make                Commands for making new code
     browse (br)         Commands for opening documents in a web browser
 ```
 
@@ -120,6 +119,60 @@ Each sub-command may have flags and arguments, and additional information can be
 Is `osewb` too many characters to type? We recommend [aliasing](https://en.wikipedia.org/wiki/Alias_(command)) the ``osewb`` command as ``ose`` to reduce typing and increase speed even further.
 
 For further convenience, any command over four characters shall include a short-alias under four characters or less. For example, `br` is the short-alias for the five-character `browse` command.
+
+### test
+OSE Workbench Platform includes a `test` command for interacting with the test-suite of a workbench.
+
+```
+$ osewb test -h ↵
+usage: osewb test
+
+optional arguments:
+  -h, --help      show this help message and exit
+  -c, --coverage  Run tests with coverage, and generate report
+```
+
+To run the entire unit-test suite for a workbench, run:
+
+    osewb test
+
+For running tests with coverage and generating a coverage report, pass the `-c` or `--coverage` flag to the `test` command:
+
+    osewb test --coverage
+
+### lint
+OSE Workbench Platform includes a `lint` command for linting the code of a workbench.
+
+    osewb lint
+
+The `lint` command will:
+
+* Run `flake8` with configuration located in [.flake8](./osewb/.flake8).
+* Run `mypy` for static type checking with configuration located in [.mypy.ini](./osewb/.mypy.ini).
+
+For automatically fixing *some* linter issues, pass the `-f` or `--fix` flag to the `lint` command:
+
+    osewb lint --fix
+
+This will run [isort](https://github.com/timothycrosley/isort) and [autopep8](https://github.com/hhatto/autopep8) recursively on the root of the workbench repository.
+
+For additional information, see:
+* [flake8](https://flake8.pycqa.org/en/latest/)
+* [mypy](http://www.mypy-lang.org/)
+
+### docs
+OSE Workbench Platform includes a `docs` command for building the documentation of a workbench.
+
+    osewb docs
+
+The `docs` command will:
+
+* Delete the `docs/_build/` directory
+* Delete the `docs/<base package>/` directory
+* Re-generate `docs/_build/` and `docs/<base package>/` by running `sphinx-build . _build` within `docs/` using the Sphinx configuration specified in `docs/conf.py`
+* Generate property tables for each Model class in the workbench and output them as `.csv` files in `docs/property_table/`
+
+For additional information, see [sphinx-build](https://www.sphinx-doc.org/en/master/man/sphinx-build.html) and [Sphinx Configuration](https://www.sphinx-doc.org/en/master/usage/configuration.html).
 
 ### make
 OSE Workbench Platform includes a `make` command for "making" new code.
@@ -224,60 +277,6 @@ For example,
 Makes a new `Box` part class.
 
 For more information, see [Part Classes](https://ose-workbench-platform.readthedocs.io/en/latest/pages/pattern_catalog/part_classes.html) in the docs.
-
-### test
-OSE Workbench Platform includes a `test` command for interacting with the test-suite of a workbench.
-
-```
-$ osewb test -h ↵
-usage: osewb test
-
-optional arguments:
-  -h, --help      show this help message and exit
-  -c, --coverage  Run tests with coverage, and generate report
-```
-
-To run the entire unit-test suite for a workbench, run:
-
-    osewb test
-
-For running tests with coverage and generating a coverage report, pass the `-c` or `--coverage` flag to the `test` command:
-
-    osewb test --coverage
-
-### docs
-OSE Workbench Platform includes a `docs` command for building the documentation of a workbench.
-
-    osewb docs
-
-The `docs` command will:
-
-* Delete the `docs/_build/` directory
-* Delete the `docs/<base package>/` directory
-* Re-generate `docs/_build/` and `docs/<base package>/` by running `sphinx-build . _build` within `docs/` using the Sphinx configuration specified in `docs/conf.py`
-* Generate property tables for each Model class in the workbench and output them as `.csv` files in `docs/property_table/`
-
-For additional information, see [sphinx-build](https://www.sphinx-doc.org/en/master/man/sphinx-build.html) and [Sphinx Configuration](https://www.sphinx-doc.org/en/master/usage/configuration.html).
-
-### lint
-OSE Workbench Platform includes a `lint` command for linting the code of a workbench.
-
-    osewb lint
-
-The `lint` command will:
-
-* Run `flake8` with configuration located in [.flake8](./osewb/.flake8).
-* Run `mypy` for static type checking with configuration located in [.mypy.ini](./osewb/.mypy.ini).
-
-For automatically fixing *some* linter issues, pass the `-f` or `--fix` flag to the `lint` command:
-
-    osewb lint --fix
-
-This will run [isort](https://github.com/timothycrosley/isort) and [autopep8](https://github.com/hhatto/autopep8) recursively on the root of the workbench repository.
-
-For additional information, see:
-* [flake8](https://flake8.pycqa.org/en/latest/)
-* [mypy](http://www.mypy-lang.org/)
 
 ### browse
 OSE Workbench Platform includes a `browse` covenience command for opening documentation and coverage reports in a web browser.

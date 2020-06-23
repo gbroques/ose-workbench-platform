@@ -56,6 +56,21 @@ def _parse_command() -> Tuple[str, dict]:
     subparsers = parser.add_subparsers(title='Commands',
                                        dest='command',
                                        required=True)
+    test_parser = subparsers.add_parser('test',
+                                        help='Run tests in workbench',
+                                        usage='osewb test')
+    test_parser.add_argument('-c', '--coverage',
+                             action='store_true',
+                             help='Run tests with coverage, and generate report')
+    lint_parser = subparsers.add_parser('lint',
+                                        help='Lint code',
+                                        usage='osewb lint')
+    lint_parser.add_argument('-f', '--fix',
+                             action='store_true',
+                             help='Attempt to automatically fix linter issues')
+    subparsers.add_parser('docs',
+                          help='Make documentation',
+                          usage='osewb docs')
     make_parser = subparsers.add_parser('make',
                                         help='Commands for making new code',
                                         usage='osewb make <command>')
@@ -74,21 +89,6 @@ def _parse_command() -> Tuple[str, dict]:
                                                usage='osewb make part <name>')
     part_subparser.add_argument(
         'name', help='Name for the part class in pascal or upper camel-case (e.g. MyBox).')
-    test_parser = subparsers.add_parser('test',
-                                        help='Run tests in workbench',
-                                        usage='osewb test')
-    test_parser.add_argument('-c', '--coverage',
-                             action='store_true',
-                             help='Run tests with coverage, and generate report')
-    subparsers.add_parser('docs',
-                          help='Make documentation',
-                          usage='osewb docs')
-    lint_parser = subparsers.add_parser('lint',
-                                        help='Lint code',
-                                        usage='osewb lint')
-    lint_parser.add_argument('-f', '--fix',
-                             action='store_true',
-                             help='Attempt to automatically fix linter issues')
     browse_parser = subparsers.add_parser('browse',
                                           help='Commands for opening documents in a web browser',
                                           usage='osewb browse <command>',
