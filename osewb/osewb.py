@@ -13,7 +13,7 @@ from .handle_test_command import handle_test_command
 
 def main() -> None:
     command, args = _parse_command()
-    if command == 'make' and args['make_command'] == 'workbench':
+    if command == 'make' and (args['make_command'] == 'workbench' or args['make_command'] == 'wb'):
         machine_display_name = args['machine_display_name']
         handle_init_command(machine_display_name)
     elif command == 'test' or command == 'docs' or command == 'make':
@@ -36,11 +36,11 @@ def main() -> None:
                                 root_of_git_repository,
                                 make_subcommand,
                                 name)
-    elif command == 'browse' or command == 'lint':
+    elif command == 'browse' or command == 'br' or command == 'lint':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
             return None
-        if command == 'browse':
+        if command == 'browse' or command == 'br':
             browse_subcommand = args['browse_command']
             handle_browse_command(root_of_git_repository, browse_subcommand)
         elif command == 'lint':

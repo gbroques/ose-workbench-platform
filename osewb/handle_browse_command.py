@@ -13,7 +13,7 @@ def handle_browse_command(root_of_git_repository: str,
             print('    osewb docs\n')
         else:
             webbrowser.open(path_to_index_html)
-    elif browse_subcommand == 'coverage':
+    elif browse_subcommand == 'coverage' or browse_subcommand == 'cov':
         path_to_index_html = os.path.join(
             root_of_git_repository, 'htmlcov/index.html')
         if not os.path.isfile(path_to_index_html):
