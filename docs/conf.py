@@ -67,6 +67,7 @@ author = 'G Roques'
 
 # The full version, including alpha/beta/rc tags
 release = project_version.__version__
+version = project_version.__version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -82,6 +83,7 @@ extensions = [
     'sphinx.ext.extlinks',
     # Allows embedding Graphviz graphs in your documents.
     'sphinx.ext.graphviz',
+    'osewb.docs.ext.all_summary_table',
     'osewb.docs.ext.freecad_custom_property_table'
 ]
 

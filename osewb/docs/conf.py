@@ -5,8 +5,8 @@ import sys
 
 # Add lib folder of conda env to sys.path for building docs on Read the Docs
 # and importing FreeCAD
-on_read_the_dcs = os.environ.get('READTHEDOCS') == 'True'
-if on_read_the_dcs:
+on_read_the_docs = os.environ.get('READTHEDOCS') == 'True'
+if on_read_the_docs:
     conda_lib_path = os.path.join(
         os.environ['CONDA_ENVS_PATH'], os.environ['CONDA_DEFAULT_ENV'], 'lib')
     sys.path.append(conda_lib_path)
@@ -45,6 +45,7 @@ conf = {
 
         # Custom OSE Workbench Sphinx Extensions
         # See respective docstring
+        'osewb.docs.ext.all_summary_table',
         'osewb.docs.ext.freecad_custom_property_table',
         'osewb.docs.ext.freecad_icon'
     ],
