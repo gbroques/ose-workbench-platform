@@ -5,9 +5,9 @@ from ._version import __version__
 from .find_base_package import find_base_package, find_root_of_git_repository
 from .handle_browse_command import handle_browse_command
 from .handle_docs_command import handle_docs_command
-from .handle_init_command import handle_init_command
 from .handle_lint_command import handle_lint_command
-from .handle_make_command import handle_make_command
+from .handle_make_component_command import handle_make_component_command
+from .handle_make_workbench_command import handle_make_workbench_command
 from .handle_test_command import handle_test_command
 
 
@@ -15,7 +15,7 @@ def main() -> None:
     command, args = _parse_command()
     if command == 'make' and (args['make_command'] == 'workbench' or args['make_command'] == 'wb'):
         machine_display_name = args['machine_display_name']
-        handle_init_command(machine_display_name)
+        handle_make_workbench_command(machine_display_name)
     elif command == 'test' or command == 'docs' or command == 'make':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
@@ -32,10 +32,10 @@ def main() -> None:
         elif command == 'make':
             make_subcommand = args['make_command']
             name = args['name']
-            handle_make_command(base_package,
-                                root_of_git_repository,
-                                make_subcommand,
-                                name)
+            handle_make_component_command(base_package,
+                                          root_of_git_repository,
+                                          make_subcommand,
+                                          name)
     elif command == 'browse' or command == 'br' or command == 'lint':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:

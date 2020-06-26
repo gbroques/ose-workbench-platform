@@ -6,7 +6,7 @@ from ._version import __version__
 from .find_base_package import find_git_user_name
 
 
-def handle_init_command(machine_display_name: str) -> None:
+def handle_make_workbench_command(machine_display_name: str) -> None:
     dir_path = os.path.dirname(os.path.realpath(__file__))
     git_user_name = find_git_user_name()
     if not git_user_name:

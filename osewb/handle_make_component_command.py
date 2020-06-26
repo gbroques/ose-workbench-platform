@@ -5,11 +5,11 @@ from isort import SortImports
 from jinja2 import Environment, PackageLoader
 
 
-def handle_make_command(base_package: str,
-                        root_of_git_repository: str,
-                        make_subcommand: str,
-                        name: str) -> None:
-    if make_subcommand == 'part':
+def handle_make_component_command(base_package: str,
+                                  root_of_git_repository: str,
+                                  component: str,
+                                  name: str) -> None:
+    if component == 'part':
         env = Environment(
             loader=PackageLoader('osewb', 'templates'))
         template = env.get_template('part.py')
