@@ -15,6 +15,7 @@
   * [test](#test)
   * [lint](#lint)
   * [docs](#docs)
+  * [build](#build)
   * [make](#make)
   * [browse](#browse)
 * [Contributing](#contributing)
@@ -167,12 +168,23 @@ OSE Workbench Platform includes a `docs` command for building the documentation 
 
 The `docs` command will:
 
-* Delete the `docs/_build/` directory
-* Delete the `docs/<base package>/` directory
-* Re-generate `docs/_build/` and `docs/<base package>/` by running `sphinx-build . _build` within `docs/` using the Sphinx configuration specified in `docs/conf.py`
-* Generate property tables for each Model class in the workbench and output them as `.csv` files in `docs/property_table/`
+* Remove auto-generated files such as the `_build/` and any auto-generated Sphinx sources.
+* Re-generate `docs/_build/`, `docs/<base package>/`, `docs/freecad/<base package>/` by running `sphinx-build . _build` within `docs/` using the Sphinx configuration specified in `docs/conf.py`
 
 For additional information, see [sphinx-build](https://www.sphinx-doc.org/en/master/man/sphinx-build.html) and [Sphinx Configuration](https://www.sphinx-doc.org/en/master/usage/configuration.html).
+
+### build
+OSE Workbench Platform includes a `build` command for building a workbench.
+
+    osewb build
+
+The `build` command aggregates the following commands into one:
+
+1. Run tests with coverage - `osewb test --coverage`
+2. Lint all code - `osewb lint`
+3. Ensure the documentation builds - `osewb docs`
+
+The `build` command exits with `0` or `1` to pass or fail the build depending upon whether the above commands return non-zero exit codes.
 
 ### make
 OSE Workbench Platform includes a `make` command for "making" new code.

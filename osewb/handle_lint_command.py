@@ -26,6 +26,8 @@ def handle_lint_command(root_of_git_repository: str,
     return_code_pairs = [('flake8', flake8_code), ('mypy', mypy_code)]
     was_lint_error = any([pair[1] for pair in return_code_pairs])
     if was_lint_error:
+        # TODO: There's some duplication between this and the build command.
+        #       see handle_build_command.py
         print('\nLint errors detected from the following command(s):')
         commands_with_errors = [pair[0]
                                 for pair in return_code_pairs if pair[1]]

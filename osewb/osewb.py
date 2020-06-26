@@ -4,11 +4,13 @@ from typing import Tuple
 from ._version import __version__
 from .find_base_package import find_base_package, find_root_of_git_repository
 from .handle_browse_command import handle_browse_command
+from .handle_build_command import handle_build_command
 from .handle_docs_command import handle_docs_command
 from .handle_lint_command import handle_lint_command
 from .handle_make_component_command import handle_make_component_command
 from .handle_make_workbench_command import handle_make_workbench_command
 from .handle_test_command import handle_test_command
+
 
 
 def main() -> None:
@@ -46,6 +48,8 @@ def main() -> None:
         elif command == 'lint':
             should_fix = args['fix']
             handle_lint_command(root_of_git_repository, should_fix)
+    elif command == 'build' or command == 'bld':
+        handle_build_command()
 
 
 def _parse_command() -> Tuple[str, dict]:
@@ -103,8 +107,14 @@ def _parse_command() -> Tuple[str, dict]:
                                 help='Opens coverage report in web browser',
                                 usage='osewb browse coverage',
                                 aliases=['cov'])
+    build_parser = subparsers.add_parser('build',
+                                         help='Build a workbench',
+                                         usage='osewb build',
+                                         aliases=['bld'])
     args = vars(parser.parse_args())
     command = args.pop('command')
+    # TODO: Map short-alias to full-command name before returning!
+    #       For example, this function should NEVER return command as 'bld' -- instead only return 'build'.
     return command, args
 
 
