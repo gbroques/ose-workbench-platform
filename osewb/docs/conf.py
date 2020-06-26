@@ -22,6 +22,10 @@ conf = {
         'https://ose-workbench-platform.readthedocs.io/en/latest/_static/theme_overrides.css'
     ],
 
+    # A list of paths that contain extra templates (or templates that overwrite builtin/theme-specific templates).
+    # https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-templates_path
+    'templates_path': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates'),
+
     # Whether module names are prepended to all object names
     # (for object types where a “module” of some kind is defined),
     # e.g. for py:function directives. Default is True.

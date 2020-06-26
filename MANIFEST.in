@@ -3,4 +3,5 @@ include LICENSE
 include osewb/.flake8
 include osewb/.mypy.ini
 include osewb/.pycodestyle
+recursive-include osewb/docs/templates/ *
 recursive-include osewb/cookiecutter_ose_workbench/ *
