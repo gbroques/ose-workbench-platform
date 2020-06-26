@@ -3,5 +3,6 @@ include LICENSE
 include osewb/.flake8
 include osewb/.mypy.ini
 include osewb/.pycodestyle
+include osewb/docs/ose-sticker-logo.svg
 recursive-include osewb/docs/templates/ *
 recursive-include osewb/cookiecutter_ose_workbench/ *

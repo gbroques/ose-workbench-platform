@@ -22,9 +22,14 @@ conf = {
         'https://ose-workbench-platform.readthedocs.io/en/latest/_static/theme_overrides.css'
     ],
 
-    # A list of paths that contain extra templates (or templates that overwrite builtin/theme-specific templates).
+    # Path that contains extra templates (or templates that overwrite builtin/theme-specific templates).
     # https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-templates_path
     'templates_path': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates'),
+
+    # Path to image file that is the logo of the docs.
+    # It is placed at the top of the sidebar; its width should therefore not exceed 200 pixels.
+    # https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_logo
+    'html_logo': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ose-sticker-logo.svg'),
 
     # Whether module names are prepended to all object names
     # (for object types where a “module” of some kind is defined),
