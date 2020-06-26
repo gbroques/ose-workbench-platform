@@ -1,6 +1,7 @@
+"""Command Registry Module"""
 import FreeCADGui as Gui
 
-from .command.add_box import AddBoxCommand
+from .command import AddBoxCommand
 
 #: Command Namespace
 command_namespace = '{{ cookiecutter.command_namespace }}'

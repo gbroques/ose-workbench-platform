@@ -11,6 +11,11 @@ For more information on codebase conventions and patterns, see the `OSE Workbenc
 
    {{ cookiecutter.base_package }}/{{ cookiecutter.base_package }}
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Workbench Package
+
+   freecad/freecad.{{ cookiecutter.base_package }}
 
 Indices and tables
 ==================

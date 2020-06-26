@@ -31,14 +31,17 @@ def run_apidoc(app):
     """Generate API documentation"""
     from sphinx.ext import apidoc
     max_depth = '1'
-    apidoc.main([
-        '../{{ cookiecutter.base_package }}',
-        '-o', '{{ cookiecutter.base_package }}',
-        '-d', max_depth,
-        '--templatedir=_templates/',
-        '--force',
-        '--no-toc'
-    ])
+    packages = ['{{ cookiecutter.base_package }}', 'freecad']
+    for package in packages:
+        apidoc.main([
+            '../{}'.format(package),
+            '-o', package,
+            '-d', max_depth,
+            '--templatedir={}'.format(conf['templates_path']),
+            '--force',
+            '--no-toc',
+            '--implicit-namespaces'
+        ])
 
 
 def setup(app):
@@ -53,6 +56,7 @@ author = '{{ cookiecutter.owner_name }}'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1.0'
+version = '0.1.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -63,7 +67,7 @@ release = '0.1.0'
 extensions = conf['extensions']
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = [conf['templates_path']]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -89,13 +93,8 @@ remove_app_property_prefix_from_type = conf['ext'][
 #
 html_theme = conf['html_theme']
 
-html_logo = './_static/ose-sticker-logo.svg'
+html_logo = conf['html_logo']
 
 html_css_files = conf['html_css_files']
-
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
 
 extlinks = conf['ext']['extlinks']['extlinks']
