@@ -1,7 +1,8 @@
 import unittest
 
 # Need to import FreeCAD
-import FreeCAD as App
+import FreeCAD as App  # noqa: F401
+
 from {{ cookiecutter.base_package }}.part import Box
 
 

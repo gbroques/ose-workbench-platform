@@ -1,5 +1,6 @@
 import FreeCAD as App
 import Part
+
 from freecad.{{ cookiecutter.base_package }}.icon import get_icon_path
 from {{ cookiecutter.base_package }}.part import Box
 
