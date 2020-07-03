@@ -158,6 +158,8 @@ You can see a simple and relatively complete command registry module example bas
         Gui.addCommand(key, command)
         return key
 
+    __all__ = ['register_commands']
+
 
 Icon Sub-package
 ----------------
