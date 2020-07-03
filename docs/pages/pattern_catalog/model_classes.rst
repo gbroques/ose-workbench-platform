@@ -37,6 +37,16 @@ Additionally, model classes handle **serialization**, or saving and restoring da
 Model objects are saved in `FreeCAD .FcStd files <https://wiki.freecadweb.org/File_Format_FCStd>`_ with Python's ``json`` module.
 
 The ``json`` module transforms the model object into **JSON** (a string with a special format) for persisting the object to disk.
-Upon loading FreeCAD, the ``json`` module uses that string to recreate the original object, provided it has access to the source code that created the object.
+Upon loading FreeCAD, the ``json`` module uses that string to recreate the original object, **provided it has access to the source code that created the object**.
+
+.. Important:: This means users need to have the workbench installed in order to open any FCStd files with model classes saved in them.
+
+Another motivation for the separation of `part classes <part_classes.html>`_ from model classes is to keep the "shape" separate from the persistence of dynamic properties to disk.
+
+Sometimes, you don't want to force users to install a workbench in order to open FCStd files with particular parts in them.
+
+Therfore, converting a model to a "shape" using a part class can be useful.
+
+.. Hint:: The platform may standardize a ``to_shape()`` method on model classes for this purpose in the future.
 
 For additional information, see the FreeCAD Wiki on `FeaturePython Objects <https://wiki.freecadweb.org/FeaturePython_Objects>`_ and `Scripted Objects <https://wiki.freecadweb.org/Scripted_objects>`_.
