@@ -194,12 +194,13 @@ $ ose make -h ↵
 usage: osewb make <command>
 
 optional arguments:
-  -h, --help           show this help message and exit
+  -h, --help            show this help message and exit
 
 Commands:
-  {workbench,wb,part}
-    workbench (wb)     Make Workbench
-    part               Make Part class
+  {workbench,wb,part,model}
+    workbench (wb)      Make Workbench
+    part                Make Part class
+    model               Make Model class
 ```
 
 #### workbench
@@ -289,6 +290,17 @@ For example,
 Makes a new `Box` part class.
 
 For more information, see [Part Classes](https://ose-workbench-platform.readthedocs.io/en/latest/pages/pattern_catalog/part_classes.html) in the docs.
+
+#### model
+Within the repository of a workbench, run the `osewb make model` command to make a new **Model Class**.
+
+For example,
+
+    osewb make model Box
+
+Makes a new `BoxModel` model class.
+
+For more information, see [Model Classes](https://ose-workbench-platform.readthedocs.io/en/latest/pages/pattern_catalog/model_classes.html) in the docs.
 
 ### browse
 OSE Workbench Platform includes a `browse` covenience command for opening documentation and coverage reports in a web browser.

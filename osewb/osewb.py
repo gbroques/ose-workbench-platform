@@ -12,7 +12,6 @@ from .handle_make_workbench_command import handle_make_workbench_command
 from .handle_test_command import handle_test_command
 
 
-
 def main() -> None:
     command, args = _parse_command()
     if command == 'make' and (args['make_command'] == 'workbench' or args['make_command'] == 'wb'):
@@ -93,6 +92,11 @@ def _parse_command() -> Tuple[str, dict]:
                                                usage='osewb make part <name>')
     part_subparser.add_argument(
         'name', help='Name for the part class in pascal or upper camel-case (e.g. MyBox).')
+    model_subparser = make_subparser.add_parser('model',
+                                                help='Make Model class',
+                                                usage='osewb make model <name>')
+    model_subparser.add_argument(
+        'name', help='Name for the model class in pascal or upper camel-case (e.g. MyBox).')
     browse_parser = subparsers.add_parser('browse',
                                           help='Commands for opening documents in a web browser',
                                           usage='osewb browse <command>',

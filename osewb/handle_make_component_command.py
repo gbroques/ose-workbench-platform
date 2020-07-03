@@ -35,6 +35,7 @@ def handle_make_component_command(base_package: str,
     # 3. Update init module of component package
     component_package_init_module_path = component_package_path.joinpath(
         '__init__.py')
+    component_name = map_name_to_component_name(name, component)
     with component_package_init_module_path.open('r+') as f:
         lines = f.readlines()
         text = ''.join(lines)
@@ -47,29 +48,32 @@ def handle_make_component_command(base_package: str,
             return None
         else:
             all_members = eval(match.group(1))
-            next_all_string = build_next_all_string(all_members, name)
+            next_all_string = build_next_all_string(
+                all_members, component_name)
             new_contents = re.sub(all_pattern, next_all_string, text)
             import_statement = 'from ._{} import {}\n'.format(
-                name.lower(), name)
+                name.lower(), component_name)
             new_contents += '\n' + import_statement
             f.seek(0)
             f.write(new_contents)
     SortImports(component_package_init_module_path.resolve())
 
     # 4. Setup init module in component sub-package
+    component_module_name = map_name_to_component_module_name(name, component)
     init_module_path = new_component_sub_package_path.joinpath(
         '__init__.py')
     init_module_path.touch(exist_ok=True)
     with init_module_path.open('a') as f:
         import_statement = 'from .{} import {}\n'.format(
-            name.lower(), name)
-        all_declaration = "__all__ = ['{}']".format(name)
+            component_module_name, component_name)
+        all_declaration = "__all__ = ['{}']".format(component_name)
         f.write('\n'.join([import_statement, all_declaration]))
     SortImports(init_module_path.resolve())
 
     # 5. Create new component module using template
-    module_name = '{}.py'.format(name.lower())
-    component_module_path = new_component_sub_package_path.joinpath(module_name)
+    module_name = '{}.py'.format(component_module_name)
+    component_module_path = new_component_sub_package_path.joinpath(
+        module_name)
     component_module_existed_before = component_module_path.exists()
     component_module_path.touch(exist_ok=True)
     if component_module_existed_before:
@@ -80,8 +84,8 @@ def handle_make_component_command(base_package: str,
     component_module_path.write_text(component_module_text)
 
 
-def build_next_all_string(all_members: List[str], name: str) -> str:
-    next_all_members = all_members + [name]
+def build_next_all_string(all_members: List[str], component_name: str) -> str:
+    next_all_members = all_members + [component_name]
     sorted_next_all_members = sorted(next_all_members)
     next_all_members_with_indentation = [
         "    '{}'".format(m) for m in sorted_next_all_members]
@@ -96,3 +100,25 @@ def render_template(component: str, name: str) -> str:
         loader=PackageLoader('osewb', 'templates'))
     template = env.get_template('{}.py'.format(component))
     return template.render(name=name) + '\n'
+
+
+def map_name_to_component_name(name: str, component: str) -> str:
+    try:
+        return {
+            'part': name,
+            'model': '{}Model'.format(name)
+        }[component]
+    except KeyError:
+        print('No component named "{}"'.format(component))
+        exit(1)
+
+
+def map_name_to_component_module_name(name: str, component: str) -> str:
+    try:
+        return {
+            'part': name.lower(),
+            'model': '{}_model'.format(name.lower())
+        }[component]
+    except KeyError:
+        print('No component named "{}"'.format(component))
+        exit(1)
