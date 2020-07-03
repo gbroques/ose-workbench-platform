@@ -14,7 +14,7 @@ The workbench package, located within the ``freecad/`` directory, contains code 
     ├── part_feature/
     ├── __init__.py
     ├── init_gui.py
-    └── register_commands.py
+    └── OSE_<Machine_Name>.py
 
 init_gui.py
 -----------
@@ -30,7 +30,7 @@ For example, the **workbench class** for OSE's Tractor Workbench will be located
     import FreeCADGui as Gui
 
     from .icon import get_icon_path
-    from .register_commands import register_commands
+    from .OSE_Tractor import register_commands
 
 
     class TractorWorkbench(Gui.Workbench):
@@ -83,15 +83,15 @@ For example, the ``command`` package in the ``ose-3d-printer-workbench`` contain
 .. code-block::
 
     freecad/<workbench package>/command
-    ├── add_axis/
-    ├── add_extruder/
-    ├── add_frame/
-    ├── add_heated_bed/
+    ├── _add_axis/
+    ├── _add_extruder/
+    ├── _add_frame/
+    ├── _add_heated_bed/
     └── __init__.py
 
-The ``add_axis/`` package exposes an ``AddAxisCommand`` that's executed when the user wants to add an axis to the document.
+The ``_add_axis/`` package exposes an ``AddAxisCommand`` that's executed when the user wants to add an axis to the document.
 
-Similarly, the ``add_extruder/`` package exposes an ``AddExtruderCommand`` class, ``add_frame/`` exposes ``AddFrameCommand``, and ``heated_bed/`` exposes ``AddHeatedBed``.
+Similarly, the ``_add_extruder/`` package exposes an ``AddExtruderCommand`` class, ``_add_frame/`` exposes ``AddFrameCommand``, and ``_heated_bed/`` exposes ``AddHeatedBed``.
 
 For more information on command classes themselves, see `Command Classes <command_classes.html>`_.
 
@@ -128,9 +128,7 @@ You can see a simple and relatively complete command registry module example bas
 
     import FreeCADGui as Gui
 
-    from .command.add_extruder import AddExtruderCommand
-    from .command.add_frame import AddFrameCommand
-    from .command.add_heated_bed import AddHeatedBedCommand
+    from .command import AddExtruderCommand, AddFrameCommand, AddHeatedBedCommand
 
     #: Command Namespace: Must be unique to all FreeCAD workbenches.
     command_namespace = 'OSE3DP'
@@ -181,15 +179,15 @@ For example, the ``part_feature`` package in the ``ose-3d-printer-workbench`` co
 .. code-block::
 
     freecad/<workbench package>/part_feature
-    ├── axis/
-    ├── extruder/
-    ├── frame/
-    ├── heated_bed/
+    ├── _axis/
+    ├── _extruder/
+    ├── _frame/
+    ├── _heated_bed/
     └── __init__.py
 
-The ``axis/`` package exposes a ``create_axis`` function that creates and adds an axis part feature object to a specified document.
+The ``_axis/`` package exposes a ``create_axis`` function that creates and adds an axis part feature object to a specified document.
 
-Similarly, the ``extruder/`` package exposes a ``create_extruder`` function, ``frame/`` exposes ``create_frame``, and ``heated_bed/`` exposes ``create_heated_bed``.
+Similarly, the ``_extruder/`` package exposes a ``create_extruder`` function, ``_frame/`` exposes ``create_frame``, and ``_heated_bed/`` exposes ``create_heated_bed``.
 
 A simple example of a part feature creation function looks like:
 
