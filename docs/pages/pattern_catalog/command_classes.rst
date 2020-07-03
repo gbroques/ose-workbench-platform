@@ -15,30 +15,45 @@ OSE Workbench Command Classes are an opinionated extension to `FreeCAD Command C
 
 2. Have a static ``NAME`` **string** constant
 
-    * Typically the same name as the command (e.g. ``'AddCommand'``)
+    * Typically the same name as the command (e.g. ``'AddFrameCommand'``)
 
 .. Important:: ``NAME`` must be unique for all commands within the scope of the workbench
 
-3. Located and exposed by sub-packages in the ``gui.command`` package of a workbench
+3. Located and exposed by the ``command`` sub-package of the `workbench package <workbench_package.html>`_.
 
 .. code-block::
 
-    gui/command
-    └── add_frame/
-        ├── add_frame_command.py
-        └── __init__.py
+    freecad/ose3dprinter/command
+    ├── _add_frame/
+    │   ├── add_frame_command.py
+    │   └── __init__.py
+    └── __init__.py
+
+Within ``_add_frame/__init__.py``:
 
 .. code-block:: python
 
-    from <base package>.gui.command.add_frame import AddFrameCommand
+    from .add_frame_command import AddFrameCommand
+
+    __all__ = ['AddFrameCommand']
+
+Within ``freecad/ose3dprinter/command/__init__.py``:
+
+.. code-block:: python
+
+    """Commands users can perform in FreeCAD's GUI."""
+    from ._add_frame import AddFrameCommand
+
+    __all__ = ['AddFrameCommand',]
 
 The following is a complete example taken from the `ose-3d-printer-workbench <https://github.com/gbroques/ose-3d-printer-workbench/tree/master/ose3dprinter/gui/command/add_frame>`_:
 
 .. code-block::
 
     import FreeCAD as App
-    from ose3dprinter.gui.create_part_feature import create_frame
-    from ose3dprinter.gui.icon import get_icon_path
+
+    from freecad.ose3dprinter.icon import get_icon_path
+    from freecad.ose3dprinter.part_feature import create_frame
 
 
     class AddFrameCommand:
