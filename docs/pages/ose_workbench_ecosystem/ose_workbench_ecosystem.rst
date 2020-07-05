@@ -35,3 +35,12 @@ OSE Workbench Libraries
            :height: 64px
       - Workbench Core
       - https://ose-workbench-core.readthedocs.io/en/latest/
+
+UML Diagram
+-----------
+The below UML diagram shows the relationships between different components in the OSE Workbench Ecosystem.
+
+.. raw:: html
+    :file: ./ose-workbench-ecosystem.svg
+
+The **dashed** lines represent dependencies.

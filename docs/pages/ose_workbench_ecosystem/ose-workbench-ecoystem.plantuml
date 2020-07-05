@@ -1,0 +1,18 @@
+@startuml OSE Workbench Ecosystem
+left to right direction
+
+frame "OSE Workbench Platform" {
+    [ose-workbench-platform] [[https://ose-workbench-platform.readthedocs.io/en/latest/]]
+}
+
+frame "OSE Workbenches" {
+    [ose-3d-printer-workbench] [[https://ose-3d-printer-workbench.readthedocs.io/en/latest/]]
+}
+
+frame "OSE Workbench Libraries" {
+    [ose-workbench-core] [[https://ose-workbench-core.readthedocs.io/en/latest/]]
+}
+
+[ose-3d-printer-workbench] ..> [ose-workbench-core]
+[ose-3d-printer-workbench] ..> [ose-workbench-platform] : Dev dependency
+@enduml
