@@ -50,6 +50,12 @@ Every workbench should follow the above standards and guidelines to make working
 
 .. toctree::
    :maxdepth: 1
+   :caption: OSE Workbench Ecosystem
+
+   pages/ose_workbench_ecosystem/ose_workbench_ecosystem
+
+.. toctree::
+   :maxdepth: 1
    :caption: osewb package
 
    osewb/osewb
