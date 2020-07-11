@@ -3,6 +3,7 @@ import re
 
 from sphinx.application import Sphinx
 
+# TODO: Make lint rule to enforce these naming conventions
 class_pattern_template = r'ose[A-Za-z0-9]+\.{}\.[A-Z][A-Za-z]+'
 part_class_pattern = re.compile(class_pattern_template.format('part'))
 model_class_pattern = re.compile(class_pattern_template.format('model'))
