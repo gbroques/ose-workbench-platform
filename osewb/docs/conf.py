@@ -56,7 +56,8 @@ conf = {
         # See respective docstring
         'osewb.docs.ext.all_summary_table',
         'osewb.docs.ext.freecad_custom_property_table',
-        'osewb.docs.ext.freecad_icon'
+        'osewb.docs.ext.freecad_icon',
+        'osewb.docs.ext.osewb_docstring_process'
     ],
 
     # Base configuration for the above Sphinx extensions
