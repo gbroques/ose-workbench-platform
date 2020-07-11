@@ -3,7 +3,7 @@ import re
 
 from sphinx.application import Sphinx
 
-class_pattern_template = r'ose[A-Za-z0-9]+\.{}\.[A-Z][a-z]+'
+class_pattern_template = r'ose[A-Za-z0-9]+\.{}\.[A-Z][A-Za-z]+'
 part_class_pattern = re.compile(class_pattern_template.format('part'))
 model_class_pattern = re.compile(class_pattern_template.format('model'))
 
@@ -15,7 +15,7 @@ def process_docstring(app, what, name, obj, options, lines):
             lines.append(
                 '.. image:: /_static/screenshot/{}.png'.format(class_name))
             lines.append('   :alt: {}'.format(class_name))
-        elif model_class_pattern.match(name):
+        elif model_class_pattern.match(name) and name.endswith('Model'):
             lines.append('.. fc-custom-property-table::')
 
 
