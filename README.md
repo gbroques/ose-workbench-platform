@@ -164,7 +164,18 @@ For additional information, see:
 ### docs
 OSE Workbench Platform includes a `docs` command for building the documentation of a workbench.
 
-    osewb docs
+```
+$ osewb docs -h ↵
+usage: osewb docs [command]
+
+optional arguments:
+  -h, --help       show this help message and exit
+
+Commands:
+  {screenshot,ss}
+    screenshot (ss)
+                   Take screenshots of parts for documentation.
+```
 
 The `docs` command will:
 
@@ -172,6 +183,14 @@ The `docs` command will:
 * Re-generate `docs/_build/`, `docs/<base package>/`, `docs/freecad/<base package>/` by running `sphinx-build . _build` within `docs/` using the Sphinx configuration specified in `docs/conf.py`
 
 For additional information, see [sphinx-build](https://www.sphinx-doc.org/en/master/man/sphinx-build.html) and [Sphinx Configuration](https://www.sphinx-doc.org/en/master/usage/configuration.html).
+
+---
+
+Additionally, you may pass a `screenshot` or `ss` sub-command to the `docs` command for taking screenshots of parts in a workbench:
+
+    osewb docs ss
+
+This will look for parts in the `<base package>/part` package of the current workbench, and save thumbnail screen shots in the `docs/_static/screenshot/` directory for each part.
 
 ### build
 OSE Workbench Platform includes a `build` command for building a workbench.

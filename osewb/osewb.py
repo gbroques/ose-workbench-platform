@@ -1,7 +1,9 @@
 import argparse
+import os
 from typing import Tuple
 
 from ._version import __version__
+from .execute_command import execute_command
 from .find_base_package import find_base_package, find_root_of_git_repository
 from .handle_browse_command import handle_browse_command
 from .handle_build_command import handle_build_command
@@ -29,7 +31,12 @@ def main() -> None:
                                 root_of_git_repository,
                                 with_coverage=args['coverage'])
         elif command == 'docs':
-            handle_docs_command(base_package, root_of_git_repository)
+            if args['docs_command'] == 'screenshot' or args['docs_command'] == 'ss':
+                screenshot_script = os.path.join(os.path.dirname(
+                    os.path.abspath(__file__)), 'part_screenshot.py')
+                execute_command('freecad -c {}'.format(screenshot_script))
+            else:
+                handle_docs_command(base_package, root_of_git_repository)
         elif command == 'make':
             make_subcommand = args['make_command']
             name = args['name']
@@ -71,9 +78,16 @@ def _parse_command() -> Tuple[str, dict]:
     lint_parser.add_argument('-f', '--fix',
                              action='store_true',
                              help='Attempt to automatically fix linter issues')
-    subparsers.add_parser('docs',
-                          help='Make documentation',
-                          usage='osewb docs')
+    docs_parser = subparsers.add_parser('docs',
+                                        help='Make documentation',
+                                        usage='osewb docs [command]')
+    docs_subparser = docs_parser.add_subparsers(title='Commands',
+                                                dest='docs_command',
+                                                required=False)
+    docs_subparser.add_parser('screenshot',
+                              help='Take screenshots of parts for documentation.',
+                              usage='osewb docs screenshot',
+                              aliases=['ss'])
     make_parser = subparsers.add_parser('make',
                                         help='Commands for making new code',
                                         usage='osewb make <command>')
