@@ -250,22 +250,16 @@ Perform the following commands to get started:
 
 The above examples initializes a new workbench, in a `ose-tractor-workbench` directory, with the basic structure and files needed.
 
-**TODO:** The below `tree` diagram needs to be updated.
 ```
 $ tree ose-tractor-workbench --dirsfirst ↵
 ose-tractor-workbench
 ├── docs
-│   ├── _static
-│   ├── _templates
-│   │   ├── package.rst_t
-│   │   └── toc.rst_t
 │   ├── conf.py
-│   ├── index.rst
-│   └── requirements.txt
+│   └── index.rst
 ├── freecad
 │   └── osetractor
 │       ├── command
-│       │   ├── add_box
+│       │   ├── _add_box
 │       │   │   ├── add_box_command.py
 │       │   │   └── __init__.py
 │       │   └── __init__.py
@@ -274,10 +268,10 @@ ose-tractor-workbench
 │       │   └── __init__.py
 │       ├── init_gui.py
 │       ├── __init__.py
-│       └── register_commands.py
+│       └── OSE_Tractor.py
 ├── osetractor
 │   ├── part
-│   │   ├── box
+│   │   ├── _box
 │   │   │   ├── box.py
 │   │   │   └── __init__.py
 │   │   └── __init__.py
@@ -292,7 +286,7 @@ ose-tractor-workbench
 ├── README.md
 └── setup.py
 
-12 directories, 25 files
+10 directories, 22 files
 ```
 
 For more information, see the [Pattern Catalog](https://ose-workbench-platform.readthedocs.io/en/latest/) in the docs.
