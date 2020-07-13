@@ -38,12 +38,14 @@ def main() -> None:
             else:
                 handle_docs_command(base_package, root_of_git_repository)
         elif command == 'make':
-            make_subcommand = args['make_command']
-            name = args['name']
+            args_copy = args.copy()
+            make_subcommand = args_copy.pop('make_command')
+            name = args_copy.pop('name')
             handle_make_component_command(base_package,
                                           root_of_git_repository,
                                           make_subcommand,
-                                          name)
+                                          name,
+                                          args_copy)
     elif command == 'browse' or command == 'br' or command == 'lint':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
@@ -111,6 +113,9 @@ def _parse_command() -> Tuple[str, dict]:
                                                 usage='osewb make model <name>')
     model_subparser.add_argument(
         'name', help='Name for the model class in pascal or upper camel-case (e.g. MyBox).')
+    model_subparser.add_argument('-p', '--part',
+                                 action='store_true',
+                                 help='Make part class as well.')
     browse_parser = subparsers.add_parser('browse',
                                           help='Commands for opening documents in a web browser',
                                           usage='osewb browse <command>',

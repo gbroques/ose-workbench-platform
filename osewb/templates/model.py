@@ -1,5 +1,8 @@
 import Part
 from osecore.app.model import Model
+{%- if part and base_package %}
+from {{ base_package }}.part import {{ part }}
+{%- endif %}
 
 
 class {{ name }}Model(Model):
@@ -13,7 +16,11 @@ class {{ name }}Model(Model):
         """
         Called on document recompute
         """
+        {%- if part %}
+        obj.Shape = {{ part }}.make()
+        {%- else %}
         obj.Shape = Part.makeBox(10, 10, 10)
+        {%- endif %}
 
     def __getstate__(self):
         return self.Type

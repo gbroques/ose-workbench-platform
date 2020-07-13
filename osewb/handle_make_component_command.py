@@ -12,7 +12,8 @@ from jinja2 import Environment, PackageLoader
 def handle_make_component_command(base_package: str,
                                   root_of_git_repository: str,
                                   component: str,
-                                  name: str) -> None:
+                                  name: str,
+                                  args: dict) -> None:
     # 1. Construct component package
     component_package_path = Path(os.path.join(
         root_of_git_repository,
@@ -80,8 +81,16 @@ def handle_make_component_command(base_package: str,
         print('{} already exists. Skipping {} class creation.'.format(
             module_name, component))
         return None
-    component_module_text = render_template(component, name)
+    component_module_text = render_template(
+        component, name, base_package, args)
     component_module_path.write_text(component_module_text)
+    if component == 'model' and args['part']:
+        del args['part']
+        handle_make_component_command(base_package,
+                                      root_of_git_repository,
+                                      'part',
+                                      name,
+                                      args)
 
 
 def build_next_all_string(all_members: List[str], component_name: str) -> str:
@@ -95,11 +104,12 @@ def build_next_all_string(all_members: List[str], component_name: str) -> str:
         next_all_members_string)
 
 
-def render_template(component: str, name: str) -> str:
+def render_template(component: str, name: str, base_package: str, args: dict) -> str:
     env = Environment(
         loader=PackageLoader('osewb', 'templates'))
     template = env.get_template('{}.py'.format(component))
-    return template.render(name=name) + '\n'
+    template_args = get_component_template_args(component, name, args)
+    return template.render(name=name, base_package=base_package, **template_args) + '\n'
 
 
 def map_name_to_component_name(name: str, component: str) -> str:
@@ -122,3 +132,11 @@ def map_name_to_component_module_name(name: str, component: str) -> str:
     except KeyError:
         print('No component named "{}"'.format(component))
         exit(1)
+
+
+def get_component_template_args(component: str, name: str, args: dict) -> dict:
+    if component == 'model' and args['part']:
+        return {
+            'part': map_name_to_component_name(name, 'part')
+        }
+    return {}
