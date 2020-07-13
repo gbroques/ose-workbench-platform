@@ -12,6 +12,7 @@ build:
   entry_points:
     - osewb = osewb.osewb:main
   script: "{{ PYTHON }} -m pip install . -vv"
+  noarch: python
 
 requirements:
   host:
