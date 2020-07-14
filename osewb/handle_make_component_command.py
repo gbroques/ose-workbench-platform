@@ -17,14 +17,15 @@ def handle_make_component_command(base_package: str,
     # 1. Construct component package
     component_package_path = Path(os.path.join(
         root_of_git_repository,
-        base_package,
+        map_base_package_to_library_or_workbench_package(
+            base_package, component),
         component
     ))
     component_package_path.mkdir(exist_ok=True)
 
     # 2. Construct new component sub-package
     #    Stop if it exists
-    new_component_sub_package = '_' + name.lower()
+    new_component_sub_package = '_' + camel_case_to_snake_case(name)
     new_component_sub_package_path = Path(
         component_package_path).joinpath(new_component_sub_package)
     if(new_component_sub_package_path.exists()):
@@ -52,8 +53,8 @@ def handle_make_component_command(base_package: str,
             next_all_string = build_next_all_string(
                 all_members, component_name)
             new_contents = re.sub(all_pattern, next_all_string, text)
-            import_statement = 'from ._{} import {}\n'.format(
-                name.lower(), component_name)
+            import_statement = 'from .{} import {}\n'.format(
+                new_component_sub_package, component_name)
             new_contents += '\n' + import_statement
             f.seek(0)
             f.write(new_contents)
@@ -116,7 +117,8 @@ def map_name_to_component_name(name: str, component: str) -> str:
     try:
         return {
             'part': name,
-            'model': '{}Model'.format(name)
+            'model': '{}Model'.format(name),
+            'command': '{}Command'.format(name)
         }[component]
     except KeyError:
         print('No component named "{}"'.format(component))
@@ -126,8 +128,9 @@ def map_name_to_component_name(name: str, component: str) -> str:
 def map_name_to_component_module_name(name: str, component: str) -> str:
     try:
         return {
-            'part': name.lower(),
-            'model': '{}_model'.format(name.lower())
+            'part': camel_case_to_snake_case(name),
+            'model': '{}_model'.format(camel_case_to_snake_case(name)),
+            'command': '{}_command'.format(camel_case_to_snake_case(name))
         }[component]
     except KeyError:
         print('No component named "{}"'.format(component))
@@ -140,3 +143,28 @@ def get_component_template_args(component: str, name: str, args: dict) -> dict:
             'part': map_name_to_component_name(name, 'part')
         }
     return {}
+
+
+def map_base_package_to_library_or_workbench_package(base_package: str,
+                                                     component: str) -> str:
+    library_package_components = ['part', 'model']
+    workbench_package_components = ['command']
+    if component in library_package_components:
+        return base_package
+    elif component in workbench_package_components:
+        return os.path.join('freecad', base_package)
+    else:
+        raise ValueError(
+            'Component "{}" not in a library or workbench package.'.format(component))
+
+
+def camel_case_to_snake_case(str: str) -> str:
+    result = [str[0].lower()]
+    for c in str[1:]:
+        if c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+            result.append('_')
+            result.append(c.lower())
+        else:
+            result.append(c)
+
+    return ''.join(result)

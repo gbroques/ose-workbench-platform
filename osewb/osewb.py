@@ -116,6 +116,11 @@ def _parse_command() -> Tuple[str, dict]:
     model_subparser.add_argument('-p', '--part',
                                  action='store_true',
                                  help='Make part class as well.')
+    command_subparser = make_subparser.add_parser('command',
+                                                  help='Make Command class',
+                                                  usage='osewb make command <name>')
+    command_subparser.add_argument(
+        'name', help='Name for the command class in pascal or upper camel-case (e.g. MyBoxCommand).')
     browse_parser = subparsers.add_parser('browse',
                                           help='Commands for opening documents in a web browser',
                                           usage='osewb browse <command>',
