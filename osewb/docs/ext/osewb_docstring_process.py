@@ -1,6 +1,8 @@
 import inspect
 import os
 import re
+from os import listdir
+from os.path import isfile, join
 
 from sphinx.application import Sphinx
 
@@ -11,6 +13,8 @@ class_pattern_template = r'ose[A-Za-z0-9]+\.{}\.[A-Z][A-Za-z]+'
 part_class_pattern = re.compile(class_pattern_template.format('part'))
 model_class_pattern = re.compile(class_pattern_template.format('model'))
 
+icon_package_pattern = re.compile(r'freecad\.ose[A-Za-z0-9]+\.icon')
+
 repo_root = find_root_of_git_repository()
 if repo_root is None:
     print('Must be in git repository')
@@ -20,7 +24,26 @@ img_path_template = os.path.join(
 
 
 def process_docstring(app, what, name, obj, options, lines):
-    if what == 'class':
+    if what == 'module' and icon_package_pattern.match(name):
+        icon_directory = os.path.dirname(obj.__file__)
+        icons = [f for f in listdir(icon_directory) if isfile(
+            join(icon_directory, f)) and not f.endswith('.py')]
+        lines.append('Icons')
+        lines.append('-----')
+        lines.append('')
+        sorted_icons = sorted(icons)
+        lines.append('.. list-table::')
+        lines.append('   :header-rows: 1')
+        lines.append('')
+        lines.append('   * - Icon')
+        lines.append('     - Filename')
+        for icon in sorted_icons:
+            lines.append('   * - :fcicon:`{} (md) <{}>`'.format(icon, icon))
+            lines.append('     - ``{}``'.format(icon))
+        lines.append('')
+        lines.append('----')
+        lines.append('')
+    elif what == 'class':
         if part_class_pattern.match(name):
             class_name = obj.__name__
             if os.path.exists(img_path_template.format(class_name)):
