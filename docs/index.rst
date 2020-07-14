@@ -1,5 +1,5 @@
-OSE Workbench Platform Documenation
-===================================
+OSE Workbench Platform Documentation
+====================================
 A platform for workbench development by `Open Source Ecology <https://www.opensourceecology.org/>`_.
 
 OSE defines a "workbench" as a set of tools in CAD software to design and make a particular machine.
