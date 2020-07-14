@@ -86,6 +86,10 @@ autodoc_mock_imports = conf['ext']['autodoc']['autodoc_mock_imports']
 remove_app_property_prefix_from_type = conf['ext'][
     'freecad_custom_property_table']['remove_app_property_prefix_from_type']
 
+# -- FreeCAD Icon Extension Options ------------------------------------------
+# Relative to docs source
+freecad_icon_directory = '../freecad/{{ cookiecutter.base_package }}/icon'
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
