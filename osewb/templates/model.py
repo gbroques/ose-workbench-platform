@@ -11,6 +11,9 @@ class {{ name }}Model(Model):
 
     def __init__(self, obj):
         super({{ name }}Model, self).__init__(obj)
+        # TODO: Add custom properties
+        # obj.addProperty('App::PropertyLength', 'PropertyName',
+        #         'Base', 'Descriptive tooltip').PropertyName = 10.0
 
     def execute(self, obj):
         """
