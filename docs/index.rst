@@ -8,6 +8,8 @@ The below **Workbench Planning** pages cover planning for workbench development.
 Note, anyone can contribute to the workbench planning process, and you don't need to be a programmer.
 Indeed, OSE workbench development teams benefit from a diversity of people with different backgrounds and skill-sets.
 
+The below **Developer Onboarding** pages contain guides for getting setup as an OSE workbench developer.
+
 The below **Development Process** pages describe various processes related to development such as breaking down development work, branching, and versioning.
 
 The below **Pattern Catalog** pages describe structure and patterns for solving common problems in workbenches using the FreeCAD platform.
@@ -24,6 +26,14 @@ Every workbench should follow the above standards and guidelines to make working
    pages/workbench_planning/breaking_down_parts_into_sub_parts
    pages/workbench_planning/designing_parts
    pages/workbench_planning/defining_relationships_between_parts
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Developer Onboarding
+
+   pages/developer_onboarding/editor
+
 
 .. toctree::
    :maxdepth: 1
