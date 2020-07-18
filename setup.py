@@ -34,7 +34,7 @@ setup(
         'Jinja2<3.0.0',  # Also a requirement of cookiecutter
         'jinja2-time>=0.2.0',  # Also a requirement of cookiecutter
 
-        # ---------------------------
+        # ----------------------------
         # | Docs Requirements        |
         # | Also in environment.yaml |
         # ----------------------------
@@ -57,7 +57,8 @@ setup(
         'flake8-isort==3.0.0',
         'isort==4.3.21',
         'autopep8==1.5.3',
-        'mypy==0.781'
+        'mypy==0.781',
+        'rope==0.17.0'
     ],
     classifiers=[
         # Full List: https://pypi.org/pypi?%3Aaction=list_classifiers
