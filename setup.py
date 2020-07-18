@@ -58,6 +58,7 @@ setup(
         'isort==4.3.21',
         'autopep8==1.5.3',
         'mypy==0.781',
+        'pydocstyle==5.0.2',
         'rope==0.17.0'
     ],
     classifiers=[
