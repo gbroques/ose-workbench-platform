@@ -37,6 +37,7 @@ def handle_make_component_command(base_package: str,
     # 3. Update init module of component package
     component_package_init_module_path = component_package_path.joinpath(
         '__init__.py')
+    component_package_init_module_path.touch(exist_ok=True)
     component_name = map_name_to_component_name(name, component)
     with component_package_init_module_path.open('r+') as f:
         lines = f.readlines()
@@ -44,20 +45,19 @@ def handle_make_component_command(base_package: str,
         white_space = '[\s\S]+'
         all_pattern = white_space.join(['__all__', '=', '(\[', '\])'])
         match = re.search(all_pattern, text)
-        if not match:
-            print('No __all__ found in {}'.format(
-                component_package_init_module_path.resolve()))
-            return None
-        else:
+        all_members = []
+        if match:
             all_members = eval(match.group(1))
-            next_all_string = build_next_all_string(
-                all_members, component_name)
-            new_contents = re.sub(all_pattern, next_all_string, text)
-            import_statement = 'from .{} import {}\n'.format(
-                new_component_sub_package, component_name)
-            new_contents += '\n' + import_statement
-            f.seek(0)
-            f.write(new_contents)
+        next_all_string = build_next_all_string(
+            all_members, component_name)
+        if not match:
+            text = next_all_string
+        new_contents = re.sub(all_pattern, next_all_string, text)
+        import_statement = 'from .{} import {}\n'.format(
+            new_component_sub_package, component_name)
+        new_contents = import_statement + '\n' + new_contents
+        f.seek(0)
+        f.write(new_contents)
     SortImports(component_package_init_module_path.resolve())
 
     # 4. Setup init module in component sub-package
