@@ -24,6 +24,17 @@ Recommended Extensions
     * - `Python Docstring Generator <https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring>`_
       - Quickly generate docstrings for python functions.
 
+Python Docstring Generator Configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+A **custom docstring template** for OSE workbenches has been included in the root of ``ose-workbench-platform``, in a file called ``.mustache``.
+
+.. include:: ../../../.mustache
+   :literal:
+
+You should configure the extension to use this template in order to avoid adding **types** to your docstrings.
+
+Types in docstrings are redundant with `Type Hints <https://www.python.org/dev/peps/pep-0484/>`_ — the preferred way to document the types in Python.
+
 .. admonition:: Is VS Code open-source?
 
    `Explained by a VS Code developer <https://github.com/Microsoft/vscode/issues/60#issuecomment-161792005>`_:
