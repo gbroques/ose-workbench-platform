@@ -1,5 +1,4 @@
-"""Shared base configuration for OSE workbench documentation.
-"""
+"""Shared base configuration for OSE workbench documentation."""
 import os
 import sys
 
@@ -52,6 +51,9 @@ conf = {
         # Enables localization of theme strings in translated output
         'sphinx_rtd_theme',
 
+        # Link to other projects' documentation
+        'sphinx.ext.intersphinx',
+
         # Custom OSE Workbench Sphinx Extensions
         # See respective docstring
         'osewb.docs.ext.all_summary_table',
@@ -69,7 +71,11 @@ conf = {
             # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_mock_imports
             'autodoc_mock_imports': [
                 'FreeCADGui'
-            ]
+            ],
+            # How to represents typehints.
+            # description - Show typehints as content of function or method
+            # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_typehints
+            'autodoc_typehints': 'description'
         },
         'extlinks': {
             # Dictionary of external sites,
@@ -82,6 +88,14 @@ conf = {
                 'freecadwikipage': (
                     'https://wiki.freecadweb.org/%s', ''
                 )
+            }
+        },
+        'intersphinx': {
+            'intersphinx_mapping': {
+                # Add links to Python standard library documentation
+                # 'None' means to download the corresponding objects.inv file from the Internet.
+                # https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#confval-intersphinx_mapping
+                'python': ('https://docs.python.org/3', None)
             }
         },
         'freecad_custom_property_table': {
