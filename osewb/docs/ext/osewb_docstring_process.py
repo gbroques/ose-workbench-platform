@@ -5,8 +5,11 @@ from os import listdir
 from os.path import isfile, join
 
 from sphinx.application import Sphinx
+from sphinx.util.logging import getLogger
 
 from osewb.find_base_package import find_root_of_git_repository
+
+logger = getLogger(__name__)
 
 # TODO: Make lint rule to enforce these naming conventions
 class_pattern_template = r'ose[A-Za-z0-9]+\.{}\.[A-Z][A-Za-z]+'
@@ -19,8 +22,8 @@ repo_root = find_root_of_git_repository()
 if repo_root is None:
     print('Must be in git repository')
     exit(1)
-img_path_template = os.path.join(
-    repo_root, 'docs', '_static', 'screenshot', '{}.png')
+screenshot_dir = os.path.join(repo_root, 'docs', '_static', 'screenshot')
+img_path_template = os.path.join(screenshot_dir, '{}.png')
 
 
 def process_docstring(app, what, name, obj, options, lines):
@@ -50,6 +53,9 @@ def process_docstring(app, what, name, obj, options, lines):
                 lines.append(
                     '.. image:: /_static/screenshot/{}.png'.format(class_name))
                 lines.append('   :alt: {}'.format(class_name))
+            else:
+                logger.warning(
+                    'Screenshot for part "{}" missing. Try running `osewb docs screenshot`.'.format(class_name))
         elif model_class_pattern.match(name) and name.endswith('Model'):
             lines.append('.. fc-custom-property-table::')
 
@@ -63,6 +69,9 @@ def setup(app: Sphinx) -> None:
                     https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx
     """
     app.connect('autodoc-process-docstring', process_docstring)
+    if not os.path.exists(screenshot_dir):
+        logger.warning(
+            'No screenshot directory detected.\nTo generate part screenshots, run:\n\n    osewb docs screenshot\n')
 
 
 __all__ = ['setup']
