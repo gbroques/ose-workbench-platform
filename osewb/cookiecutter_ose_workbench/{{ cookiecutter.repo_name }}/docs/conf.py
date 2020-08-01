@@ -1,8 +1,9 @@
-# Configuration file for the Sphinx documentation builder.
-#
-# This file only contains a selection of the most common options. For a full
-# list see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
+"""
+Configuration file for the Sphinx documentation builder.
+This file only contains a selection of the most common options.
+For a full list see the documentation:
+    https://www.sphinx-doc.org/en/master/usage/configuration.html
+"""
 
 # -- Path setup --------------------------------------------------------------
 
@@ -12,6 +13,8 @@ import json
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 import os
 import sys
+
+from sphinx.application import Sphinx
 
 from osewb.docs import conf
 
@@ -27,7 +30,7 @@ print(json.dumps(conf, indent=4))
 print("============================================")
 
 
-def run_apidoc(app):
+def _run_apidoc(app):
     """Generate API documentation"""
     from sphinx.ext import apidoc
     max_depth = '1'
@@ -44,8 +47,15 @@ def run_apidoc(app):
         ])
 
 
-def setup(app):
-    app.connect('builder-inited', run_apidoc)
+def setup(app: Sphinx) -> None:
+    """Build and setup docs.
+
+    :param app: application object controlling high-level functionality,
+                such as the setup of extensions, event dispatching, and logging.
+                See Also:
+                    https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx
+    """
+    app.connect('builder-inited', _run_apidoc)
 
 
 # -- Project information -----------------------------------------------------
@@ -82,6 +92,11 @@ add_module_names = conf['add_module_names']
 # -- Auto-doc Options --------------------------------------------------------
 autodoc_mock_imports = conf['ext']['autodoc']['autodoc_mock_imports']
 
+autodoc_typehints = conf['ext']['autodoc']['autodoc_typehints']
+
+# -- Intersphinx Options -----------------------------------------------------
+intersphinx_mapping = conf['ext']['intersphinx']['intersphinx_mapping']
+
 # -- FreeCAD Custom Property Table Options -----------------------------------
 remove_app_property_prefix_from_type = conf['ext'][
     'freecad_custom_property_table']['remove_app_property_prefix_from_type']
@@ -94,11 +109,16 @@ freecad_icon_directory = '../freecad/{{ cookiecutter.base_package }}/icon'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
+
 html_theme = conf['html_theme']
 
 html_logo = conf['html_logo']
 
 html_css_files = conf['html_css_files']
+
+# Add any paths that contain custom static files (such as style sheets) here,
+# relative to this directory. They are copied after the builtin static files,
+# so a file named "default.css" will overwrite the builtin "default.css".
+html_static_path = ['_static']
 
 extlinks = conf['ext']['extlinks']['extlinks']
