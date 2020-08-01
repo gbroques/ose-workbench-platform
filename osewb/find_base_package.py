@@ -5,6 +5,16 @@ from .check_for_executable_in_path import check_for_executable_in_path
 
 
 def find_base_package() -> Optional[str]:
+    """Find the base package in a workbench repository.
+
+    Return None if not in a git repository,
+    or no directory in the root of the repository starts with "ose".
+
+    If multiple directories in the root of the repository start with "ose",
+    then we return the first match.
+
+    :return: Base package of workbench repository.
+    """
     repo_root = find_root_of_git_repository()
     if repo_root is None:
         return None
@@ -23,10 +33,10 @@ def find_base_package() -> Optional[str]:
 
 def find_root_of_git_repository() -> Optional[str]:
     """Find the root of the current git repository.
+
     Returns None if there's an error, or not in a git repository.
 
     :return: path to root of git repository
-    :rtype: str
     """
     return exec_git_command('git rev-parse --show-toplevel')
 
@@ -35,18 +45,17 @@ def find_git_user_name() -> Optional[str]:
     """Find the user name defined by git config.
 
     :return: Git user name
-    :rtype: str
     """
     return exec_git_command('git config user.name')
 
 
-def exec_git_command(git_command) -> Optional[str]:
+def exec_git_command(git_command: str) -> Optional[str]:
     """Find the root of the current git repository.
+
     Returns None if there's an error, or not in a git repository.
 
     :param git_command: git command string
     :return: path to root of git repository
-    :rtype: str
     """
     check_for_executable_in_path('git')
     pipe = os.popen(git_command)
