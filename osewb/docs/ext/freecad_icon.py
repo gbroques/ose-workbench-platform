@@ -2,10 +2,17 @@ import os
 import re
 
 from docutils import nodes
+from sphinx.application import Sphinx
 
 
-def fcicon_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
-    """FreeCAD Icon.
+def fcicon_role(name: str,
+                rawtext: str,
+                text: str,
+                lineno,  # TODO: is this str or int type?
+                inliner,  # TODO: What type is this?
+                options: dict = {},
+                content: list = []):
+    """FreeCAD Icon role.
 
     Returns 2 part tuple containing list of nodes to insert into the
     document and a list of system messages.  Both are allowed to be
@@ -62,10 +69,13 @@ def make_image_node(freecad_icon_directory, alt, size, filename):
     return nodes.image(uri='/' + uri, alt=alt, width=dim, height=dim)
 
 
-def setup(app):
-    """Install the plugin.
+def setup(app: Sphinx) -> None:
+    """Setup extension.
 
-    :param app: Sphinx application context.
+    :param app: application object controlling high-level functionality,
+                such as the setup of extensions, event dispatching, and logging.
+                See Also:
+                    https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx
     """
     app.add_role('fcicon', fcicon_role)
     app.add_config_value('freecad_icon_directory', None, 'env')

@@ -54,14 +54,13 @@ def process_docstring(app, what, name, obj, options, lines):
             lines.append('.. fc-custom-property-table::')
 
 
-def setup(app: Sphinx):
-    """The application object controlling high-level functionality, such as the setup of extensions, event dispatching, and logging.
+def setup(app: Sphinx) -> None:
+    """Setup extension.
 
-    See Also:
-        https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx
-
-    :param app: 
-    :type app: Sphinx
+    :param app: application object controlling high-level functionality,
+                such as the setup of extensions, event dispatching, and logging.
+                See Also:
+                    https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx
     """
     app.connect('autodoc-process-docstring', process_docstring)
 
