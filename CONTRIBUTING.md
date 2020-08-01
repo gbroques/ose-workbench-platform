@@ -26,6 +26,10 @@ Add the `$CONDA_PREFIX/lib` directory to `$PYTHONPATH` by running:
 
 **Note:** This allows `FreeCAD` to be imported as a module within `python`.
 
+Deactivate and re-activate `osewb` environment:
+
+    conda deactivate && conda activate osewb
+
 Verify everything works:
 
     osewb test
