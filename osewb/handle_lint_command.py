@@ -32,5 +32,7 @@ def handle_lint_command(root_of_git_repository: str,
         commands_with_errors = [pair[0]
                                 for pair in return_code_pairs if pair[1]]
         print('    {}\n'.format(', '.join(commands_with_errors)))
+        print('Try fixing them by running:\n')
+        print('    osewb lint --fix\n')
         exit(1)
     print('No lint warnings or errors detected!')
