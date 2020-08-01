@@ -84,7 +84,7 @@ def setup(app: Sphinx) -> None:
     :param app: application object controlling high-level functionality,
                 such as the setup of extensions, event dispatching, and logging.
                 See Also:
-                    https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx
+                https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx
     """
     app.add_role('fcicon', fcicon_role)
     app.add_config_value('freecad_icon_directory', None, 'env')

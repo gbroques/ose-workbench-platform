@@ -8,6 +8,7 @@ from .find_base_package import find_base_package, find_root_of_git_repository
 from .handle_browse_command import handle_browse_command
 from .handle_build_command import handle_build_command
 from .handle_docs_command import handle_docs_command
+from .handle_editor_config_command import handle_editor_config_command
 from .handle_lint_command import handle_lint_command
 from .handle_make_component_command import handle_make_component_command
 from .handle_make_workbench_command import handle_make_workbench_command
@@ -46,7 +47,7 @@ def main() -> None:
                                           make_subcommand,
                                           name,
                                           args_copy)
-    elif command == 'browse' or command == 'br' or command == 'lint':
+    elif command == 'browse' or command == 'br' or command == 'lint' or command == 'editor-config' or command == 'ec':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
             return None
@@ -56,6 +57,9 @@ def main() -> None:
         elif command == 'lint':
             should_fix = args['fix']
             handle_lint_command(root_of_git_repository, should_fix)
+        elif command == 'editor-config' or command == 'ec':
+            handle_editor_config_command(
+                root_of_git_repository, args['merge_workspace_settings'], args['overwrite_workspace_settings'])
     elif command == 'build' or command == 'bld':
         handle_build_command()
 
@@ -139,6 +143,16 @@ def _parse_command() -> Tuple[str, dict]:
                                          help='Build a workbench',
                                          usage='osewb build',
                                          aliases=['bld'])
+    editor_config_parser = subparsers.add_parser('editor-config',
+                                                 help='Output config for VS Code editor.',
+                                                 usage='osewb editor-config',
+                                                 aliases=['ec'])
+    editor_config_parser.add_argument('-m', '--merge-workspace-settings',
+                                      action='store_true',
+                                      help='Merge VS Code workspace settings.')
+    editor_config_parser.add_argument('-o', '--overwrite-workspace-settings',
+                                      action='store_true',
+                                      help='Overwrite VS Code workspace settings.')
     args = vars(parser.parse_args())
     command = args.pop('command')
     # TODO: Map short-alias to full-command name before returning!

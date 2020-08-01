@@ -18,6 +18,7 @@
   * [build](#build)
   * [make](#make)
   * [browse](#browse)
+  * [editor-config](#editor-config)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -332,6 +333,27 @@ Commands:
 ```
 
 The `docs` command opens `docs/_build/index.html` in a web browser, while `coverage` opens `htmlcov/index.html` in a web browser.
+
+### editor-config
+OSE Workbench Platform includes an `editor-config` command for outputting recommended VS Code configuration.
+
+```
+$ osewb editor-config -h ↵
+usage: osewb editor-config
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -m, --merge-workspace-settings
+                        Merge VS Code workspace settings.
+  -o, --overwrite-workspace-settings
+                        Overwrite VS Code workspace settings.
+```
+
+Simply running `osewb editor-config` will output the recommended VS Code configuration settings which user's can copy-paste into their VS Code user settings, or workspace settings, `settings.json` file(s). See [User and Workspace Settings](https://code.visualstudio.com/docs/getstarted/settings) for additional information.
+
+The `-m` or `--merge-workspace-settings` flag will merge the current VS workspace settings into the platform's recommended settings. The platform's settings will win any collisions or merge conflicts.
+
+The `-o` or `--overwrite-workspace-settings` flag will overwrite the current VS Code workspace settings with either the minimal-set of recommended configuration or merged settings depending upon the presence of the `-m` flag. Before overwriting, users will see a preview of the settings and must confirm overwriting in a yes or no CLI prompt.
 
 ## Contributing
 See [Contributing Guidelines](./CONTRIBUTING.md).

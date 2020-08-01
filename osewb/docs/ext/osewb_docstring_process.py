@@ -66,7 +66,7 @@ def setup(app: Sphinx) -> None:
     :param app: application object controlling high-level functionality,
                 such as the setup of extensions, event dispatching, and logging.
                 See Also:
-                    https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx
+                https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx
     """
     app.connect('autodoc-process-docstring', process_docstring)
     if not os.path.exists(screenshot_dir):

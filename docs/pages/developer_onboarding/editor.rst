@@ -24,11 +24,22 @@ Recommended Extensions
     * - `Python Docstring Generator <https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring>`_
       - Quickly generate docstrings for python functions.
 
+Recommended Extensions Configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSE Workbench Platform includes an ``editor-config`` command configuring the above VS Code extensions with the recommended configuration.
+
+See the `editor-config command documentation in the README <https://github.com/gbroques/ose-workbench-platform#editor-config>`_ for additional information.
+
+.. include:: ../../../README.md
+   :literal:
+   :start-after: ### editor-config
+   :end-before: ## Contributing
+
 Python Docstring Generator Configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-A **custom docstring template** for OSE workbenches has been included in the root of ``ose-workbench-platform``, in a file called ``.mustache``.
+A **custom docstring template** for OSE workbenches has been included in ``ose-workbench-platform/osewb/.mustache``.
 
-.. include:: ../../../.mustache
+.. include:: ../../../osewb/.mustache
    :literal:
 
 You should configure the extension to use this template in order to avoid adding **types** to your docstrings.

@@ -146,7 +146,7 @@ def setup(app: App) -> None:
     :param app: application object controlling high-level functionality,
                 such as the setup of extensions, event dispatching, and logging.
                 See Also:
-                    https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx
+                https://www.sphinx-doc.org/en/master/extdev/appapi.html#sphinx.application.Sphinx
     """
     app.add_directive('fc-custom-property-table', FreeCADCustomPropertyTable)
     app.add_config_value('remove_app_property_prefix_from_type', False, 'env')
