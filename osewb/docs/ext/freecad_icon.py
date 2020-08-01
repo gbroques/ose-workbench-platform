@@ -2,21 +2,27 @@ import os
 import re
 
 from docutils import nodes
+from docutils.parsers.rst.states import Inliner
 from sphinx.application import Sphinx
+from typing import List
 
 
 def fcicon_role(name: str,
                 rawtext: str,
                 text: str,
-                lineno,  # TODO: is this str or int type?
-                inliner,  # TODO: What type is this?
+                lineno: int,
+                inliner: Inliner,
                 options: dict = {},
-                content: list = []):
-    """FreeCAD Icon role.
+                content: List[str] = []):
+    """FreeCAD Icon role function.
 
     Returns 2 part tuple containing list of nodes to insert into the
     document and a list of system messages.  Both are allowed to be
     empty.
+
+    For additional information on role functions, see:
+        * https://docutils.readthedocs.io/en/sphinx-docs/howto/rst-roles.html
+        * https://doughellmann.com/blog/2010/05/09/defining-custom-roles-in-sphinx/
 
     :param name: The role name used in the document.
     :param rawtext: The entire markup snippet, with role.
@@ -50,8 +56,11 @@ def fcicon_role(name: str,
     return [image], []
 
 
-def make_image_node(freecad_icon_directory, alt, size, filename):
-    """Create a link to a BitBucket resource.
+def make_image_node(freecad_icon_directory: str,
+                    alt: str,
+                    size: str,
+                    filename: str) -> nodes.image:
+    """Make image node for icon.
 
     :param freecad_icon_directory: Directory to FreeCAD Icons.
     :param alt: Alt text of icon.
