@@ -1,0 +1,23 @@
+{{! Sphinx Docstring Template }}
+{{! For VSCode Python Docstring Generator Extension }}
+{{! https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring }}
+{{! Modified to remove typePlaceholder }}
+{{summaryPlaceholder}}
+
+{{extendedSummaryPlaceholder}}
+
+{{#args}}
+:param {{var}}: {{descriptionPlaceholder}}
+{{/args}}
+{{#kwargs}}
+:param {{var}}: {{descriptionPlaceholder}}
+{{/kwargs}}
+{{#exceptions}}
+:raises {{type}}: {{descriptionPlaceholder}}
+{{/exceptions}}
+{{#returns}}
+:return: {{descriptionPlaceholder}}
+{{/returns}}
+{{#yields}}
+:yield: {{descriptionPlaceholder}}
+{{/yields}}
