@@ -1,3 +1,5 @@
+from typing import Union
+
 import Part
 from osecore.app.model import Model
 {%- if part and base_package %}
@@ -25,9 +27,23 @@ class {{ name }}Model(Model):
         obj.Shape = Part.makeBox(10, 10, 10)
         {%- endif %}
 
-    def __getstate__(self):
+    def __getstate__(self) -> Union[str, tuple]:
+        """Execute when serializing and persisting the object.
+
+        See Also:
+            https://docs.python.org/3/library/pickle.html#object.__getstate__
+
+        :return: state
+        """
         return self.Type
 
-    def __setstate__(self, state):
+    def __setstate__(self, state: str) -> None:
+        """Execute when deserializing the object.
+
+        See Also:
+            https://docs.python.org/3/library/pickle.html#object.__setstate__
+
+        :param state: state, in this case type of object.
+        """
         if state:
             self.Type = state
