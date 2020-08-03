@@ -40,7 +40,13 @@ def main() -> None:
                 handle_docs_command(base_package, root_of_git_repository)
         elif command == 'make':
             args_copy = args.copy()
-            make_subcommand = args_copy.pop('make_command')
+            make_subcommand = args_copy.pop('make_command').replace('-', '_')
+            try:
+                make_subcommand = {
+                    'pf': 'part_feature'
+                }[make_subcommand]
+            except KeyError:
+                pass
             name = args_copy.pop('name')
             handle_make_component_command(base_package,
                                           root_of_git_repository,
@@ -120,6 +126,12 @@ def _parse_command() -> Tuple[str, dict]:
     model_subparser.add_argument('-p', '--part',
                                  action='store_true',
                                  help='Make part class as well.')
+    part_feature_subparser = make_subparser.add_parser('part-feature',
+                                                       help='Make Part Feature creation function',
+                                                       usage='osewb make part-feature <name>',
+                                                       aliases=['pf'])
+    part_feature_subparser.add_argument(
+        'name', help='Name for the part feature creation function in all-lower snake-case (e.g. my_box).')
     command_subparser = make_subparser.add_parser('command',
                                                   help='Make Command class',
                                                   usage='osewb make command <name>')

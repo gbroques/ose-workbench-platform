@@ -217,10 +217,12 @@ optional arguments:
   -h, --help            show this help message and exit
 
 Commands:
-  {workbench,wb,part,model}
+  {workbench,wb,part,model,part-feature,pf,command}
     workbench (wb)      Make Workbench
     part                Make Part class
     model               Make Model class
+    part-feature (pf)   Make Part Feature creation function
+    command             Make Command class
 ```
 
 #### workbench
@@ -315,6 +317,28 @@ For example,
 Makes a new `BoxModel` model class.
 
 For more information, see [Model Classes](https://ose-workbench-platform.readthedocs.io/en/latest/pages/pattern_catalog/model_classes.html) in the docs.
+
+#### part-feature (pf)
+Within the repository of a workbench, run the `osewb make part-feature` command to make a new **Part Feature creation function**.
+
+For example,
+
+    osewb make part-feature my_box
+
+Makes a new `create_my_box` part feature creation function using the `MyBoxModel` class.
+
+For more information, see [Part Feature Sub-package](https://ose-workbench-platform.readthedocs.io/en/latest/pages/pattern_catalog/workbench_package.html#part-feature-sub-package) in the docs.
+
+#### command
+Within the repository of a workbench, run the `osewb make command` command to make a new **Command Class**.
+
+For example,
+
+    osewb make command AddBox
+
+Makes a new `AddBoxCommand` class.
+
+For more information, see [Command Classes](https://ose-workbench-platform.readthedocs.io/en/latest/pages/pattern_catalog/command_classes.html) in the docs.
 
 ### browse
 OSE Workbench Platform includes a `browse` covenience command for opening documentation and coverage reports in a web browser.

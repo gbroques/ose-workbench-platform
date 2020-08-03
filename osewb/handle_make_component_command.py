@@ -118,7 +118,8 @@ def map_name_to_component_name(name: str, component: str) -> str:
         return {
             'part': name,
             'model': '{}Model'.format(name),
-            'command': '{}Command'.format(name)
+            'command': '{}Command'.format(name),
+            'part_feature': 'create_{}'.format(name)
         }[component]
     except KeyError:
         print('No component named "{}"'.format(component))
@@ -130,7 +131,8 @@ def map_name_to_component_module_name(name: str, component: str) -> str:
         return {
             'part': camel_case_to_snake_case(name),
             'model': '{}_model'.format(camel_case_to_snake_case(name)),
-            'command': '{}_command'.format(camel_case_to_snake_case(name))
+            'command': '{}_command'.format(camel_case_to_snake_case(name)),
+            'part_feature': 'create_{}'.format(camel_case_to_snake_case(name))
         }[component]
     except KeyError:
         print('No component named "{}"'.format(component))
@@ -142,13 +144,18 @@ def get_component_template_args(component: str, name: str, args: dict) -> dict:
         return {
             'part': map_name_to_component_name(name, 'part')
         }
+    if component == 'part_feature':
+        return {
+            'model': map_name_to_component_name(
+                snake_case_to_camel_case(name), 'model')
+        }
     return {}
 
 
 def map_base_package_to_library_or_workbench_package(base_package: str,
                                                      component: str) -> str:
     library_package_components = ['part', 'model']
-    workbench_package_components = ['command']
+    workbench_package_components = ['command', 'part_feature']
     if component in library_package_components:
         return base_package
     elif component in workbench_package_components:
@@ -158,9 +165,9 @@ def map_base_package_to_library_or_workbench_package(base_package: str,
             'Component "{}" not in a library or workbench package.'.format(component))
 
 
-def camel_case_to_snake_case(str: str) -> str:
-    result = [str[0].lower()]
-    for c in str[1:]:
+def camel_case_to_snake_case(string: str) -> str:
+    result = [string[0].lower()]
+    for c in string[1:]:
         if c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
             result.append('_')
             result.append(c.lower())
@@ -168,3 +175,7 @@ def camel_case_to_snake_case(str: str) -> str:
             result.append(c)
 
     return ''.join(result)
+
+
+def snake_case_to_camel_case(string: str) -> str:
+    return string.replace('_', ' ').title().replace(' ', '')
