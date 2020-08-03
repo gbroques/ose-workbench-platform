@@ -1,9 +1,9 @@
 .vscode/
+!.vscode/extensions.json
 dist/
 *.egg-info
 __pycache__/
 *.pyc
-.vscode/
 .coverage
 htmlcov/
 _build/

@@ -24,6 +24,9 @@ Recommended Extensions
     * - `Python Docstring Generator <https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring>`_
       - Quickly generate docstrings for python functions.
 
+The above extensions should be listed in ``.vscode/extensions.json`` within each workbench repository to prompt the user to install them.
+See `Workspace recommended extensions <https://code.visualstudio.com/docs/editor/extension-gallery#_workspace-recommended-extensions>`_ for additional information.
+
 Recommended Extensions Configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 OSE Workbench Platform includes an ``editor-config`` command configuring the above VS Code extensions with the recommended configuration.
@@ -59,3 +62,7 @@ Types in docstrings are redundant with `Type Hints <https://www.python.org/dev/p
 VSCodium
 --------
 For open-source purists, you may be interested in the MIT-licensed `VSCodium <https://vscodium.com/>`_ as a VS Code alternative.
+
+Don't See Your Preferred Editor?
+--------------------------------
+We need **you** to help write the guide! 🙂
