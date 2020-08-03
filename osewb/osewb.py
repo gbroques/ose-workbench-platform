@@ -47,20 +47,20 @@ def main() -> None:
                                           make_subcommand,
                                           name,
                                           args_copy)
-    elif command == 'browse' or command == 'br' or command == 'lint' or command == 'editor-config' or command == 'ec':
+    elif command == 'browse' or command == 'lint' or command == 'editor-config':
         root_of_git_repository = find_root_of_git_repository()
         if root_of_git_repository is None:
             return None
-        if command == 'browse' or command == 'br':
+        if command == 'browse':
             browse_subcommand = args['browse_command']
             handle_browse_command(root_of_git_repository, browse_subcommand)
         elif command == 'lint':
             should_fix = args['fix']
             handle_lint_command(root_of_git_repository, should_fix)
-        elif command == 'editor-config' or command == 'ec':
+        elif command == 'editor-config':
             handle_editor_config_command(
                 root_of_git_repository, args['merge_workspace_settings'], args['overwrite_workspace_settings'])
-    elif command == 'build' or command == 'bld':
+    elif command == 'build':
         handle_build_command()
 
 
@@ -155,9 +155,20 @@ def _parse_command() -> Tuple[str, dict]:
                                       help='Overwrite VS Code workspace settings.')
     args = vars(parser.parse_args())
     command = args.pop('command')
-    # TODO: Map short-alias to full-command name before returning!
-    #       For example, this function should NEVER return command as 'bld' -- instead only return 'build'.
-    return command, args
+    # TODO: Map short-alias of sub-commands to full-command name before returning!
+    #       For example, ss -> screenshot or wb -> workbench..
+    return map_potential_command_alias(command), args
+
+
+def map_potential_command_alias(command: str):
+    try:
+        return {
+            'br': 'browse',
+            'bld': 'build',
+            'ec': 'editor-config'
+        }[command]
+    except KeyError:
+        return command
 
 
 if __name__ == '__main__':
