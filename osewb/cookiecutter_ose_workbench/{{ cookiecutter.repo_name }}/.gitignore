@@ -8,3 +8,4 @@ __pycache__/
 htmlcov/
 _build/
 docs/{{ cookiecutter.base_package }}/
+docs/freecad/
