@@ -102,7 +102,8 @@ def _parse_command() -> Tuple[str, dict]:
                               aliases=['ss'])
     make_parser = subparsers.add_parser('make',
                                         help='Commands for making new code',
-                                        usage='osewb make <command>')
+                                        usage='osewb make <command>',
+                                        aliases=['mk'])
     make_subparser = make_parser.add_subparsers(title='Commands',
                                                 dest='make_command',
                                                 required=True)
@@ -175,6 +176,7 @@ def _parse_command() -> Tuple[str, dict]:
 def map_potential_command_alias(command: str):
     try:
         return {
+            'mk': 'make',
             'br': 'browse',
             'bld': 'build',
             'ec': 'editor-config'
