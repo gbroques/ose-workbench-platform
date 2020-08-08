@@ -45,22 +45,27 @@ def get_editor_config() -> dict:
     return {
         # Python Extension
         # https://marketplace.visualstudio.com/items?itemName=ms-python.python
-        # ==============================================================================
+        # ====================================================================================
 
         # General Settings
         # https://code.visualstudio.com/docs/python/settings-reference#_general-settings
-        # ------------------------------------------------------------------------------
+        # ------------------------------------------------------------------------------------
         # For FreeCAD auto-completion to pick-up .env file
         'python.envFile': '${workspaceFolder}/.env',
 
+        # Code Analysis Settings
+        # https://code.visualstudio.com/docs/python/settings-reference#_code-analysis-settings
+        # ------------------------------------------------------------------------------------
+        'python.languageServer': 'Microsoft',
+
         # Formatting
         # https://code.visualstudio.com/docs/python/editing#_formatting
-        # ------------------------------------------------------------------------------
+        # ------------------------------------------------------------------------------------
         'python.formatting.provider': 'autopep8',
 
         # Linting
         # https://code.visualstudio.com/docs/python/linting
-        # ------------------------------------------------------------------------------
+        # ------------------------------------------------------------------------------------
         'python.linting.enabled': True,
         'python.linting.lintOnSave': True,
         'python.linting.pylintEnabled': False,
@@ -71,14 +76,14 @@ def get_editor_config() -> dict:
         # display flake8 warnings as errors
         'python.linting.flake8CategorySeverity.W': 'Error',
         'python.linting.mypyEnabled': True,
-        # ------------------------------------------------------------------------------
+        # ------------------------------------------------------------------------------------
 
         # Python Docstring Generator Extension
         # https://marketplace.visualstudio.com/items?itemName=njpwerner.autodocstring
         # ==============================================================================
         'autoDocstring.docstringFormat': 'sphinx',
         'autoDocstring.customTemplatePath': path('.mustache')
-        # ------------------------------------------------------------------------------
+        # ------------------------------------------------------------------------------------
     }
 
 
