@@ -19,12 +19,7 @@ def register_commands():
         add_box_key
     ]
 
-    #: Main Menu Commands
-    main_menu_commands = [
-        add_box_key
-    ]
-
-    return main_toolbar_commands, main_menu_commands
+    return main_toolbar_commands
 
 
 def _register(name, command):

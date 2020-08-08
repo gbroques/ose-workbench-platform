@@ -19,10 +19,9 @@ class {{ cookiecutter.workbench_class_name }}(Gui.Workbench):
         """
         Executed when FreeCAD starts
         """
-        main_toolbar, main_menu = register_commands()
+        main_toolbar = register_commands()
 
         self.appendToolbar('{{ cookiecutter.machine_title }}', main_toolbar)
-        self.appendMenu('{{ cookiecutter.machine_title }}', main_menu)
 
     def Activated(self):
         """
