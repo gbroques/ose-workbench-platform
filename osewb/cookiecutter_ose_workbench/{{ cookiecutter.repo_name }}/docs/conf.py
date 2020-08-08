@@ -14,9 +14,8 @@ import json
 import os
 import sys
 
-from sphinx.application import Sphinx
-
 from osewb.docs import conf
+from sphinx.application import Sphinx
 
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
