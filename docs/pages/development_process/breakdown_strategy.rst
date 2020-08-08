@@ -38,9 +38,9 @@ If you have multiple developers, then work on separate parts in parallel:
 
 .. Important:: Each step in the above process may not apply to all parts depending upon requirements.
 
-1. Initialize Workbench
+1. Make a New Workbench
 -----------------------
-1. Use the ``osewb init`` command to initialize a new workbench.
+1. Use the ``osewb make workbench`` command to make a new workbench.
 2. Create a git repository and host it on a centralized platform like GitHub.
 
 2. Make Parts
