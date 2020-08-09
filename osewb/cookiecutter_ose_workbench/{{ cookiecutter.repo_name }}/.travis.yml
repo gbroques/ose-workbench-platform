@@ -5,7 +5,7 @@
 #
 language: python
 python:
-  - '3.6'
+  - '3.7'
 install:
   # Using conda with Travis CI
   # https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/use-conda-with-travis-ci.html
@@ -19,6 +19,6 @@ install:
   - conda activate {{ cookiecutter.base_package }}
   - export PYTHONPATH=$PYTHONPATH:$CONDA_PREFIX/lib
 script:
-    - pytest --cov {{ cookiecutter.base_package }}/ tests/
+    - osewb build
 after_success:
     - coveralls
