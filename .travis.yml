@@ -18,6 +18,7 @@ install:
   - conda info --all
   - conda install --channel defaults conda-build=3.18.11 conda-verify=3.1.1
   - conda config --add channels conda-forge
+  - conda config --add channels gbroques
   - conda build --quiet .
   - conda create --use-local --name osewb ose-workbench-platform
   - conda activate osewb
