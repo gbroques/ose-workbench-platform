@@ -4,12 +4,15 @@ Run with freecad -c part_screenshot.py when conda environment is activated.
 """
 import importlib
 import inspect
+import logging
 import os
 from pathlib import Path
+from typing import List
 
 import FreeCAD as App
 import FreeCADGui as Gui
 import Part
+
 from osewb.find_base_package import find_base_package
 
 
@@ -47,6 +50,21 @@ def main():
     group.SetBool("DisablePBuffers", False)
 
     for (name, part) in members:
+        if not hasattr(part, 'make'):
+            logging.warning(
+                'No make method defined in part "{}". Skipping screenshots.'.format(name))
+            # TODO: For some reason continue statement doesn't work here, and we need to use break.
+            #       and raise an exception. Exception while processing file: ...
+            #       [type object 'AngleFrameConnector' has no attribute 'make']
+            break
+        required_arguments = get_required_arguments(part.make)
+        if len(required_arguments) > 0:
+            args_with_quotes = ['"{}"'.format(arg)
+                                for arg in required_arguments]
+            potentially_plural_argument = 'arguments' if len(required_arguments) > 1 else 'argument'
+            logging.warning('make method in part "{}" has required {} {}. Skipping screenshot.'.format(
+                name, potentially_plural_argument, format_list(args_with_quotes)))
+            continue
         made_part = part.make()
         Part.show(made_part)
 
@@ -61,6 +79,27 @@ def main():
 
     App.closeDocument(document.Name)
     exit(0)
+
+
+def get_required_arguments(make_method) -> List[str]:
+    arg_spec = inspect.getfullargspec(make_method)
+    args = arg_spec.args
+    if len(arg_spec.args) > 0 and (arg_spec.args[0] == 'cls' or arg_spec.args[0] == 'self'):
+        args = arg_spec.args[1:]
+    num_defaults = len(arg_spec.defaults)
+    return args[:-num_defaults]
+
+
+def format_list(l):
+    if len(l) == 0:
+        raise ValueError('List must not be empty.')
+    elif len(l) == 1:
+        return l[0]
+    elif len(l) == 2:
+        return l[0] + ' and ' + l[1]
+    else:
+        elements_excluding_last = l[:-1]
+        return ', '.join(elements_excluding_last) + ', and ' + l[-1]
 
 
 if __name__ == '__main__':
