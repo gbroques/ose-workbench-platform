@@ -10,7 +10,9 @@ setup(
     ],
     author='{{ cookiecutter.owner_name }}',
     description='A FreeCAD workbench for designing {{ cookiecutter.machine_display_name }} machines by Open Source Ecology (OSE).',
-    install_requires=[],
+    install_requires=[
+        'ose-workbench-core==0.1.0a4'  # Also in environment.yml
+    ],
     include_package_data=True,
     classifiers=[
         # Full List: https://pypi.org/pypi?%3Aaction=list_classifiers

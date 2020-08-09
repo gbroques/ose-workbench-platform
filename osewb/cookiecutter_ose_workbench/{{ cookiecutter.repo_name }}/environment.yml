@@ -4,3 +4,4 @@ channels:
   - gbroques
 dependencies:
   - ose-workbench-platform=={{ cookiecutter.ose_workbench_platform_version }}
+  - ose-workbench-core==0.1.0a4  # Also in setup.py
