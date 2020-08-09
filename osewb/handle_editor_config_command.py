@@ -74,7 +74,7 @@ def get_editor_config() -> dict:
         'python.linting.pylintEnabled': False,
         'python.linting.flake8Enabled': True,
         'python.linting.flake8Args': [
-            '--config {}'.format(path('.flake8'))
+            '--config={}'.format(path('.flake8'))
         ],
         # display flake8 warnings as errors
         'python.linting.flake8CategorySeverity.W': 'Error',
