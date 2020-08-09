@@ -9,7 +9,7 @@ def handle_lint_command(root_of_git_repository: str,
     current_dir = Path(os.path.dirname(os.path.realpath(__file__)))
     pycodestyle_config = current_dir.joinpath('.pycodestyle').resolve()
     if should_fix:
-        execute_command('isort --recursive {}'.format(root_of_git_repository))
+        execute_command('isort {}'.format(root_of_git_repository))
         execute_command('autopep8 ' +
                         '--global-config {} '.format(pycodestyle_config) +
                         '--in-place ' +
