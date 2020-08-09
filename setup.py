@@ -38,26 +38,26 @@ setup(
         # | Docs Requirements        |
         # | Also in environment.yaml |
         # ----------------------------
-        'sphinx==3.1.1',
+        'sphinx==3.2.0',
         'sphinx-rtd-theme==0.5.0',
 
         # ---------------------
         # | Test Requirements |
         # ---------------------
-        'coverage==5.1',
-        'coveralls==2.0.0',
-        'pytest==5.4.3',
-        'pytest-cov==2.9.0',
+        'coverage==5.2.1',
+        'coveralls==2.1.1',
+        'pytest==6.0.1',
+        'pytest-cov==2.10.0',
 
         # ---------------------
         # | Lint Requirements |
         # ---------------------
         'flake8==3.8.3',
         'flake8-colors==0.1.6',
-        'flake8-isort==3.0.0',
-        'isort==4.3.21',
-        'autopep8==1.5.3',
-        'mypy==0.781',
+        'flake8-isort==4.0.0a0',
+        'isort==5.3.2',
+        'autopep8==1.5.4',
+        'mypy==0.782',
         'pydocstyle==5.0.2',
         'rope==0.17.0'
     ],

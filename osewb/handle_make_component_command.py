@@ -1,11 +1,9 @@
-import importlib
-import inspect
 import os
 import re
 from pathlib import Path
 from typing import List
 
-from isort import SortImports
+import isort
 from jinja2 import Environment, PackageLoader
 
 
@@ -58,7 +56,7 @@ def handle_make_component_command(base_package: str,
         new_contents = import_statement + '\n' + new_contents
         f.seek(0)
         f.write(new_contents)
-    SortImports(component_package_init_module_path.resolve())
+    isort.file(component_package_init_module_path.resolve())
 
     # 4. Setup init module in component sub-package
     component_module_name = map_name_to_component_module_name(name, component)
@@ -70,7 +68,7 @@ def handle_make_component_command(base_package: str,
             component_module_name, component_name)
         all_declaration = "__all__ = ['{}']".format(component_name)
         f.write('\n'.join([import_statement, all_declaration]))
-    SortImports(init_module_path.resolve())
+    isort.file(init_module_path.resolve())
 
     # 5. Create new component module using template
     module_name = '{}.py'.format(component_module_name)
