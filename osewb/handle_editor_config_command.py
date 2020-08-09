@@ -52,6 +52,9 @@ def get_editor_config() -> dict:
         # ------------------------------------------------------------------------------------
         # For FreeCAD auto-completion to pick-up .env file
         'python.envFile': '${workspaceFolder}/.env',
+        # Path to the Python interpreter
+        # TODO: Should we check and warn if CONDA_PREFIX isn't set?
+        'python.pythonPath': os.path.join(os.environ.get('CONDA_PREFIX'), 'bin', 'python'),
 
         # Code Analysis Settings
         # https://code.visualstudio.com/docs/python/settings-reference#_code-analysis-settings
