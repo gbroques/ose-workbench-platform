@@ -36,7 +36,7 @@ setup(
 
         # ----------------------------
         # | Docs Requirements        |
-        # | Also in environment.yaml |
+        # | Also in environment.yml  |
         # ----------------------------
         'sphinx==3.2.0',
         'sphinx-rtd-theme==0.5.0',

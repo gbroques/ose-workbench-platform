@@ -1,5 +1,6 @@
 import os
-from typing import Optional, Union
+from subprocess import PIPE, Popen
+from typing import Optional
 
 from .check_for_executable_in_path import check_for_executable_in_path
 
@@ -58,8 +59,8 @@ def exec_git_command(git_command: str) -> Optional[str]:
     :return: path to root of git repository
     """
     check_for_executable_in_path('git')
-    pipe = os.popen(git_command)
-    output = pipe.read().strip()
-    if pipe.close() is not None:
+    with Popen(git_command, stdout=PIPE, bufsize=1, universal_newlines=True, shell=True) as process:
+        result = process.stdout.read().strip()
+    if process.returncode != 0:
         return None
-    return output
+    return result
