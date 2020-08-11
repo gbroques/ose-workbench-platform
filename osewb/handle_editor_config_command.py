@@ -79,6 +79,9 @@ def get_editor_config() -> dict:
         # display flake8 warnings as errors
         'python.linting.flake8CategorySeverity.W': 'Error',
         'python.linting.mypyEnabled': True,
+        'python.linting.mypyArgs': [
+            '--config-file={}'.format(path('.mypy.ini'))
+        ],
         # ------------------------------------------------------------------------------------
 
         # Python Docstring Generator Extension
