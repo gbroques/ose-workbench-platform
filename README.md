@@ -44,9 +44,9 @@ Having a common platform for OSE workbench development also makes it easier for 
 2. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 
 ## Installation
-Install the `ose-workbench-platform` package from the `gbroques` channel in a dedicated conda environment named `osewb` (short for **O**pen **S**ource **E**cology **W**ork**B**ench) and don't ask for confirmation:
+Install the `ose-workbench-platform` package from the `gbroques` and `conda-forge` channel in a dedicated conda environment named `osewb` (short for **O**pen **S**ource **E**cology **W**ork**B**ench) and don't ask for confirmation:
 
-    conda create --name osewb --channel gbroques --yes ose-workbench-platform
+    conda create --name osewb --channel gbroques --channel conda-forge --yes ose-workbench-platform
 
 Activate your new `osewb` environment:
 
