@@ -30,7 +30,7 @@ setup(
         # -----------------------
         # | Source Requirements |
         # -----------------------
-        'cookiecutter==1.7.2',
+        'cookiecutter==2.1.1',
         'Jinja2<3.0.0',  # Also a requirement of cookiecutter
         'jinja2-time>=0.2.0',  # Also a requirement of cookiecutter
 
